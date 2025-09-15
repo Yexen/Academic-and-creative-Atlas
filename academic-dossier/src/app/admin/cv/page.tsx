@@ -106,7 +106,7 @@ function CVEditor() {
     }
   };
 
-  const renderField = (value: any, path: string): JSX.Element => {
+  const renderField = (value: any, path: string) => {
     if (Array.isArray(value)) {
       return (
         <div className="mb-6">
