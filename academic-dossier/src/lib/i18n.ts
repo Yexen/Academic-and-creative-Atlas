@@ -26,7 +26,13 @@ export const translations = {
       philosophyAIDetails: 'Master\'s Thesis: 18/20 • University Paris 8',
       interdisciplinary: 'Interdisciplinary Creative Practice',
       interdisciplinaryDesc: 'Synthesizing Persian cultural heritage with Western artistic traditions through innovative narrative frameworks, poetry, and digital creative platforms.',
-      interdisciplinaryDetails: '7 Complete Narrative Universes • Multilingual Poetry Collection'
+      interdisciplinaryDetails: '7 Complete Narrative Universes • Multilingual Poetry Collection',
+      quickNav: {
+        resumeDesc: 'M1 Philosophy (18/20) • École 42 • Archaeological experience',
+        portfolioDesc: 'Shadowline • Mémoire en Livres • Yexen • Literary Works',
+        academicDesc: 'Aesthetic Language Theory • Philosophy • Archaeology Research',
+        documentsDesc: 'Official transcripts • Certifications • Research papers'
+      }
     },
     resume: {
       title: 'Resume',
@@ -113,7 +119,13 @@ export const translations = {
       philosophyAIDetails: 'Mémoire de Master : 18/20 • Université Paris 8',
       interdisciplinary: 'Pratique Créative Interdisciplinaire',
       interdisciplinaryDesc: 'Synthèse du patrimoine culturel persan avec les traditions artistiques occidentales à travers des cadres narratifs innovants, la poésie et les plateformes créatives numériques.',
-      interdisciplinaryDetails: '7 Univers Narratifs Complets • Collection de Poésie Multilingue'
+      interdisciplinaryDetails: '7 Univers Narratifs Complets • Collection de Poésie Multilingue',
+      quickNav: {
+        resumeDesc: 'M1 Philosophie (18/20) • École 42 • Expérience archéologique',
+        portfolioDesc: 'Shadowline • Mémoire en Livres • Yexen • Œuvres Littéraires',
+        academicDesc: 'Théorie du Langage Esthétique • Philosophie • Recherche Archéologique',
+        documentsDesc: 'Relevés officiels • Certifications • Articles de recherche'
+      }
     },
     resume: {
       title: 'CV',
@@ -200,7 +212,13 @@ export const translations = {
       philosophyAIDetails: 'پایان‌نامه کارشناسی ارشد: ۱۸/۲۰ • دانشگاه پاریس ۸',
       interdisciplinary: 'رویکرد خلاقانه بین‌رشته‌ای',
       interdisciplinaryDesc: 'ترکیب میراث فرهنگی ایرانی با سنت‌های هنری غربی از طریق چارچوب‌های روایی نوآورانه، شعر و پلتفرم‌های خلاقانه دیجیتال.',
-      interdisciplinaryDetails: '۷ جهان روایی کامل • مجموعه شعر چندزبانه'
+      interdisciplinaryDetails: '۷ جهان روایی کامل • مجموعه شعر چندزبانه',
+      quickNav: {
+        resumeDesc: 'کارشناسی ارشد فلسفه (۱۸/۲۰) • مدرسه ۴۲ • تجربه باستان‌شناسی',
+        portfolioDesc: 'Shadowline • Mémoire en Livres • Yexen • آثار ادبی',
+        academicDesc: 'نظریه زبان زیبایی‌شناختی • فلسفه • پژوهش باستان‌شناسی',
+        documentsDesc: 'مدارک رسمی • گواهینامه‌ها • مقالات پژوهشی'
+      }
     },
     resume: {
       title: 'رزومه',

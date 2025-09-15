@@ -1,16 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { Language } from '@/lib/i18n';
+import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
 import Navigation from '@/components/Navigation';
 import './globals.css';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const { currentLang, setCurrentLang } = useLanguage();
 
   return (
     <html lang={currentLang} dir={currentLang === 'fa' ? 'rtl' : 'ltr'}>
@@ -36,5 +31,17 @@ export default function RootLayout({
         </footer>
       </body>
     </html>
+  );
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <LanguageProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </LanguageProvider>
   );
 }

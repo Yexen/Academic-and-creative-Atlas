@@ -1,18 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Language, getTranslation } from '@/lib/i18n';
+import { getTranslation } from '@/lib/i18n';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { cvData } from '@/data/cv-data';
 
 export default function ResumePage() {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('language') as Language;
-    if (storedLang && ['en', 'fr', 'fa'].includes(storedLang)) {
-      setCurrentLang(storedLang);
-    }
-  }, []);
+  const { currentLang } = useLanguage();
 
   const handleDownloadCV = () => {
     // This will be implemented when PDF is available

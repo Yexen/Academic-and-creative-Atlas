@@ -1,18 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Language, getTranslation } from '@/lib/i18n';
+import { getTranslation } from '@/lib/i18n';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('language') as Language;
-    if (storedLang && ['en', 'fr', 'fa'].includes(storedLang)) {
-      setCurrentLang(storedLang);
-    }
-  }, []);
+  const { currentLang } = useLanguage();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -42,7 +35,7 @@ export default function Home() {
               {getTranslation(currentLang, 'nav.resume')}
             </h3>
             <p className="academic-text text-gray-600">
-              M1 Philosophy (18/20) • École 42 • Archaeological experience
+              {getTranslation(currentLang, 'home.quickNav.resumeDesc')}
             </p>
           </div>
         </Link>
@@ -53,7 +46,7 @@ export default function Home() {
               {getTranslation(currentLang, 'nav.portfolio')}
             </h3>
             <p className="academic-text text-gray-600">
-              Shadowline • Mémoire en Livres • Yexen • Literary Works
+              {getTranslation(currentLang, 'home.quickNav.portfolioDesc')}
             </p>
           </div>
         </Link>
@@ -64,7 +57,7 @@ export default function Home() {
               {getTranslation(currentLang, 'nav.academic')}
             </h3>
             <p className="academic-text text-gray-600">
-              Aesthetic Language Theory • Philosophy • Archaeology Research
+              {getTranslation(currentLang, 'home.quickNav.academicDesc')}
             </p>
           </div>
         </Link>
@@ -75,7 +68,7 @@ export default function Home() {
               {getTranslation(currentLang, 'nav.documents')}
             </h3>
             <p className="academic-text text-gray-600">
-              Official transcripts • Certifications • Research papers
+              {getTranslation(currentLang, 'home.quickNav.documentsDesc')}
             </p>
           </div>
         </Link>

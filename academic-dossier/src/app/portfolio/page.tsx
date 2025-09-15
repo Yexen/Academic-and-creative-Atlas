@@ -1,19 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Language, getTranslation } from '@/lib/i18n';
+import { useState } from 'react';
+import { getTranslation } from '@/lib/i18n';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { portfolioData } from '@/data/portfolio-data';
 
 export default function PortfolioPage() {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
+  const { currentLang } = useLanguage();
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedLang = localStorage.getItem('language') as Language;
-    if (storedLang && ['en', 'fr', 'fa'].includes(storedLang)) {
-      setCurrentLang(storedLang);
-    }
-  }, []);
 
   const projects = Object.entries(portfolioData);
 
