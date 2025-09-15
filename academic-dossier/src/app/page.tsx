@@ -11,6 +11,16 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <section className="text-center mb-16">
+        {/* Profile Picture */}
+        <div className="mb-8">
+          <img
+            src="/profile-photo.jpg"
+            alt="Yekta Jokar"
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover object-center shadow-lg border-4 border-academic-brown/20"
+            style={{ objectPosition: 'center 20%' }}
+          />
+        </div>
+
         <h1 className="text-5xl md:text-6xl academic-heading mb-6">
           {getTranslation(currentLang, 'home.title')}
         </h1>
@@ -30,7 +40,7 @@ export default function Home() {
       {/* Quick Navigation */}
       <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         <Link href="/resume" className="group">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown active:border-academic-brown-dark active:shadow-xl">
             <h3 className="text-xl academic-heading mb-3 group-hover:text-academic-brown-dark">
               {getTranslation(currentLang, 'nav.resume')}
             </h3>
@@ -41,7 +51,7 @@ export default function Home() {
         </Link>
 
         <Link href="/portfolio" className="group">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown active:border-academic-brown-dark active:shadow-xl">
             <h3 className="text-xl academic-heading mb-3 group-hover:text-academic-brown-dark">
               {getTranslation(currentLang, 'nav.portfolio')}
             </h3>
@@ -52,7 +62,7 @@ export default function Home() {
         </Link>
 
         <Link href="/academic" className="group">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown active:border-academic-brown-dark active:shadow-xl">
             <h3 className="text-xl academic-heading mb-3 group-hover:text-academic-brown-dark">
               {getTranslation(currentLang, 'nav.academic')}
             </h3>
@@ -63,7 +73,7 @@ export default function Home() {
         </Link>
 
         <Link href="/documents" className="group">
-          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 hover:border-academic-brown active:border-academic-brown-dark active:shadow-xl">
             <h3 className="text-xl academic-heading mb-3 group-hover:text-academic-brown-dark">
               {getTranslation(currentLang, 'nav.documents')}
             </h3>

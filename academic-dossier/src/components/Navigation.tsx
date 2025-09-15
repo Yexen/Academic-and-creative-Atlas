@@ -26,7 +26,7 @@ export default function Navigation({ lang, onLanguageChange }: NavigationProps) 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-xl font-bold text-academic-brown hover:text-academic-brown-dark transition-colors">
-            Yekta Jokar
+            Academic and Creative Atlas
           </Link>
 
           <div className="hidden md:flex space-x-8">
