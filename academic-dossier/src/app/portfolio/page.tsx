@@ -150,13 +150,13 @@ export default function PortfolioPage() {
         <div className="flex justify-center gap-4">
           <a
             href="mailto:yekta.kjs@gmail.com"
-            className="bg-academic-brown text-white px-6 py-3 rounded-lg hover:bg-academic-brown-dark active:bg-academic-brown-dark transition-colors academic-text font-medium"
+            className="bg-amber-800 text-white px-6 py-3 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium"
           >
             {getTranslation(currentLang, 'portfolio.contactCollaboration')}
           </a>
           <a
             href="/academic"
-            className="border border-academic-brown text-academic-brown px-6 py-3 rounded-lg hover:bg-academic-brown hover:text-white active:bg-academic-brown-dark active:border-academic-brown-dark transition-colors academic-text font-medium"
+            className="border border-amber-800 text-amber-800 px-6 py-3 rounded-lg hover:bg-amber-800 hover:text-white active:bg-amber-900 active:border-amber-900 transition-colors academic-text font-medium"
           >
             {getTranslation(currentLang, 'portfolio.viewAcademicWork')}
           </a>
