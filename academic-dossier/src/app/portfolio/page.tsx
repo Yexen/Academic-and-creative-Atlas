@@ -67,7 +67,7 @@ export default function PortfolioPage() {
               <p className="academic-text text-gray-700 line-clamp-3">{project.description}</p>
 
               <div className="mt-4 flex justify-between items-center">
-                <button className="text-academic-brown hover:text-academic-brown-dark active:text-academic-brown-dark font-medium academic-text">
+                <button className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors font-medium academic-text">
                   {selectedProject === key ? getTranslation(currentLang, 'portfolio.showLess') : getTranslation(currentLang, 'portfolio.showMore')}
                 </button>
                 <div className="flex gap-2">
@@ -75,7 +75,7 @@ export default function PortfolioPage() {
                     <a
                       key={index}
                       href={link.url}
-                      className="text-sm bg-academic-brown text-white px-3 py-1 rounded hover:bg-academic-brown-dark active:bg-academic-brown-dark transition-colors"
+                      className="text-sm bg-amber-800 text-white px-3 py-1 rounded hover:bg-amber-900 active:bg-amber-900 transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {link.name}
