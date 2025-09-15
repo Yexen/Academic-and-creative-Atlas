@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd academic-dossier && npm run build",
+  "outputDirectory": "academic-dossier/.next",
+  "installCommand": "cd academic-dossier && npm install",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/academic-dossier/$1"
+    }
+  ]
+}
