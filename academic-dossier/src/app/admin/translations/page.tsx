@@ -101,7 +101,7 @@ function TranslationEditor() {
             {fullPath.split('.').pop()?.replace(/([A-Z])/g, ' $1').trim()}
           </label>
           <textarea
-            value={value || ''}
+            value={typeof value === 'string' ? value : ''}
             onChange={(e) => updateTranslation(lang, fullPath, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600 resize-y min-h-[60px]"
             dir={lang === 'fa' ? 'rtl' : 'ltr'}
