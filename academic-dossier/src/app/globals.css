@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --academic-brown: #8B4513;
+  --academic-brown-dark: #7A3F12;
+  --academic-brown-light: #A0522D;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+}
+
+/* Academic styling */
+.academic-heading {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--academic-brown);
+  font-weight: 600;
+}
+
+.academic-text {
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.7;
+}
+
+.section-divider {
+  border-top: 1px solid #e5e5e5;
+  margin: 2rem 0;
+}
+
+/* RTL support for Persian */
+[dir="rtl"] {
+  text-align: right;
+}
