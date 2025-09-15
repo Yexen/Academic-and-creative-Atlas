@@ -1,5 +1,6 @@
 {
-  "buildCommand": "cd academic-dossier && npm ci && npm run build",
-  "outputDirectory": "academic-dossier/out",
-  "installCommand": "cd academic-dossier && npm ci"
+  "buildCommand": "cd academic-dossier && npm run build",
+  "installCommand": "cd academic-dossier && npm install",
+  "framework": "nextjs",
+  "rootDirectory": "academic-dossier"
 }
