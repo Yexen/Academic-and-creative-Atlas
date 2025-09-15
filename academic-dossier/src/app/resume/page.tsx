@@ -24,14 +24,14 @@ export default function ResumePage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl academic-heading mb-4">
-          {getTranslation(currentLang, 'nav.resume')}
+          {getTranslation(currentLang, 'resume.title')}
         </h1>
         <div className="flex justify-center">
           <button
             onClick={handleDownloadCV}
             className="bg-academic-brown text-white px-6 py-3 rounded-lg hover:bg-academic-brown-dark transition-colors academic-text font-medium"
           >
-            {getTranslation(currentLang, 'common.download')} PDF
+            {getTranslation(currentLang, 'resume.downloadPDF')}
           </button>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function ResumePage() {
 
         {/* Education */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Education</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.education')}</h2>
           <div className="space-y-6">
             {cvData.education.map((edu, index) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
@@ -88,7 +88,7 @@ export default function ResumePage() {
 
         {/* Work Experience */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Professional Experience</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.experience')}</h2>
           <div className="space-y-6">
             {cvData.workExperience.map((work, index) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
@@ -109,7 +109,7 @@ export default function ResumePage() {
 
         {/* Research Projects */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Research & Creative Projects</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.research')}</h2>
           <div className="space-y-6">
             {cvData.researchProjects.map((project, index) => (
               <div key={index} className="bg-white border border-gray-200 rounded-lg p-6">
@@ -133,11 +133,11 @@ export default function ResumePage() {
 
         {/* Skills */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Skills & Competencies</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.skills')}</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Languages */}
             <div>
-              <h3 className="text-lg academic-heading mb-4">Languages</h3>
+              <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.languages')}</h3>
               <div className="space-y-2">
                 {cvData.skills.languages.map((lang, index) => (
                   <div key={index} className="flex justify-between academic-text">
@@ -150,7 +150,7 @@ export default function ResumePage() {
 
             {/* Technical Skills */}
             <div>
-              <h3 className="text-lg academic-heading mb-4">Technical Skills</h3>
+              <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.technical')}</h3>
               <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                 {cvData.skills.technical.map((skill, index) => (
                   <li key={index}>{skill}</li>
@@ -161,7 +161,7 @@ export default function ResumePage() {
 
           {/* Core Qualities */}
           <div className="mt-8">
-            <h3 className="text-lg academic-heading mb-4">Core Qualities</h3>
+            <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.qualities')}</h3>
             <div className="grid md:grid-cols-2 gap-3">
               {cvData.skills.qualities.map((quality, index) => (
                 <div key={index} className="bg-gray-50 rounded-lg p-3">
@@ -176,7 +176,7 @@ export default function ResumePage() {
 
         {/* Workshops & Training */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Workshops & Professional Development</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.workshops')}</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {cvData.workshops.map((workshop, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -192,7 +192,7 @@ export default function ResumePage() {
 
         {/* Awards */}
         <section>
-          <h2 className="text-2xl academic-heading mb-6">Awards & Honors</h2>
+          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.awards')}</h2>
           <ul className="space-y-3">
             {cvData.awards.map((award, index) => (
               <li key={index} className="flex items-start">

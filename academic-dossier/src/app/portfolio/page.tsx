@@ -22,10 +22,10 @@ export default function PortfolioPage() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl academic-heading mb-4">
-          {getTranslation(currentLang, 'nav.portfolio')}
+          {getTranslation(currentLang, 'portfolio.title')}
         </h1>
         <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto">
-          Four innovative projects demonstrating the integration of philosophy, technology, and creative practice
+          {getTranslation(currentLang, 'portfolio.subtitle')}
         </p>
       </div>
 
@@ -58,7 +58,7 @@ export default function PortfolioPage() {
 
               <div className="mt-4 flex justify-between items-center">
                 <button className="text-academic-brown hover:text-academic-brown-dark font-medium academic-text">
-                  {selectedProject === key ? 'Show Less' : 'Show More'}
+                  {selectedProject === key ? getTranslation(currentLang, 'portfolio.showLess') : getTranslation(currentLang, 'portfolio.showMore')}
                 </button>
                 <div className="flex gap-2">
                   {project.links.map((link, index) => (
@@ -81,7 +81,7 @@ export default function PortfolioPage() {
                 <div className="space-y-6">
                   {/* Features */}
                   <div>
-                    <h4 className="text-lg academic-heading mb-3">Key Features</h4>
+                    <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.keyFeatures')}</h4>
                     <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                       {project.features.map((feature, index) => (
                         <li key={index} className="text-sm">{feature}</li>
@@ -91,7 +91,7 @@ export default function PortfolioPage() {
 
                   {/* Significance */}
                   <div>
-                    <h4 className="text-lg academic-heading mb-3">Significance</h4>
+                    <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.significance')}</h4>
                     <p className="academic-text text-gray-700 text-sm leading-relaxed">
                       {project.significance}
                     </p>
@@ -99,7 +99,7 @@ export default function PortfolioPage() {
 
                   {/* Technologies */}
                   <div>
-                    <h4 className="text-lg academic-heading mb-3">Technologies & Methods</h4>
+                    <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.technologies')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech, index) => (
                         <span
@@ -122,38 +122,33 @@ export default function PortfolioPage() {
 
       {/* Integration Statement */}
       <section className="text-center max-w-4xl mx-auto">
-        <h2 className="text-2xl academic-heading mb-6">Interdisciplinary Integration</h2>
+        <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'portfolio.integration')}</h2>
         <p className="academic-text text-gray-700 leading-relaxed mb-6">
-          These four projects represent a unified approach to creative and academic practice that bridges
-          theoretical investigation with practical implementation. Each project demonstrates different
-          aspects of how aesthetic language can operate across digital, material, and literary media.
+          {getTranslation(currentLang, 'portfolio.integrationDesc')}
         </p>
         <p className="academic-text text-gray-700 leading-relaxed">
-          From the AI interaction protocols of Shadowline to the material storytelling of Yexen jewelry,
-          from the cultural preservation of Mémoire en Livres to the mythological frameworks of the
-          literary works, this portfolio showcases the possibilities of integrating Persian philosophical
-          traditions with contemporary creative technologies.
+          {getTranslation(currentLang, 'portfolio.integrationDesc2')}
         </p>
       </section>
 
       {/* Call to Action */}
       <section className="mt-16 text-center bg-academic-brown/5 rounded-lg p-8">
-        <h2 className="text-2xl academic-heading mb-4">Explore Further</h2>
+        <h2 className="text-2xl academic-heading mb-4">{getTranslation(currentLang, 'portfolio.exploreFurther')}</h2>
         <p className="academic-text text-gray-700 mb-6">
-          Interested in learning more about these projects or potential collaborations?
+          {getTranslation(currentLang, 'portfolio.exploreDesc')}
         </p>
         <div className="flex justify-center gap-4">
           <a
             href="mailto:yekta.kjs@gmail.com"
             className="bg-academic-brown text-white px-6 py-3 rounded-lg hover:bg-academic-brown-dark transition-colors academic-text font-medium"
           >
-            Contact for Collaboration
+            {getTranslation(currentLang, 'portfolio.contactCollaboration')}
           </a>
           <a
             href="/academic"
             className="border border-academic-brown text-academic-brown px-6 py-3 rounded-lg hover:bg-academic-brown hover:text-white transition-colors academic-text font-medium"
           >
-            View Academic Work
+            {getTranslation(currentLang, 'portfolio.viewAcademicWork')}
           </a>
         </div>
       </section>
