@@ -11,8 +11,13 @@ export default function DocumentsPage() {
     alert('CV download would happen here. This is a demo.');
   };
 
+  const handlePortfolioDownload = () => {
+    // In a real implementation, this would download the actual portfolio
+    alert('Portfolio download would happen here. This is a demo.');
+  };
+
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl academic-heading mb-4">
@@ -24,7 +29,7 @@ export default function DocumentsPage() {
       </div>
 
       {/* Available Documents */}
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
         {/* Download CV */}
         <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
           <div className="text-center">
@@ -71,6 +76,30 @@ export default function DocumentsPage() {
               </svg>
               View Biography
             </a>
+          </div>
+        </div>
+
+        {/* Download Portfolio */}
+        <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+            </div>
+            <h3 className="text-xl academic-heading mb-3">📂 Download Portfolio</h3>
+            <p className="academic-text text-gray-600 mb-6 text-sm">
+              Complete creative portfolio showcasing interdisciplinary projects, artistic practice, and digital humanities work including detailed project documentation.
+            </p>
+            <button
+              onClick={handlePortfolioDownload}
+              className="bg-amber-800 text-white py-3 px-6 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download PDF
+            </button>
           </div>
         </div>
       </div>
