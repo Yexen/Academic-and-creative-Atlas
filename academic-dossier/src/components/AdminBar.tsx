@@ -4,17 +4,32 @@ import { useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 
 export default function AdminBar() {
-  const {
-    isAuthenticated,
-    isAdminMode,
-    isEditing,
-    hasUnsavedChanges,
-    login,
-    logout,
-    toggleAdminMode,
-    saveChanges,
-    cancelChanges
-  } = useAdmin();
+  // Handle admin context safely for static generation
+  let isAuthenticated = false;
+  let isAdminMode = false;
+  let isEditing = false;
+  let hasUnsavedChanges = false;
+  let login = (password: string) => false;
+  let logout = () => {};
+  let toggleAdminMode = () => {};
+  let saveChanges = async () => {};
+  let cancelChanges = () => {};
+
+  try {
+    const adminContext = useAdmin();
+    isAuthenticated = adminContext.isAuthenticated;
+    isAdminMode = adminContext.isAdminMode;
+    isEditing = adminContext.isEditing;
+    hasUnsavedChanges = adminContext.hasUnsavedChanges;
+    login = adminContext.login;
+    logout = adminContext.logout;
+    toggleAdminMode = adminContext.toggleAdminMode;
+    saveChanges = adminContext.saveChanges;
+    cancelChanges = adminContext.cancelChanges;
+  } catch (error) {
+    // Admin context not available during static generation
+    // All variables are already set to defaults above
+  }
 
   const [showLogin, setShowLogin] = useState(false);
   const [password, setPassword] = useState('');

@@ -9,7 +9,19 @@ import EditableText from '@/components/EditableText';
 
 export default function Home() {
   const { currentLang } = useLanguage();
-  const { isAdminMode, setEditing } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  let setEditing = (editing: boolean) => {};
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+    setEditing = adminContext.setEditing;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+    setEditing = (editing: boolean) => {};
+  }
 
   // Load initial content from localStorage or use translations
   const getInitialHomeContent = () => {

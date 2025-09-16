@@ -7,9 +7,46 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { cvData } from '@/data/cv-data';
 import EditableText from '@/components/EditableText';
 
+type EditableResumeContent = {
+  profileName: string;
+  profileTitle: string;
+  profileEmail: string;
+  profilePhone: string;
+  profileAddress: string;
+  profileBirthDate: string;
+  profileBirthPlace: string;
+  educationTitle: string;
+  experienceTitle: string;
+  researchTitle: string;
+  skillsTitle: string;
+  workshopsTitle: string;
+  awardsTitle: string;
+  education: any[];
+  workExperience: any[];
+  researchProjects: any[];
+  languages: any[];
+  technical: any[];
+  qualities: any[];
+  workshops: any[];
+  awards: any[];
+};
+
 export default function ResumePage() {
   const { currentLang } = useLanguage();
-  const { isAdminMode, setEditing } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  let setEditing = (editing: boolean) => {};
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+    setEditing = adminContext.setEditing;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+    setEditing = (editing: boolean) => {};
+  }
+
   const [activeSection, setActiveSection] = useState<string>('education');
 
   // Load initial data from localStorage or use defaults
@@ -250,13 +287,13 @@ export default function ResumePage() {
             <h2 className="text-2xl academic-heading mb-6">{editableContent.educationTitle}</h2>
           </EditableText>
           <div className="space-y-6">
-            {editableContent.education.map((edu, index) => (
+            {editableContent.education.map((edu: any, index: number) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
                 <EditableText
                   onSave={(newText) => {
                     const newEducation = [...editableContent.education];
                     newEducation[index] = { ...newEducation[index], degree: newText };
-                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                   }}
                   className="text-xl academic-heading mb-2"
                 >
@@ -267,7 +304,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newEducation = [...editableContent.education];
                     newEducation[index] = { ...newEducation[index], institution: newText };
-                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                   }}
                   className="text-academic-brown font-medium academic-text mb-1"
                 >
@@ -278,7 +315,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newEducation = [...editableContent.education];
                     newEducation[index] = { ...newEducation[index], period: newText };
-                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                   }}
                   className="text-gray-600 academic-text mb-2"
                 >
@@ -290,7 +327,7 @@ export default function ResumePage() {
                     onSave={(newText) => {
                       const newEducation = [...editableContent.education];
                       newEducation[index] = { ...newEducation[index], grade: newText };
-                      setEditableContent(prev => ({ ...prev, education: newEducation }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                     }}
                     className="text-gray-700 academic-text font-medium mb-2"
                   >
@@ -303,7 +340,7 @@ export default function ResumePage() {
                     onSave={(newText) => {
                       const newEducation = [...editableContent.education];
                       newEducation[index] = { ...newEducation[index], thesis: newText };
-                      setEditableContent(prev => ({ ...prev, education: newEducation }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                     }}
                     className="text-gray-700 academic-text italic mb-2"
                     multiline
@@ -313,7 +350,7 @@ export default function ResumePage() {
                 )}
 
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                  {edu.details.map((detail, detailIndex) => (
+                  {edu.details.map((detail: any, detailIndex: number) => (
                     <EditableText
                       key={detailIndex}
                       onSave={(newText) => {
@@ -321,7 +358,7 @@ export default function ResumePage() {
                         const newDetails = [...newEducation[index].details];
                         newDetails[detailIndex] = newText;
                         newEducation[index] = { ...newEducation[index], details: newDetails };
-                        setEditableContent(prev => ({ ...prev, education: newEducation }));
+                        setEditableContent((prev: EditableResumeContent) => ({ ...prev, education: newEducation }));
                       }}
                       className="academic-text text-gray-700"
                       multiline
@@ -346,13 +383,13 @@ export default function ResumePage() {
             <h2 className="text-2xl academic-heading mb-6">{editableContent.experienceTitle}</h2>
           </EditableText>
           <div className="space-y-6">
-            {editableContent.workExperience.map((work, index) => (
+            {editableContent.workExperience.map((work: any, index: number) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
                 <EditableText
                   onSave={(newText) => {
                     const newWork = [...editableContent.workExperience];
                     newWork[index] = { ...newWork[index], position: newText };
-                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workExperience: newWork }));
                   }}
                   className="text-xl academic-heading mb-2"
                 >
@@ -363,7 +400,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newWork = [...editableContent.workExperience];
                     newWork[index] = { ...newWork[index], company: newText };
-                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workExperience: newWork }));
                   }}
                   className="text-academic-brown font-medium academic-text mb-1"
                 >
@@ -374,7 +411,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newWork = [...editableContent.workExperience];
                     newWork[index] = { ...newWork[index], period: newText };
-                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workExperience: newWork }));
                   }}
                   className="text-gray-600 academic-text mb-2"
                 >
@@ -382,7 +419,7 @@ export default function ResumePage() {
                 </EditableText>
 
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                  {work.responsibilities.map((resp, respIndex) => (
+                  {work.responsibilities.map((resp: any, respIndex: number) => (
                     <EditableText
                       key={respIndex}
                       onSave={(newText) => {
@@ -390,7 +427,7 @@ export default function ResumePage() {
                         const newResponsibilities = [...newWork[index].responsibilities];
                         newResponsibilities[respIndex] = newText;
                         newWork[index] = { ...newWork[index], responsibilities: newResponsibilities };
-                        setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                        setEditableContent((prev: EditableResumeContent) => ({ ...prev, workExperience: newWork }));
                       }}
                       className="academic-text text-gray-700"
                       multiline
@@ -415,13 +452,13 @@ export default function ResumePage() {
             <h2 className="text-2xl academic-heading mb-6">{editableContent.researchTitle}</h2>
           </EditableText>
           <div className="space-y-6">
-            {editableContent.researchProjects.map((project, index) => (
+            {editableContent.researchProjects.map((project: any, index: number) => (
               <div key={index} className="bg-white border border-gray-200 rounded-lg p-6">
                 <EditableText
                   onSave={(newText) => {
                     const newProjects = [...editableContent.researchProjects];
                     newProjects[index] = { ...newProjects[index], title: newText };
-                    setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, researchProjects: newProjects }));
                   }}
                   className="text-xl academic-heading mb-2"
                 >
@@ -432,7 +469,7 @@ export default function ResumePage() {
                     onSave={(newText) => {
                       const newProjects = [...editableContent.researchProjects];
                       newProjects[index] = { ...newProjects[index], period: newText };
-                      setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, researchProjects: newProjects }));
                     }}
                     className="academic-text text-gray-600"
                   >
@@ -443,7 +480,7 @@ export default function ResumePage() {
                     onSave={(newText) => {
                       const newProjects = [...editableContent.researchProjects];
                       newProjects[index] = { ...newProjects[index], type: newText };
-                      setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, researchProjects: newProjects }));
                     }}
                     className="academic-text text-gray-600"
                   >
@@ -451,7 +488,7 @@ export default function ResumePage() {
                   </EditableText>
                 </div>
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                  {project.description.map((desc, descIndex) => (
+                  {project.description.map((desc: any, descIndex: number) => (
                     <EditableText
                       key={descIndex}
                       onSave={(newText) => {
@@ -459,7 +496,7 @@ export default function ResumePage() {
                         const newDescription = [...newProjects[index].description];
                         newDescription[descIndex] = newText;
                         newProjects[index] = { ...newProjects[index], description: newDescription };
-                        setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                        setEditableContent((prev: EditableResumeContent) => ({ ...prev, researchProjects: newProjects }));
                       }}
                       className="academic-text text-gray-700"
                       multiline
@@ -488,13 +525,13 @@ export default function ResumePage() {
             <div>
               <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.languages')}</h3>
               <div className="space-y-2">
-                {editableContent.languages.map((lang, index) => (
+                {editableContent.languages.map((lang: any, index: number) => (
                   <div key={index} className="flex justify-between academic-text">
                     <EditableText
                       onSave={(newText) => {
                         const newLanguages = [...editableContent.languages];
                         newLanguages[index] = { ...newLanguages[index], name: newText };
-                        setEditableContent(prev => ({ ...prev, languages: newLanguages }));
+                        setEditableContent((prev: EditableResumeContent) => ({ ...prev, languages: newLanguages }));
                       }}
                       className="font-medium"
                     >
@@ -504,7 +541,7 @@ export default function ResumePage() {
                       onSave={(newText) => {
                         const newLanguages = [...editableContent.languages];
                         newLanguages[index] = { ...newLanguages[index], level: newText };
-                        setEditableContent(prev => ({ ...prev, languages: newLanguages }));
+                        setEditableContent((prev: EditableResumeContent) => ({ ...prev, languages: newLanguages }));
                       }}
                       className="text-gray-600"
                     >
@@ -519,13 +556,13 @@ export default function ResumePage() {
             <div>
               <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.technical')}</h3>
               <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                {editableContent.technical.map((skill, index) => (
+                {editableContent.technical.map((skill: any, index: number) => (
                   <EditableText
                     key={index}
                     onSave={(newText) => {
                       const newTechnical = [...editableContent.technical];
                       newTechnical[index] = newText;
-                      setEditableContent(prev => ({ ...prev, technical: newTechnical }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, technical: newTechnical }));
                     }}
                     className="academic-text text-gray-700"
                   >
@@ -540,13 +577,13 @@ export default function ResumePage() {
           <div className="mt-8">
             <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.qualities')}</h3>
             <div className="grid md:grid-cols-2 gap-3">
-              {editableContent.qualities.map((quality, index) => (
+              {editableContent.qualities.map((quality: any, index: number) => (
                 <div key={index} className="bg-gray-50 rounded-lg p-3">
                   <EditableText
                     onSave={(newText) => {
                       const newQualities = [...editableContent.qualities];
                       newQualities[index] = newText;
-                      setEditableContent(prev => ({ ...prev, qualities: newQualities }));
+                      setEditableContent((prev: EditableResumeContent) => ({ ...prev, qualities: newQualities }));
                     }}
                     className="academic-text text-gray-700 text-sm"
                     multiline
@@ -570,13 +607,13 @@ export default function ResumePage() {
             <h2 className="text-2xl academic-heading mb-6">{editableContent.workshopsTitle}</h2>
           </EditableText>
           <div className="grid md:grid-cols-2 gap-4">
-            {editableContent.workshops.map((workshop, index) => (
+            {editableContent.workshops.map((workshop: any, index: number) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
                 <EditableText
                   onSave={(newText) => {
                     const newWorkshops = [...editableContent.workshops];
                     newWorkshops[index] = { ...newWorkshops[index], name: newText };
-                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workshops: newWorkshops }));
                   }}
                   className="academic-heading text-lg mb-1"
                 >
@@ -586,7 +623,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newWorkshops = [...editableContent.workshops];
                     newWorkshops[index] = { ...newWorkshops[index], instructor: newText };
-                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workshops: newWorkshops }));
                   }}
                   className="academic-text text-gray-700 text-sm mb-1"
                 >
@@ -596,7 +633,7 @@ export default function ResumePage() {
                   onSave={(newText) => {
                     const newWorkshops = [...editableContent.workshops];
                     newWorkshops[index] = { ...newWorkshops[index], year: newText };
-                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, workshops: newWorkshops }));
                   }}
                   className="academic-text text-academic-brown text-sm font-medium"
                 >
@@ -618,14 +655,14 @@ export default function ResumePage() {
             <h2 className="text-2xl academic-heading mb-6">{editableContent.awardsTitle}</h2>
           </EditableText>
           <ul className="space-y-3">
-            {editableContent.awards.map((award, index) => (
+            {editableContent.awards.map((award: any, index: number) => (
               <li key={index} className="flex items-start">
                 <div className="w-2 h-2 bg-academic-brown rounded-full mt-2 mr-3 flex-shrink-0"></div>
                 <EditableText
                   onSave={(newText) => {
                     const newAwards = [...editableContent.awards];
                     newAwards[index] = newText;
-                    setEditableContent(prev => ({ ...prev, awards: newAwards }));
+                    setEditableContent((prev: EditableResumeContent) => ({ ...prev, awards: newAwards }));
                   }}
                   className="academic-text text-gray-700"
                   multiline

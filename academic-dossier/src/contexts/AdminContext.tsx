@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface AdminContextType {
@@ -20,7 +20,7 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 const ADMIN_PASSWORD = 'yekta2025';
 
-export function AdminProvider({ children }: { children: ReactNode }) {
+function AdminProviderInner({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -113,6 +113,14 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }}>
       {children}
     </AdminContext.Provider>
+  );
+}
+
+export function AdminProvider({ children }: { children: ReactNode }) {
+  return (
+    <Suspense fallback={<div>{children}</div>}>
+      <AdminProviderInner>{children}</AdminProviderInner>
+    </Suspense>
   );
 }
 

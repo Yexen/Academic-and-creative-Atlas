@@ -8,7 +8,16 @@ import EditableText from '@/components/EditableText';
 
 export default function DocumentsPage() {
   const { currentLang } = useLanguage();
-  const { isAdminMode } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+  }
 
   // Load initial data from localStorage or use defaults
   const getInitialDocumentsContent = () => {

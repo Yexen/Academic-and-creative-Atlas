@@ -18,7 +18,19 @@ export default function EditableText({
   multiline = false,
   placeholder = 'Enter text...'
 }: EditableTextProps) {
-  const { isAdminMode, setEditing } = useAdmin();
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  let setEditing = (editing: boolean) => {};
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+    setEditing = adminContext.setEditing;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+    setEditing = (editing: boolean) => {};
+  }
+
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
@@ -40,14 +52,14 @@ export default function EditableText({
       const extractText = (element: any): string => {
         if (typeof element === 'string') return element;
         if (typeof element === 'number') return element.toString();
-        if (React.isValidElement(element) && element.props.children) {
-          if (typeof element.props.children === 'string') {
-            return element.props.children;
+        if (React.isValidElement(element) && (element.props as any).children) {
+          if (typeof (element.props as any).children === 'string') {
+            return (element.props as any).children;
           }
-          if (Array.isArray(element.props.children)) {
-            return element.props.children.map(extractText).join('');
+          if (Array.isArray((element.props as any).children)) {
+            return (element.props as any).children.map(extractText).join('');
           }
-          return extractText(element.props.children);
+          return extractText((element.props as any).children);
         }
         return '';
       };

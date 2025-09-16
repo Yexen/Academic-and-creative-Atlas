@@ -8,7 +8,16 @@ import './globals.css';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const { currentLang, setCurrentLang } = useLanguage();
-  const { isAdminMode } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+  }
 
   return (
     <html lang={currentLang} dir={currentLang === 'fa' ? 'rtl' : 'ltr'}>

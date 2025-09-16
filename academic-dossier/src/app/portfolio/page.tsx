@@ -7,9 +7,30 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { portfolioData } from '@/data/portfolio-data';
 import EditableText from '@/components/EditableText';
 
+type EditablePortfolioContent = {
+  pageTitle: string;
+  pageSubtitle: string;
+  integrationTitle: string;
+  integrationDesc1: string;
+  integrationDesc2: string;
+  exploreTitle: string;
+  exploreDesc: string;
+  projects: any;
+};
+
 export default function PortfolioPage() {
   const { currentLang } = useLanguage();
-  const { isAdminMode } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+  }
+
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
 
   // Load initial data from localStorage or use defaults
@@ -44,7 +65,7 @@ export default function PortfolioPage() {
   const [editableContent, setEditableContent] = useState(getInitialPortfolioContent);
 
 
-  const projects = Object.entries(editableContent.projects);
+  const projects = Object.entries(editableContent.projects) as [string, any][];
 
   const handleContentSave = (field: string, newText: string) => {
     const newContent = { ...editableContent, [field]: newText };
@@ -91,7 +112,7 @@ export default function PortfolioPage() {
 
       {/* Project Grid */}
       <div className="grid lg:grid-cols-2 gap-8 mb-16">
-        {projects.map(([key, project]) => (
+        {projects.map(([key, project]: [string, any]) => (
           <div
             key={key}
             className="bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"
@@ -129,7 +150,7 @@ export default function PortfolioPage() {
                   onSave={(newText) => {
                     const newProjects = { ...editableContent.projects };
                     newProjects[key] = { ...newProjects[key], title: newText };
-                    setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                    setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                   }}
                   className="text-2xl academic-heading"
                 >
@@ -139,7 +160,7 @@ export default function PortfolioPage() {
                   onSave={(newText) => {
                     const newProjects = { ...editableContent.projects };
                     newProjects[key] = { ...newProjects[key], type: newText };
-                    setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                    setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                   }}
                   className="text-academic-brown text-sm academic-text"
                 >
@@ -150,7 +171,7 @@ export default function PortfolioPage() {
                 onSave={(newText) => {
                   const newProjects = { ...editableContent.projects };
                   newProjects[key] = { ...newProjects[key], subtitle: newText };
-                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                  setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                 }}
                 className="text-lg academic-text text-gray-700 mb-2"
               >
@@ -160,7 +181,7 @@ export default function PortfolioPage() {
                 onSave={(newText) => {
                   const newProjects = { ...editableContent.projects };
                   newProjects[key] = { ...newProjects[key], period: newText };
-                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                  setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                 }}
                 className="text-sm academic-text text-gray-600 mb-4"
               >
@@ -170,7 +191,7 @@ export default function PortfolioPage() {
                 onSave={(newText) => {
                   const newProjects = { ...editableContent.projects };
                   newProjects[key] = { ...newProjects[key], description: newText };
-                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                  setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                 }}
                 className="academic-text text-gray-700 line-clamp-3"
                 multiline
@@ -183,7 +204,7 @@ export default function PortfolioPage() {
                   {selectedProject === key ? getTranslation(currentLang, 'portfolio.showLess') : getTranslation(currentLang, 'portfolio.showMore')}
                 </button>
                 <div className="flex gap-2">
-                  {project.links.map((link, index) => (
+                  {project.links.map((link: any, index: number) => (
                     <a
                       key={index}
                       href={link.url}
@@ -205,7 +226,7 @@ export default function PortfolioPage() {
                   <div>
                     <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.keyFeatures')}</h4>
                     <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                      {project.features.map((feature, index) => (
+                      {project.features.map((feature: any, index: number) => (
                         <EditableText
                           key={index}
                           onSave={(newText) => {
@@ -213,7 +234,7 @@ export default function PortfolioPage() {
                             const newFeatures = [...newProjects[key].features];
                             newFeatures[index] = newText;
                             newProjects[key] = { ...newProjects[key], features: newFeatures };
-                            setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                            setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                           }}
                           className="text-sm academic-text text-gray-700"
                           multiline
@@ -231,7 +252,7 @@ export default function PortfolioPage() {
                       onSave={(newText) => {
                         const newProjects = { ...editableContent.projects };
                         newProjects[key] = { ...newProjects[key], significance: newText };
-                        setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                        setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                       }}
                       className="academic-text text-gray-700 text-sm leading-relaxed"
                       multiline
@@ -246,7 +267,7 @@ export default function PortfolioPage() {
                   <div>
                     <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.technologies')}</h4>
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, index) => (
+                      {project.technologies.map((tech: any, index: number) => (
                         <EditableText
                           key={index}
                           onSave={(newText) => {
@@ -254,7 +275,7 @@ export default function PortfolioPage() {
                             const newTechnologies = [...newProjects[key].technologies];
                             newTechnologies[index] = newText;
                             newProjects[key] = { ...newProjects[key], technologies: newTechnologies };
-                            setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                            setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                           }}
                           className="bg-academic-brown/10 text-academic-brown px-2 py-1 rounded text-xs academic-text"
                         >

@@ -7,9 +7,30 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { academicData } from '@/data/academic-data';
 import EditableText from '@/components/EditableText';
 
+type EditableAcademicContent = {
+  pageTitle: string;
+  pageSubtitle: string;
+  researchPhilosophyTitle: string;
+  researchPhilosophyDesc: string;
+  thesis: any;
+  archaeology: any;
+  philosophy: any;
+  ongoingResearch: any[];
+};
+
 export default function AcademicPage() {
   const { currentLang } = useLanguage();
-  const { isAdminMode } = useAdmin();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+  }
+
   const [activeSection, setActiveSection] = useState<string>('thesis');
 
   // Load initial data from localStorage or use defaults
@@ -136,7 +157,7 @@ export default function AcademicPage() {
                 <EditableText
                   onSave={(newText) => {
                     const newThesis = { ...editableContent.thesis, title: newText };
-                    setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                    setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                   }}
                   className="text-3xl academic-heading mb-2"
                 >
@@ -145,7 +166,7 @@ export default function AcademicPage() {
                 <EditableText
                   onSave={(newText) => {
                     const newThesis = { ...editableContent.thesis, subtitle: newText };
-                    setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                    setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                   }}
                   className="text-xl academic-text text-gray-700 mb-4"
                 >
@@ -157,7 +178,7 @@ export default function AcademicPage() {
                       <EditableText
                         onSave={(newText) => {
                           const newThesis = { ...editableContent.thesis, university: newText };
-                          setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                         }}
                         className="ml-1 inline"
                       >
@@ -168,7 +189,7 @@ export default function AcademicPage() {
                       <EditableText
                         onSave={(newText) => {
                           const newThesis = { ...editableContent.thesis, program: newText };
-                          setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                         }}
                         className="ml-1 inline"
                       >
@@ -181,7 +202,7 @@ export default function AcademicPage() {
                       <EditableText
                         onSave={(newText) => {
                           const newThesis = { ...editableContent.thesis, grade: newText };
-                          setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                         }}
                         className="text-academic-brown font-bold ml-1 inline"
                       >
@@ -192,7 +213,7 @@ export default function AcademicPage() {
                       <EditableText
                         onSave={(newText) => {
                           const newThesis = { ...editableContent.thesis, average: newText };
-                          setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                         }}
                         className="ml-1 inline"
                       >
@@ -211,7 +232,7 @@ export default function AcademicPage() {
                   <EditableText
                     onSave={(newText) => {
                       const newThesis = { ...editableContent.thesis, abstract: newText };
-                      setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                     }}
                     className="academic-text text-gray-700 leading-relaxed"
                     multiline
@@ -224,7 +245,7 @@ export default function AcademicPage() {
                   <div>
                     <h4 className="text-lg academic-heading mb-4">Key Contributions</h4>
                     <ul className="list-disc list-inside space-y-2 academic-text text-gray-700">
-                      {editableContent.thesis.keyContributions.map((contribution, index) => (
+                      {editableContent.thesis.keyContributions.map((contribution: any, index: number) => (
                         <EditableText
                           key={index}
                           onSave={(newText) => {
@@ -232,7 +253,7 @@ export default function AcademicPage() {
                             const newContributions = [...newThesis.keyContributions];
                             newContributions[index] = newText;
                             newThesis.keyContributions = newContributions;
-                            setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                           }}
                           className="academic-text text-gray-700"
                           multiline
@@ -246,7 +267,7 @@ export default function AcademicPage() {
                   <div>
                     <h4 className="text-lg academic-heading mb-4">Methodology</h4>
                     <ul className="list-disc list-inside space-y-2 academic-text text-gray-700">
-                      {editableContent.thesis.methodology.map((method, index) => (
+                      {editableContent.thesis.methodology.map((method: any, index: number) => (
                         <EditableText
                           key={index}
                           onSave={(newText) => {
@@ -254,7 +275,7 @@ export default function AcademicPage() {
                             const newMethodology = [...newThesis.methodology];
                             newMethodology[index] = newText;
                             newThesis.methodology = newMethodology;
-                            setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                           }}
                           className="academic-text text-gray-700"
                           multiline
@@ -271,7 +292,7 @@ export default function AcademicPage() {
                   <EditableText
                     onSave={(newText) => {
                       const newThesis = { ...editableContent.thesis, significance: newText };
-                      setEditableContent(prev => ({ ...prev, thesis: newThesis }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                     }}
                     className="academic-text text-gray-700 leading-relaxed"
                     multiline
@@ -291,7 +312,7 @@ export default function AcademicPage() {
               <EditableText
                 onSave={(newText) => {
                   const newArchaeology = { ...editableContent.archaeology, title: newText };
-                  setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                  setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                 }}
                 className="text-3xl academic-heading mb-4"
               >
@@ -300,7 +321,7 @@ export default function AcademicPage() {
               <EditableText
                 onSave={(newText) => {
                   const newArchaeology = { ...editableContent.archaeology, period: newText };
-                  setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                  setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                 }}
                 className="text-lg academic-text text-gray-600"
               >
@@ -312,7 +333,7 @@ export default function AcademicPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Archaeological Education</h3>
               <div className="space-y-6">
-                {editableContent.archaeology.education.map((edu, index) => (
+                {editableContent.archaeology.education.map((edu: any, index: number) => (
                   <div key={index} className="border-l-4 border-academic-brown pl-6">
                     <EditableText
                       onSave={(newText) => {
@@ -320,7 +341,7 @@ export default function AcademicPage() {
                         const newEducation = [...newArchaeology.education];
                         newEducation[index] = { ...newEducation[index], degree: newText };
                         newArchaeology.education = newEducation;
-                        setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                       }}
                       className="text-xl academic-heading mb-2"
                     >
@@ -332,7 +353,7 @@ export default function AcademicPage() {
                         const newEducation = [...newArchaeology.education];
                         newEducation[index] = { ...newEducation[index], university: newText };
                         newArchaeology.education = newEducation;
-                        setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                       }}
                       className="text-academic-brown font-medium academic-text mb-1"
                     >
@@ -345,7 +366,7 @@ export default function AcademicPage() {
                           const newEducation = [...newArchaeology.education];
                           newEducation[index] = { ...newEducation[index], period: newText };
                           newArchaeology.education = newEducation;
-                          setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                         }}
                         className="academic-text text-gray-600"
                       >
@@ -358,7 +379,7 @@ export default function AcademicPage() {
                           const newEducation = [...newArchaeology.education];
                           newEducation[index] = { ...newEducation[index], grade: newText };
                           newArchaeology.education = newEducation;
-                          setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                         }}
                         className="font-medium academic-text text-gray-600"
                       >
@@ -371,7 +392,7 @@ export default function AcademicPage() {
                         const newEducation = [...newArchaeology.education];
                         newEducation[index] = { ...newEducation[index], focus: newText };
                         newArchaeology.education = newEducation;
-                        setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                       }}
                       className="academic-text text-gray-700"
                       multiline
@@ -386,7 +407,7 @@ export default function AcademicPage() {
             {/* Fieldwork */}
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Fieldwork Experience</h3>
-              {editableContent.archaeology.fieldwork.map((field, index) => (
+              {editableContent.archaeology.fieldwork.map((field: any, index: number) => (
                 <div key={index} className="bg-gray-50 rounded-lg p-6">
                   <EditableText
                     onSave={(newText) => {
@@ -394,7 +415,7 @@ export default function AcademicPage() {
                       const newFieldwork = [...newArchaeology.fieldwork];
                       newFieldwork[index] = { ...newFieldwork[index], site: newText };
                       newArchaeology.fieldwork = newFieldwork;
-                      setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                     }}
                     className="text-xl academic-heading mb-2"
                   >
@@ -409,7 +430,7 @@ export default function AcademicPage() {
                             const newFieldwork = [...newArchaeology.fieldwork];
                             newFieldwork[index] = { ...newFieldwork[index], location: newText };
                             newArchaeology.fieldwork = newFieldwork;
-                            setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                           }}
                           className="ml-1 inline"
                         >
@@ -423,7 +444,7 @@ export default function AcademicPage() {
                             const newFieldwork = [...newArchaeology.fieldwork];
                             newFieldwork[index] = { ...newFieldwork[index], period: newText };
                             newArchaeology.fieldwork = newFieldwork;
-                            setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                           }}
                           className="ml-1 inline"
                         >
@@ -439,7 +460,7 @@ export default function AcademicPage() {
                             const newFieldwork = [...newArchaeology.fieldwork];
                             newFieldwork[index] = { ...newFieldwork[index], role: newText };
                             newArchaeology.fieldwork = newFieldwork;
-                            setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                           }}
                           className="ml-1 inline"
                         >
@@ -453,7 +474,7 @@ export default function AcademicPage() {
                             const newFieldwork = [...newArchaeology.fieldwork];
                             newFieldwork[index] = { ...newFieldwork[index], supervisor: newText };
                             newArchaeology.fieldwork = newFieldwork;
-                            setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                            setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                           }}
                           className="ml-1 inline"
                         >
@@ -464,7 +485,7 @@ export default function AcademicPage() {
                   </div>
                   <h5 className="academic-heading mb-2">Activities:</h5>
                   <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                    {field.activities.map((activity, actIndex) => (
+                    {field.activities.map((activity: any, actIndex: number) => (
                       <EditableText
                         key={actIndex}
                         onSave={(newText) => {
@@ -474,7 +495,7 @@ export default function AcademicPage() {
                           newActivities[actIndex] = newText;
                           newFieldwork[index] = { ...newFieldwork[index], activities: newActivities };
                           newArchaeology.fieldwork = newFieldwork;
-                          setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                         }}
                         className="academic-text text-gray-700"
                         multiline
@@ -490,7 +511,7 @@ export default function AcademicPage() {
             {/* Research Projects */}
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Research Projects</h3>
-              {editableContent.archaeology.research.map((research, index) => (
+              {editableContent.archaeology.research.map((research: any, index: number) => (
                 <div key={index} className="border-l-4 border-academic-brown pl-6">
                   <EditableText
                     onSave={(newText) => {
@@ -498,7 +519,7 @@ export default function AcademicPage() {
                       const newResearch = [...newArchaeology.research];
                       newResearch[index] = { ...newResearch[index], title: newText };
                       newArchaeology.research = newResearch;
-                      setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                     }}
                     className="text-xl academic-heading mb-2"
                   >
@@ -511,7 +532,7 @@ export default function AcademicPage() {
                         const newResearch = [...newArchaeology.research];
                         newResearch[index] = { ...newResearch[index], type: newText };
                         newArchaeology.research = newResearch;
-                        setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                       }}
                       className="academic-text text-gray-600"
                     >
@@ -524,7 +545,7 @@ export default function AcademicPage() {
                         const newResearch = [...newArchaeology.research];
                         newResearch[index] = { ...newResearch[index], period: newText };
                         newArchaeology.research = newResearch;
-                        setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                       }}
                       className="academic-text text-gray-600"
                     >
@@ -537,7 +558,7 @@ export default function AcademicPage() {
                       const newResearch = [...newArchaeology.research];
                       newResearch[index] = { ...newResearch[index], description: newText };
                       newArchaeology.research = newResearch;
-                      setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                     }}
                     className="academic-text text-gray-700 mb-4"
                     multiline
@@ -546,7 +567,7 @@ export default function AcademicPage() {
                   </EditableText>
                   <h5 className="academic-heading mb-2">Methods:</h5>
                   <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                    {research.methods.map((method, methodIndex) => (
+                    {research.methods.map((method: any, methodIndex: number) => (
                       <EditableText
                         key={methodIndex}
                         onSave={(newText) => {
@@ -556,7 +577,7 @@ export default function AcademicPage() {
                           newMethods[methodIndex] = newText;
                           newResearch[index] = { ...newResearch[index], methods: newMethods };
                           newArchaeology.research = newResearch;
-                          setEditableContent(prev => ({ ...prev, archaeology: newArchaeology }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, archaeology: newArchaeology }));
                         }}
                         className="academic-text text-gray-700"
                         multiline
@@ -578,7 +599,7 @@ export default function AcademicPage() {
               <EditableText
                 onSave={(newText) => {
                   const newPhilosophy = { ...editableContent.philosophy, title: newText };
-                  setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                  setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                 }}
                 className="text-3xl academic-heading mb-4"
               >
@@ -590,7 +611,7 @@ export default function AcademicPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Areas of Specialization</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {editableContent.philosophy.specializations.map((spec, index) => (
+                {editableContent.philosophy.specializations.map((spec: any, index: number) => (
                   <div key={index} className="bg-academic-brown/5 rounded-lg p-4 text-center">
                     <EditableText
                       onSave={(newText) => {
@@ -598,7 +619,7 @@ export default function AcademicPage() {
                         const newSpecializations = [...newPhilosophy.specializations];
                         newSpecializations[index] = newText;
                         newPhilosophy.specializations = newSpecializations;
-                        setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                       }}
                       className="academic-text font-medium text-academic-brown"
                     >
@@ -613,7 +634,7 @@ export default function AcademicPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Theoretical Contributions</h3>
               <div className="space-y-6">
-                {editableContent.philosophy.theoreticalContributions.map((contrib, index) => (
+                {editableContent.philosophy.theoreticalContributions.map((contrib: any, index: number) => (
                   <div key={index} className="border-l-4 border-academic-brown pl-6">
                     <EditableText
                       onSave={(newText) => {
@@ -621,7 +642,7 @@ export default function AcademicPage() {
                         const newContributions = [...newPhilosophy.theoreticalContributions];
                         newContributions[index] = { ...newContributions[index], area: newText };
                         newPhilosophy.theoreticalContributions = newContributions;
-                        setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                       }}
                       className="text-xl academic-heading mb-2"
                     >
@@ -633,7 +654,7 @@ export default function AcademicPage() {
                         const newContributions = [...newPhilosophy.theoreticalContributions];
                         newContributions[index] = { ...newContributions[index], description: newText };
                         newPhilosophy.theoreticalContributions = newContributions;
-                        setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                       }}
                       className="academic-text text-gray-700 mb-3"
                       multiline
@@ -643,7 +664,7 @@ export default function AcademicPage() {
                     <div>
                       <h5 className="academic-heading mb-2 text-sm">Applications:</h5>
                       <div className="flex flex-wrap gap-2">
-                        {contrib.applications.map((app, appIndex) => (
+                        {contrib.applications.map((app: any, appIndex: number) => (
                           <EditableText
                             key={appIndex}
                             onSave={(newText) => {
@@ -653,7 +674,7 @@ export default function AcademicPage() {
                               newApplications[appIndex] = newText;
                               newContributions[index] = { ...newContributions[index], applications: newApplications };
                               newPhilosophy.theoreticalContributions = newContributions;
-                              setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                              setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                             }}
                             className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs academic-text"
                           >
@@ -673,7 +694,7 @@ export default function AcademicPage() {
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h3 className="text-2xl academic-heading mb-6">Key Philosophical Influences</h3>
               <div className="grid md:grid-cols-2 gap-6">
-                {editableContent.philosophy.keyInfluences.map((influence, index) => (
+                {editableContent.philosophy.keyInfluences.map((influence: any, index: number) => (
                   <div key={index} className="bg-gray-50 rounded-lg p-4">
                     <EditableText
                       onSave={(newText) => {
@@ -681,7 +702,7 @@ export default function AcademicPage() {
                         const newInfluences = [...newPhilosophy.keyInfluences];
                         newInfluences[index] = { ...newInfluences[index], philosopher: newText };
                         newPhilosophy.keyInfluences = newInfluences;
-                        setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                       }}
                       className="academic-heading text-lg mb-2"
                     >
@@ -695,7 +716,7 @@ export default function AcademicPage() {
                           const newInfluences = [...newPhilosophy.keyInfluences];
                           newInfluences[index] = { ...newInfluences[index], contribution: newText };
                           newPhilosophy.keyInfluences = newInfluences;
-                          setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                         }}
                         className="ml-1 inline"
                         multiline
@@ -711,7 +732,7 @@ export default function AcademicPage() {
                           const newInfluences = [...newPhilosophy.keyInfluences];
                           newInfluences[index] = { ...newInfluences[index], application: newText };
                           newPhilosophy.keyInfluences = newInfluences;
-                          setEditableContent(prev => ({ ...prev, philosophy: newPhilosophy }));
+                          setEditableContent((prev: EditableAcademicContent) => ({ ...prev, philosophy: newPhilosophy }));
                         }}
                         className="ml-1 inline"
                         multiline
@@ -735,14 +756,14 @@ export default function AcademicPage() {
             </div>
 
             <div className="grid gap-6">
-              {editableContent.ongoingResearch.map((research, index) => (
+              {editableContent.ongoingResearch.map((research: any, index: number) => (
                 <div key={index} className="bg-white border border-gray-200 rounded-lg p-6">
                   <div className="flex justify-between items-start mb-4">
                     <EditableText
                       onSave={(newText) => {
                         const newOngoing = [...editableContent.ongoingResearch];
                         newOngoing[index] = { ...newOngoing[index], title: newText };
-                        setEditableContent(prev => ({ ...prev, ongoingResearch: newOngoing }));
+                        setEditableContent((prev: EditableAcademicContent) => ({ ...prev, ongoingResearch: newOngoing }));
                       }}
                       className="text-xl academic-heading"
                     >
@@ -756,7 +777,7 @@ export default function AcademicPage() {
                     onSave={(newText) => {
                       const newOngoing = [...editableContent.ongoingResearch];
                       newOngoing[index] = { ...newOngoing[index], period: newText };
-                      setEditableContent(prev => ({ ...prev, ongoingResearch: newOngoing }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, ongoingResearch: newOngoing }));
                     }}
                     className="academic-text text-gray-600 mb-2"
                   >
@@ -766,7 +787,7 @@ export default function AcademicPage() {
                     onSave={(newText) => {
                       const newOngoing = [...editableContent.ongoingResearch];
                       newOngoing[index] = { ...newOngoing[index], description: newText };
-                      setEditableContent(prev => ({ ...prev, ongoingResearch: newOngoing }));
+                      setEditableContent((prev: EditableAcademicContent) => ({ ...prev, ongoingResearch: newOngoing }));
                     }}
                     className="academic-text text-gray-700 mb-4"
                     multiline
@@ -778,7 +799,7 @@ export default function AcademicPage() {
                     <div className="mb-4">
                       <h4 className="academic-heading text-sm mb-2">Collaborators:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {research.collaborators.map((collab, collabIndex) => (
+                        {research.collaborators.map((collab: any, collabIndex: number) => (
                           <span key={collabIndex} className="bg-academic-brown/10 text-academic-brown px-2 py-1 rounded text-xs academic-text">
                             {collab}
                           </span>
@@ -791,7 +812,7 @@ export default function AcademicPage() {
                     <div>
                       <h4 className="academic-heading text-sm mb-2">Applications:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {research.applications.map((app, appIndex) => (
+                        {research.applications.map((app: any, appIndex: number) => (
                           <span key={appIndex} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs academic-text">
                             {app}
                           </span>
