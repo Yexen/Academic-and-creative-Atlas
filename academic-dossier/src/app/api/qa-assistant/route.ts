@@ -110,7 +110,7 @@ const KNOWLEDGE_BASE = {
     practicalApplications: {
       studioInternship: "Six-month transformative experience with contemporary artist Sepand Danesh working on 'Faire Corps' exhibition sculptures",
       aiInteractionResearch: "Extended observations with Claude, ChatGPT, and Gemini identifying patterns of aesthetically-informed dialogue",
-      sculptural understanding: "Manufacturing wooden cubes, assembling 3D structures, applying multi-tonal color schemes - understanding how individual elements gain meaning through context"
+      sculpturalUnderstanding: "Manufacturing wooden cubes, assembling 3D structures, applying multi-tonal color schemes - understanding how individual elements gain meaning through context"
     },
     currentInvestigations: [
       "Aesthetic engagement protocols for enhanced AI interaction design",
@@ -536,7 +536,7 @@ async function generateAnswer(question: string, context: string, conversationHis
   // Wittgenstein, mystical, language games
   if (lowerQuestion.includes('wittgenstein') || lowerQuestion.includes('mystical') || lowerQuestion.includes('language game')) {
     const core = KNOWLEDGE_BASE.research.masterThesisCore;
-    return `Yekta's work builds on ${core.wittgensteinFoundation}. The research explores Wittgenstein's concept of the 'mystical' as what lies beyond language's logical structure, while his later philosophy emphasizes how meaning emerges through use in specific contexts. This connects to Yekta's argument that ${core.mainArgument}.`;
+    return `Yekta's work builds on ${core.wittgensteinFoundation}. The research explores Wittgenstein's concept of the 'mystical' as what lies beyond language's logical structure, while his later philosophy emphasizes how meaning emerges through use in specific contexts. This connects to Yekta's argument that ${core.aestheticLanguageDefinition}.`;
   }
 
   // Trauma, expression, language failure
@@ -580,13 +580,13 @@ async function generateAnswer(question: string, context: string, conversationHis
   // Technical expertise and programming
   if (lowerQuestion.includes('technical') || lowerQuestion.includes('programming') || lowerQuestion.includes('coding') || lowerQuestion.includes('development')) {
     const tech = KNOWLEDGE_BASE.technicalExpertise;
-    return `Yekta's technical expertise spans ${tech.programming.languages.join(', ')} programming languages, ${tech.programming.frameworks.join(', ')} frameworks, and ${tech.programming.databases.join(', ')} databases. In digital humanities, they specialize in ${tech.digitalHumanities.textAnalysis}, ${tech.digitalHumanities.dataVisualization}, and ${tech.digitalHumanities.archivalMethods}.`;
+    return `Yekta's technical expertise spans ${tech.programming.languages.join(', ')} programming languages, ${tech.programming.frameworks.join(', ')} frameworks, and ${tech.programming.databases.join(', ')} databases. In digital humanities, they specialize in ${tech.digitalHumanities.customPlatforms}, ${tech.digitalHumanities.ragSystems}, and ${tech.digitalHumanities.archivalMethods}.`;
   }
 
   // AI collaboration and ethics
   if (lowerQuestion.includes('ai') || lowerQuestion.includes('artificial intelligence') || lowerQuestion.includes('collaboration')) {
     const ai = KNOWLEDGE_BASE.technicalExpertise.aiCollaboration;
-    return `Yekta has ${ai.experience}, with a philosophy that views ${ai.philosophy}. Their applications include ${ai.applications}, and they are ${ai.ethics}. This reflects their broader belief that technology should enhance rather than replace human creativity.`;
+    return `Yekta works with ${ai.platforms}, with a philosophy that views ${ai.philosophy}. Their applications include ${ai.applications}, and they are ${ai.ethics}. This reflects their broader belief that technology should enhance rather than replace human creativity.`;
   }
 
   // Archaeological background
