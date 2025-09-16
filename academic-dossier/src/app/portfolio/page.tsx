@@ -1,26 +1,92 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getTranslation } from '@/lib/i18n';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAdmin } from '@/contexts/AdminContext';
 import { portfolioData } from '@/data/portfolio-data';
+import EditableText from '@/components/EditableText';
 
 export default function PortfolioPage() {
   const { currentLang } = useLanguage();
+  const { isAdminMode } = useAdmin();
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
 
-  const projects = Object.entries(portfolioData);
+  // Load initial data from localStorage or use defaults
+  const getInitialPortfolioContent = () => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('portfolio-editable-content');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (error) {
+          console.error('Error parsing saved portfolio content:', error);
+        }
+      }
+    }
+
+    return {
+      // Page content
+      pageTitle: 'Creative Portfolio',
+      pageSubtitle: 'A collection of interdisciplinary projects bridging philosophy, technology, and creative practice',
+      integrationTitle: 'Integration & Philosophy',
+      integrationDesc1: 'Each project represents a different facet of investigation into how aesthetic experiences can communicate what discursive language cannot fully capture.',
+      integrationDesc2: 'By bringing together digital humanities, creative practice, and philosophical inquiry, these works explore the boundaries and possibilities of meaningful expression in contemporary contexts.',
+      exploreTitle: 'Explore Further',
+      exploreDesc: 'Interested in collaboration or learning more about these projects?',
+
+      // Project data
+      projects: { ...portfolioData }
+    };
+  };
+
+  // Editable content state
+  const [editableContent, setEditableContent] = useState(getInitialPortfolioContent);
+
+
+  const projects = Object.entries(editableContent.projects);
+
+  const handleContentSave = (field: string, newText: string) => {
+    const newContent = { ...editableContent, [field]: newText };
+    setEditableContent(newContent);
+
+    // Save to localStorage immediately
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('portfolio-editable-content', JSON.stringify(newContent));
+    }
+
+    console.log(`Saved ${field}:`, newText);
+  };
+
+  // Save to localStorage whenever editableContent changes (for complex updates)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('portfolio-editable-content', JSON.stringify(editableContent));
+    }
+  }, [editableContent]);
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl academic-heading mb-4">
-          {getTranslation(currentLang, 'portfolio.title')}
-        </h1>
-        <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto">
-          {getTranslation(currentLang, 'portfolio.subtitle')}
-        </p>
+        <EditableText
+          onSave={(newText) => handleContentSave('pageTitle', newText)}
+          className="text-4xl academic-heading mb-4"
+        >
+          <h1 className="text-4xl academic-heading mb-4">
+            {editableContent.pageTitle}
+          </h1>
+        </EditableText>
+        <EditableText
+          onSave={(newText) => handleContentSave('pageSubtitle', newText)}
+          className="text-lg academic-text text-gray-600 max-w-3xl mx-auto"
+          multiline
+        >
+          <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto">
+            {editableContent.pageSubtitle}
+          </p>
+        </EditableText>
       </div>
 
       {/* Project Grid */}
@@ -28,7 +94,7 @@ export default function PortfolioPage() {
         {projects.map(([key, project]) => (
           <div
             key={key}
-            className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            className="bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"
             onClick={() => setSelectedProject(selectedProject === key ? null : key)}
           >
             {/* Project Image Placeholder */}
@@ -59,12 +125,58 @@ export default function PortfolioPage() {
 
             <div className="p-6">
               <div className="flex justify-between items-start mb-3">
-                <h2 className="text-2xl academic-heading">{project.title}</h2>
-                <span className="text-academic-brown text-sm academic-text">{project.type}</span>
+                <EditableText
+                  onSave={(newText) => {
+                    const newProjects = { ...editableContent.projects };
+                    newProjects[key] = { ...newProjects[key], title: newText };
+                    setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                  }}
+                  className="text-2xl academic-heading"
+                >
+                  <h2 className="text-2xl academic-heading">{project.title}</h2>
+                </EditableText>
+                <EditableText
+                  onSave={(newText) => {
+                    const newProjects = { ...editableContent.projects };
+                    newProjects[key] = { ...newProjects[key], type: newText };
+                    setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                  }}
+                  className="text-academic-brown text-sm academic-text"
+                >
+                  <span className="text-academic-brown text-sm academic-text">{project.type}</span>
+                </EditableText>
               </div>
-              <h3 className="text-lg academic-text text-gray-700 mb-2">{project.subtitle}</h3>
-              <p className="text-sm academic-text text-gray-600 mb-4">{project.period}</p>
-              <p className="academic-text text-gray-700 line-clamp-3">{project.description}</p>
+              <EditableText
+                onSave={(newText) => {
+                  const newProjects = { ...editableContent.projects };
+                  newProjects[key] = { ...newProjects[key], subtitle: newText };
+                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                }}
+                className="text-lg academic-text text-gray-700 mb-2"
+              >
+                <h3 className="text-lg academic-text text-gray-700 mb-2">{project.subtitle}</h3>
+              </EditableText>
+              <EditableText
+                onSave={(newText) => {
+                  const newProjects = { ...editableContent.projects };
+                  newProjects[key] = { ...newProjects[key], period: newText };
+                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                }}
+                className="text-sm academic-text text-gray-600 mb-4"
+              >
+                <p className="text-sm academic-text text-gray-600 mb-4">{project.period}</p>
+              </EditableText>
+              <EditableText
+                onSave={(newText) => {
+                  const newProjects = { ...editableContent.projects };
+                  newProjects[key] = { ...newProjects[key], description: newText };
+                  setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                }}
+                className="academic-text text-gray-700 line-clamp-3"
+                multiline
+              >
+                <p className="academic-text text-gray-700 line-clamp-3">{project.description}</p>
+              </EditableText>
 
               <div className="mt-4 flex justify-between items-center">
                 <button className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors font-medium academic-text">
@@ -94,7 +206,20 @@ export default function PortfolioPage() {
                     <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.keyFeatures')}</h4>
                     <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                       {project.features.map((feature, index) => (
-                        <li key={index} className="text-sm">{feature}</li>
+                        <EditableText
+                          key={index}
+                          onSave={(newText) => {
+                            const newProjects = { ...editableContent.projects };
+                            const newFeatures = [...newProjects[key].features];
+                            newFeatures[index] = newText;
+                            newProjects[key] = { ...newProjects[key], features: newFeatures };
+                            setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                          }}
+                          className="text-sm academic-text text-gray-700"
+                          multiline
+                        >
+                          <li className="text-sm">{feature}</li>
+                        </EditableText>
                       ))}
                     </ul>
                   </div>
@@ -102,9 +227,19 @@ export default function PortfolioPage() {
                   {/* Significance */}
                   <div>
                     <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.significance')}</h4>
-                    <p className="academic-text text-gray-700 text-sm leading-relaxed">
-                      {project.significance}
-                    </p>
+                    <EditableText
+                      onSave={(newText) => {
+                        const newProjects = { ...editableContent.projects };
+                        newProjects[key] = { ...newProjects[key], significance: newText };
+                        setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                      }}
+                      className="academic-text text-gray-700 text-sm leading-relaxed"
+                      multiline
+                    >
+                      <p className="academic-text text-gray-700 text-sm leading-relaxed">
+                        {project.significance}
+                      </p>
+                    </EditableText>
                   </div>
 
                   {/* Technologies */}
@@ -112,12 +247,21 @@ export default function PortfolioPage() {
                     <h4 className="text-lg academic-heading mb-3">{getTranslation(currentLang, 'portfolio.technologies')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech, index) => (
-                        <span
+                        <EditableText
                           key={index}
+                          onSave={(newText) => {
+                            const newProjects = { ...editableContent.projects };
+                            const newTechnologies = [...newProjects[key].technologies];
+                            newTechnologies[index] = newText;
+                            newProjects[key] = { ...newProjects[key], technologies: newTechnologies };
+                            setEditableContent(prev => ({ ...prev, projects: newProjects }));
+                          }}
                           className="bg-academic-brown/10 text-academic-brown px-2 py-1 rounded text-xs academic-text"
                         >
-                          {tech}
-                        </span>
+                          <span className="bg-academic-brown/10 text-academic-brown px-2 py-1 rounded text-xs academic-text">
+                            {tech}
+                          </span>
+                        </EditableText>
                       ))}
                     </div>
                   </div>
@@ -132,21 +276,49 @@ export default function PortfolioPage() {
 
       {/* Integration Statement */}
       <section className="text-center max-w-4xl mx-auto">
-        <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'portfolio.integration')}</h2>
-        <p className="academic-text text-gray-700 leading-relaxed mb-6">
-          {getTranslation(currentLang, 'portfolio.integrationDesc')}
-        </p>
-        <p className="academic-text text-gray-700 leading-relaxed">
-          {getTranslation(currentLang, 'portfolio.integrationDesc2')}
-        </p>
+        <EditableText
+          onSave={(newText) => handleContentSave('integrationTitle', newText)}
+          className="text-2xl academic-heading mb-6"
+        >
+          <h2 className="text-2xl academic-heading mb-6">{editableContent.integrationTitle}</h2>
+        </EditableText>
+        <EditableText
+          onSave={(newText) => handleContentSave('integrationDesc1', newText)}
+          className="academic-text text-gray-700 leading-relaxed mb-6"
+          multiline
+        >
+          <p className="academic-text text-gray-700 leading-relaxed mb-6">
+            {editableContent.integrationDesc1}
+          </p>
+        </EditableText>
+        <EditableText
+          onSave={(newText) => handleContentSave('integrationDesc2', newText)}
+          className="academic-text text-gray-700 leading-relaxed"
+          multiline
+        >
+          <p className="academic-text text-gray-700 leading-relaxed">
+            {editableContent.integrationDesc2}
+          </p>
+        </EditableText>
       </section>
 
       {/* Call to Action */}
       <section className="mt-16 text-center bg-academic-brown/5 rounded-lg p-8">
-        <h2 className="text-2xl academic-heading mb-4">{getTranslation(currentLang, 'portfolio.exploreFurther')}</h2>
-        <p className="academic-text text-gray-700 mb-6">
-          {getTranslation(currentLang, 'portfolio.exploreDesc')}
-        </p>
+        <EditableText
+          onSave={(newText) => handleContentSave('exploreTitle', newText)}
+          className="text-2xl academic-heading mb-4"
+        >
+          <h2 className="text-2xl academic-heading mb-4">{editableContent.exploreTitle}</h2>
+        </EditableText>
+        <EditableText
+          onSave={(newText) => handleContentSave('exploreDesc', newText)}
+          className="academic-text text-gray-700 mb-6"
+          multiline
+        >
+          <p className="academic-text text-gray-700 mb-6">
+            {editableContent.exploreDesc}
+          </p>
+        </EditableText>
         <div className="flex justify-center gap-4">
           <a
             href="mailto:yekta.kjs@gmail.com"

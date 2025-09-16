@@ -1,13 +1,91 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getTranslation } from '@/lib/i18n';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAdmin } from '@/contexts/AdminContext';
 import { cvData } from '@/data/cv-data';
+import EditableText from '@/components/EditableText';
 
 export default function ResumePage() {
   const { currentLang } = useLanguage();
+  const { isAdminMode, setEditing } = useAdmin();
   const [activeSection, setActiveSection] = useState<string>('education');
+
+  // Load initial data from localStorage or use defaults
+  const getInitialContent = () => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('resume-editable-content');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (error) {
+          console.error('Error parsing saved content:', error);
+        }
+      }
+    }
+
+    return {
+      // Profile data
+      profileName: cvData.profile.name,
+      profileTitle: cvData.profile.title,
+      profileEmail: cvData.profile.email,
+      profilePhone: cvData.profile.phone,
+      profileAddress: cvData.profile.address,
+      profileBirthDate: cvData.profile.birthDate,
+      profileBirthPlace: cvData.profile.birthPlace,
+
+      // Section titles
+      educationTitle: 'Education',
+      experienceTitle: 'Work Experience',
+      researchTitle: 'Research Projects',
+      skillsTitle: 'Skills',
+      workshopsTitle: 'Workshops & Training',
+      awardsTitle: 'Awards',
+
+      // Education data (we'll make this dynamic)
+      education: cvData.education,
+
+      // Work experience data
+      workExperience: cvData.workExperience,
+
+      // Research projects
+      researchProjects: cvData.researchProjects,
+
+      // Skills data
+      languages: cvData.skills.languages,
+      technical: cvData.skills.technical,
+      qualities: cvData.skills.qualities,
+
+      // Workshops
+      workshops: cvData.workshops,
+
+      // Awards
+      awards: cvData.awards
+    };
+  };
+
+  // Editable content state - comprehensive state for all CV data
+  const [editableContent, setEditableContent] = useState(getInitialContent);
+
+  const handleContentSave = (field: string, newText: string) => {
+    const newContent = { ...editableContent, [field]: newText };
+    setEditableContent(newContent);
+
+    // Save to localStorage immediately
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('resume-editable-content', JSON.stringify(newContent));
+    }
+
+    console.log(`Saved ${field}:`, newText);
+  };
+
+  // Save to localStorage whenever editableContent changes (for complex updates)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('resume-editable-content', JSON.stringify(editableContent));
+    }
+  }, [editableContent]);
 
   const sections = [
     {
@@ -93,19 +171,69 @@ export default function ResumePage() {
       <div className="space-y-12">
         {/* Profile Section */}
         <section>
-          <h2 className="text-3xl academic-heading mb-6 text-center">{cvData.profile.name}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('profileName', newText)}
+            className="text-3xl academic-heading mb-6 text-center"
+          >
+            <h2 className="text-3xl academic-heading mb-6 text-center">{editableContent.profileName}</h2>
+          </EditableText>
           <div className="bg-gray-50 rounded-lg p-6">
-            <p className="academic-text text-lg text-gray-700 mb-6 text-center italic">
-              {cvData.profile.title}
-            </p>
+            <EditableText
+              onSave={(newText) => handleContentSave('profileTitle', newText)}
+              className="academic-text text-lg text-gray-700 mb-6 text-center italic"
+              multiline
+            >
+              <p className="academic-text text-lg text-gray-700 mb-6 text-center italic">
+                {editableContent.profileTitle}
+              </p>
+            </EditableText>
+
             <div className="grid md:grid-cols-2 gap-4 academic-text text-gray-700">
               <div>
-                <p><strong>Email:</strong> <a href={`mailto:${cvData.profile.email}`} className="text-academic-brown hover:text-academic-brown-dark">{cvData.profile.email}</a></p>
-                <p><strong>Phone:</strong> <a href={`tel:${cvData.profile.phone}`} className="text-academic-brown hover:text-academic-brown-dark">{cvData.profile.phone}</a></p>
+                <p><strong>Email:</strong>
+                  <EditableText
+                    onSave={(newText) => handleContentSave('profileEmail', newText)}
+                    className="text-academic-brown hover:text-academic-brown-dark ml-1"
+                  >
+                    <a href={`mailto:${editableContent.profileEmail}`} className="text-academic-brown hover:text-academic-brown-dark ml-1">
+                      {editableContent.profileEmail}
+                    </a>
+                  </EditableText>
+                </p>
+                <p><strong>Phone:</strong>
+                  <EditableText
+                    onSave={(newText) => handleContentSave('profilePhone', newText)}
+                    className="text-academic-brown hover:text-academic-brown-dark ml-1"
+                  >
+                    <a href={`tel:${editableContent.profilePhone}`} className="text-academic-brown hover:text-academic-brown-dark ml-1">
+                      {editableContent.profilePhone}
+                    </a>
+                  </EditableText>
+                </p>
               </div>
               <div>
-                <p><strong>Address:</strong> {cvData.profile.address}</p>
-                <p><strong>Born:</strong> {cvData.profile.birthDate}, {cvData.profile.birthPlace}</p>
+                <p><strong>Address:</strong>
+                  <EditableText
+                    onSave={(newText) => handleContentSave('profileAddress', newText)}
+                    className="ml-1"
+                  >
+                    <span className="ml-1">{editableContent.profileAddress}</span>
+                  </EditableText>
+                </p>
+                <p><strong>Born:</strong>
+                  <EditableText
+                    onSave={(newText) => handleContentSave('profileBirthDate', newText)}
+                    className="ml-1 inline"
+                  >
+                    <span className="ml-1">{editableContent.profileBirthDate}</span>
+                  </EditableText>,
+                  <EditableText
+                    onSave={(newText) => handleContentSave('profileBirthPlace', newText)}
+                    className="ml-1 inline"
+                  >
+                    <span className="ml-1">{editableContent.profileBirthPlace}</span>
+                  </EditableText>
+                </p>
               </div>
             </div>
           </div>
@@ -115,22 +243,91 @@ export default function ResumePage() {
 
         {/* Education */}
         <section id="education">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.education')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('educationTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.educationTitle}</h2>
+          </EditableText>
           <div className="space-y-6">
-            {cvData.education.map((edu, index) => (
+            {editableContent.education.map((edu, index) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
-                <h3 className="text-xl academic-heading mb-2">{edu.degree}</h3>
-                <p className="text-academic-brown font-medium academic-text mb-1">{edu.institution}</p>
-                <p className="text-gray-600 academic-text mb-2">{edu.period}</p>
+                <EditableText
+                  onSave={(newText) => {
+                    const newEducation = [...editableContent.education];
+                    newEducation[index] = { ...newEducation[index], degree: newText };
+                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                  }}
+                  className="text-xl academic-heading mb-2"
+                >
+                  <h3 className="text-xl academic-heading mb-2">{edu.degree}</h3>
+                </EditableText>
+
+                <EditableText
+                  onSave={(newText) => {
+                    const newEducation = [...editableContent.education];
+                    newEducation[index] = { ...newEducation[index], institution: newText };
+                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                  }}
+                  className="text-academic-brown font-medium academic-text mb-1"
+                >
+                  <p className="text-academic-brown font-medium academic-text mb-1">{edu.institution}</p>
+                </EditableText>
+
+                <EditableText
+                  onSave={(newText) => {
+                    const newEducation = [...editableContent.education];
+                    newEducation[index] = { ...newEducation[index], period: newText };
+                    setEditableContent(prev => ({ ...prev, education: newEducation }));
+                  }}
+                  className="text-gray-600 academic-text mb-2"
+                >
+                  <p className="text-gray-600 academic-text mb-2">{edu.period}</p>
+                </EditableText>
+
                 {edu.grade && (
-                  <p className="text-gray-700 academic-text font-medium mb-2">{edu.grade}</p>
+                  <EditableText
+                    onSave={(newText) => {
+                      const newEducation = [...editableContent.education];
+                      newEducation[index] = { ...newEducation[index], grade: newText };
+                      setEditableContent(prev => ({ ...prev, education: newEducation }));
+                    }}
+                    className="text-gray-700 academic-text font-medium mb-2"
+                  >
+                    <p className="text-gray-700 academic-text font-medium mb-2">{edu.grade}</p>
+                  </EditableText>
                 )}
+
                 {edu.thesis && (
-                  <p className="text-gray-700 academic-text italic mb-2"><strong>Thesis:</strong> {edu.thesis}</p>
+                  <EditableText
+                    onSave={(newText) => {
+                      const newEducation = [...editableContent.education];
+                      newEducation[index] = { ...newEducation[index], thesis: newText };
+                      setEditableContent(prev => ({ ...prev, education: newEducation }));
+                    }}
+                    className="text-gray-700 academic-text italic mb-2"
+                    multiline
+                  >
+                    <p className="text-gray-700 academic-text italic mb-2"><strong>Thesis:</strong> {edu.thesis}</p>
+                  </EditableText>
                 )}
+
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                   {edu.details.map((detail, detailIndex) => (
-                    <li key={detailIndex}>{detail}</li>
+                    <EditableText
+                      key={detailIndex}
+                      onSave={(newText) => {
+                        const newEducation = [...editableContent.education];
+                        const newDetails = [...newEducation[index].details];
+                        newDetails[detailIndex] = newText;
+                        newEducation[index] = { ...newEducation[index], details: newDetails };
+                        setEditableContent(prev => ({ ...prev, education: newEducation }));
+                      }}
+                      className="academic-text text-gray-700"
+                      multiline
+                    >
+                      <li>{detail}</li>
+                    </EditableText>
                   ))}
                 </ul>
               </div>
@@ -142,16 +339,64 @@ export default function ResumePage() {
 
         {/* Work Experience */}
         <section id="experience">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.experience')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('experienceTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.experienceTitle}</h2>
+          </EditableText>
           <div className="space-y-6">
-            {cvData.workExperience.map((work, index) => (
+            {editableContent.workExperience.map((work, index) => (
               <div key={index} className="border-l-4 border-academic-brown pl-6">
-                <h3 className="text-xl academic-heading mb-2">{work.position}</h3>
-                <p className="text-academic-brown font-medium academic-text mb-1">{work.company}</p>
-                <p className="text-gray-600 academic-text mb-2">{work.period}</p>
+                <EditableText
+                  onSave={(newText) => {
+                    const newWork = [...editableContent.workExperience];
+                    newWork[index] = { ...newWork[index], position: newText };
+                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                  }}
+                  className="text-xl academic-heading mb-2"
+                >
+                  <h3 className="text-xl academic-heading mb-2">{work.position}</h3>
+                </EditableText>
+
+                <EditableText
+                  onSave={(newText) => {
+                    const newWork = [...editableContent.workExperience];
+                    newWork[index] = { ...newWork[index], company: newText };
+                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                  }}
+                  className="text-academic-brown font-medium academic-text mb-1"
+                >
+                  <p className="text-academic-brown font-medium academic-text mb-1">{work.company}</p>
+                </EditableText>
+
+                <EditableText
+                  onSave={(newText) => {
+                    const newWork = [...editableContent.workExperience];
+                    newWork[index] = { ...newWork[index], period: newText };
+                    setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                  }}
+                  className="text-gray-600 academic-text mb-2"
+                >
+                  <p className="text-gray-600 academic-text mb-2">{work.period}</p>
+                </EditableText>
+
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                   {work.responsibilities.map((resp, respIndex) => (
-                    <li key={respIndex}>{resp}</li>
+                    <EditableText
+                      key={respIndex}
+                      onSave={(newText) => {
+                        const newWork = [...editableContent.workExperience];
+                        const newResponsibilities = [...newWork[index].responsibilities];
+                        newResponsibilities[respIndex] = newText;
+                        newWork[index] = { ...newWork[index], responsibilities: newResponsibilities };
+                        setEditableContent(prev => ({ ...prev, workExperience: newWork }));
+                      }}
+                      className="academic-text text-gray-700"
+                      multiline
+                    >
+                      <li>{resp}</li>
+                    </EditableText>
                   ))}
                 </ul>
               </div>
@@ -163,19 +408,64 @@ export default function ResumePage() {
 
         {/* Research Projects */}
         <section id="research">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.research')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('researchTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.researchTitle}</h2>
+          </EditableText>
           <div className="space-y-6">
-            {cvData.researchProjects.map((project, index) => (
+            {editableContent.researchProjects.map((project, index) => (
               <div key={index} className="bg-white border border-gray-200 rounded-lg p-6">
-                <h3 className="text-xl academic-heading mb-2">{project.title}</h3>
+                <EditableText
+                  onSave={(newText) => {
+                    const newProjects = [...editableContent.researchProjects];
+                    newProjects[index] = { ...newProjects[index], title: newText };
+                    setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                  }}
+                  className="text-xl academic-heading mb-2"
+                >
+                  <h3 className="text-xl academic-heading mb-2">{project.title}</h3>
+                </EditableText>
                 <div className="flex gap-4 mb-3 academic-text text-gray-600">
-                  <span>{project.period}</span>
+                  <EditableText
+                    onSave={(newText) => {
+                      const newProjects = [...editableContent.researchProjects];
+                      newProjects[index] = { ...newProjects[index], period: newText };
+                      setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                    }}
+                    className="academic-text text-gray-600"
+                  >
+                    <span>{project.period}</span>
+                  </EditableText>
                   <span className="text-academic-brown">•</span>
-                  <span>{project.type}</span>
+                  <EditableText
+                    onSave={(newText) => {
+                      const newProjects = [...editableContent.researchProjects];
+                      newProjects[index] = { ...newProjects[index], type: newText };
+                      setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                    }}
+                    className="academic-text text-gray-600"
+                  >
+                    <span>{project.type}</span>
+                  </EditableText>
                 </div>
                 <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
                   {project.description.map((desc, descIndex) => (
-                    <li key={descIndex}>{desc}</li>
+                    <EditableText
+                      key={descIndex}
+                      onSave={(newText) => {
+                        const newProjects = [...editableContent.researchProjects];
+                        const newDescription = [...newProjects[index].description];
+                        newDescription[descIndex] = newText;
+                        newProjects[index] = { ...newProjects[index], description: newDescription };
+                        setEditableContent(prev => ({ ...prev, researchProjects: newProjects }));
+                      }}
+                      className="academic-text text-gray-700"
+                      multiline
+                    >
+                      <li>{desc}</li>
+                    </EditableText>
                   ))}
                 </ul>
               </div>
@@ -187,16 +477,39 @@ export default function ResumePage() {
 
         {/* Skills */}
         <section id="skills">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.skills')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('skillsTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.skillsTitle}</h2>
+          </EditableText>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Languages */}
             <div>
               <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.languages')}</h3>
               <div className="space-y-2">
-                {cvData.skills.languages.map((lang, index) => (
+                {editableContent.languages.map((lang, index) => (
                   <div key={index} className="flex justify-between academic-text">
-                    <span className="font-medium">{lang.name}</span>
-                    <span className="text-gray-600">{lang.level}</span>
+                    <EditableText
+                      onSave={(newText) => {
+                        const newLanguages = [...editableContent.languages];
+                        newLanguages[index] = { ...newLanguages[index], name: newText };
+                        setEditableContent(prev => ({ ...prev, languages: newLanguages }));
+                      }}
+                      className="font-medium"
+                    >
+                      <span className="font-medium">{lang.name}</span>
+                    </EditableText>
+                    <EditableText
+                      onSave={(newText) => {
+                        const newLanguages = [...editableContent.languages];
+                        newLanguages[index] = { ...newLanguages[index], level: newText };
+                        setEditableContent(prev => ({ ...prev, languages: newLanguages }));
+                      }}
+                      className="text-gray-600"
+                    >
+                      <span className="text-gray-600">{lang.level}</span>
+                    </EditableText>
                   </div>
                 ))}
               </div>
@@ -206,8 +519,18 @@ export default function ResumePage() {
             <div>
               <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.technical')}</h3>
               <ul className="list-disc list-inside space-y-1 academic-text text-gray-700">
-                {cvData.skills.technical.map((skill, index) => (
-                  <li key={index}>{skill}</li>
+                {editableContent.technical.map((skill, index) => (
+                  <EditableText
+                    key={index}
+                    onSave={(newText) => {
+                      const newTechnical = [...editableContent.technical];
+                      newTechnical[index] = newText;
+                      setEditableContent(prev => ({ ...prev, technical: newTechnical }));
+                    }}
+                    className="academic-text text-gray-700"
+                  >
+                    <li>{skill}</li>
+                  </EditableText>
                 ))}
               </ul>
             </div>
@@ -217,9 +540,19 @@ export default function ResumePage() {
           <div className="mt-8">
             <h3 className="text-lg academic-heading mb-4">{getTranslation(currentLang, 'resume.qualities')}</h3>
             <div className="grid md:grid-cols-2 gap-3">
-              {cvData.skills.qualities.map((quality, index) => (
+              {editableContent.qualities.map((quality, index) => (
                 <div key={index} className="bg-gray-50 rounded-lg p-3">
-                  <p className="academic-text text-gray-700 text-sm">{quality}</p>
+                  <EditableText
+                    onSave={(newText) => {
+                      const newQualities = [...editableContent.qualities];
+                      newQualities[index] = newText;
+                      setEditableContent(prev => ({ ...prev, qualities: newQualities }));
+                    }}
+                    className="academic-text text-gray-700 text-sm"
+                    multiline
+                  >
+                    <p className="academic-text text-gray-700 text-sm">{quality}</p>
+                  </EditableText>
                 </div>
               ))}
             </div>
@@ -230,13 +563,45 @@ export default function ResumePage() {
 
         {/* Workshops & Training */}
         <section id="workshops">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.workshops')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('workshopsTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.workshopsTitle}</h2>
+          </EditableText>
           <div className="grid md:grid-cols-2 gap-4">
-            {cvData.workshops.map((workshop, index) => (
+            {editableContent.workshops.map((workshop, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
-                <h3 className="academic-heading text-lg mb-1">{workshop.name}</h3>
-                <p className="academic-text text-gray-700 text-sm mb-1">{workshop.instructor}</p>
-                <p className="academic-text text-academic-brown text-sm font-medium">{workshop.year}</p>
+                <EditableText
+                  onSave={(newText) => {
+                    const newWorkshops = [...editableContent.workshops];
+                    newWorkshops[index] = { ...newWorkshops[index], name: newText };
+                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                  }}
+                  className="academic-heading text-lg mb-1"
+                >
+                  <h3 className="academic-heading text-lg mb-1">{workshop.name}</h3>
+                </EditableText>
+                <EditableText
+                  onSave={(newText) => {
+                    const newWorkshops = [...editableContent.workshops];
+                    newWorkshops[index] = { ...newWorkshops[index], instructor: newText };
+                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                  }}
+                  className="academic-text text-gray-700 text-sm mb-1"
+                >
+                  <p className="academic-text text-gray-700 text-sm mb-1">{workshop.instructor}</p>
+                </EditableText>
+                <EditableText
+                  onSave={(newText) => {
+                    const newWorkshops = [...editableContent.workshops];
+                    newWorkshops[index] = { ...newWorkshops[index], year: newText };
+                    setEditableContent(prev => ({ ...prev, workshops: newWorkshops }));
+                  }}
+                  className="academic-text text-academic-brown text-sm font-medium"
+                >
+                  <p className="academic-text text-academic-brown text-sm font-medium">{workshop.year}</p>
+                </EditableText>
               </div>
             ))}
           </div>
@@ -246,12 +611,27 @@ export default function ResumePage() {
 
         {/* Awards */}
         <section id="awards">
-          <h2 className="text-2xl academic-heading mb-6">{getTranslation(currentLang, 'resume.awards')}</h2>
+          <EditableText
+            onSave={(newText) => handleContentSave('awardsTitle', newText)}
+            className="text-2xl academic-heading mb-6"
+          >
+            <h2 className="text-2xl academic-heading mb-6">{editableContent.awardsTitle}</h2>
+          </EditableText>
           <ul className="space-y-3">
-            {cvData.awards.map((award, index) => (
+            {editableContent.awards.map((award, index) => (
               <li key={index} className="flex items-start">
                 <div className="w-2 h-2 bg-academic-brown rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                <p className="academic-text text-gray-700">{award}</p>
+                <EditableText
+                  onSave={(newText) => {
+                    const newAwards = [...editableContent.awards];
+                    newAwards[index] = newText;
+                    setEditableContent(prev => ({ ...prev, awards: newAwards }));
+                  }}
+                  className="academic-text text-gray-700"
+                  multiline
+                >
+                  <p className="academic-text text-gray-700">{award}</p>
+                </EditableText>
               </li>
             ))}
           </ul>

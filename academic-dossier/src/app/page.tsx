@@ -1,11 +1,66 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { getTranslation } from '@/lib/i18n';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAdmin } from '@/contexts/AdminContext';
+import EditableText from '@/components/EditableText';
 
 export default function Home() {
   const { currentLang } = useLanguage();
+  const { isAdminMode, setEditing } = useAdmin();
+
+  // Load initial content from localStorage or use translations
+  const getInitialHomeContent = () => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('home-editable-content');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (error) {
+          console.error('Error parsing saved home content:', error);
+        }
+      }
+    }
+
+    return {
+      title: getTranslation(currentLang, 'home.title'),
+      subtitle: getTranslation(currentLang, 'home.subtitle'),
+      intro: getTranslation(currentLang, 'home.intro'),
+      tagline: getTranslation(currentLang, 'home.tagline'),
+      researchHighlights: getTranslation(currentLang, 'home.researchHighlights'),
+      philosophyAI: getTranslation(currentLang, 'home.philosophyAI'),
+      philosophyAIDesc: getTranslation(currentLang, 'home.philosophyAIDesc'),
+      philosophyAIDetails: getTranslation(currentLang, 'home.philosophyAIDetails'),
+      interdisciplinary: getTranslation(currentLang, 'home.interdisciplinary'),
+      interdisciplinaryDesc: getTranslation(currentLang, 'home.interdisciplinaryDesc'),
+      interdisciplinaryDetails: getTranslation(currentLang, 'home.interdisciplinaryDetails'),
+    };
+  };
+
+  // Editable content state
+  const [content, setContent] = useState(getInitialHomeContent);
+
+  const handleContentSave = (field: string, newText: string) => {
+    const newContent = { ...content, [field]: newText };
+    setContent(newContent);
+
+    // Save to localStorage immediately
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('home-editable-content', JSON.stringify(newContent));
+    }
+
+    console.log(`Saved ${field}:`, newText);
+  };
+
+  // Save to localStorage whenever content changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('home-editable-content', JSON.stringify(content));
+    }
+  }, [content]);
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -21,18 +76,43 @@ export default function Home() {
           />
         </div>
 
-        <h1 className="text-5xl md:text-6xl academic-heading mb-6">
-          {getTranslation(currentLang, 'home.title')}
-        </h1>
-        <h2 className="text-xl md:text-2xl text-gray-700 academic-text mb-8 max-w-4xl mx-auto">
-          {getTranslation(currentLang, 'home.subtitle')}
-        </h2>
-        <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto mb-8">
-          {getTranslation(currentLang, 'home.intro')}
-        </p>
-        <p className="text-base academic-text text-academic-brown italic">
-          {getTranslation(currentLang, 'home.tagline')}
-        </p>
+        <EditableText
+          onSave={(newText) => handleContentSave('title', newText)}
+          className="text-5xl md:text-6xl academic-heading mb-6"
+        >
+          <h1 className="text-5xl md:text-6xl academic-heading mb-6">
+            {content.title}
+          </h1>
+        </EditableText>
+
+        <EditableText
+          onSave={(newText) => handleContentSave('subtitle', newText)}
+          className="text-xl md:text-2xl text-gray-700 academic-text mb-8 max-w-4xl mx-auto"
+          multiline
+        >
+          <h2 className="text-xl md:text-2xl text-gray-700 academic-text mb-8 max-w-4xl mx-auto">
+            {content.subtitle}
+          </h2>
+        </EditableText>
+
+        <EditableText
+          onSave={(newText) => handleContentSave('intro', newText)}
+          className="text-lg academic-text text-gray-600 max-w-3xl mx-auto mb-8"
+          multiline
+        >
+          <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto mb-8">
+            {content.intro}
+          </p>
+        </EditableText>
+
+        <EditableText
+          onSave={(newText) => handleContentSave('tagline', newText)}
+          className="text-base academic-text text-academic-brown italic"
+        >
+          <p className="text-base academic-text text-academic-brown italic">
+            {content.tagline}
+          </p>
+        </EditableText>
       </section>
 
       <div className="section-divider"></div>
@@ -88,26 +168,67 @@ export default function Home() {
 
       {/* Research Highlights */}
       <section className="mb-16">
-        <h2 className="text-3xl academic-heading mb-8 text-center">{getTranslation(currentLang, 'home.researchHighlights')}</h2>
+        <EditableText
+          onSave={(newText) => handleContentSave('researchHighlights', newText)}
+          className="text-3xl academic-heading mb-8 text-center"
+        >
+          <h2 className="text-3xl academic-heading mb-8 text-center">{content.researchHighlights}</h2>
+        </EditableText>
         <div className="grid md:grid-cols-2 gap-8">
           <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-xl academic-heading mb-4">{getTranslation(currentLang, 'home.philosophyAI')}</h3>
-            <p className="academic-text text-gray-700 mb-4">
-              {getTranslation(currentLang, 'home.philosophyAIDesc')}
-            </p>
-            <div className="text-sm text-academic-brown font-medium">
-              {getTranslation(currentLang, 'home.philosophyAIDetails')}
-            </div>
+            <EditableText
+              onSave={(newText) => handleContentSave('philosophyAI', newText)}
+              className="text-xl academic-heading mb-4"
+            >
+              <h3 className="text-xl academic-heading mb-4">{content.philosophyAI}</h3>
+            </EditableText>
+
+            <EditableText
+              onSave={(newText) => handleContentSave('philosophyAIDesc', newText)}
+              className="academic-text text-gray-700 mb-4"
+              multiline
+            >
+              <p className="academic-text text-gray-700 mb-4">
+                {content.philosophyAIDesc}
+              </p>
+            </EditableText>
+
+            <EditableText
+              onSave={(newText) => handleContentSave('philosophyAIDetails', newText)}
+              className="text-sm text-academic-brown font-medium"
+            >
+              <div className="text-sm text-academic-brown font-medium">
+                {content.philosophyAIDetails}
+              </div>
+            </EditableText>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-xl academic-heading mb-4">{getTranslation(currentLang, 'home.interdisciplinary')}</h3>
-            <p className="academic-text text-gray-700 mb-4">
-              {getTranslation(currentLang, 'home.interdisciplinaryDesc')}
-            </p>
-            <div className="text-sm text-academic-brown font-medium">
-              {getTranslation(currentLang, 'home.interdisciplinaryDetails')}
-            </div>
+            <EditableText
+              onSave={(newText) => handleContentSave('interdisciplinary', newText)}
+              className="text-xl academic-heading mb-4"
+            >
+              <h3 className="text-xl academic-heading mb-4">{content.interdisciplinary}</h3>
+            </EditableText>
+
+            <EditableText
+              onSave={(newText) => handleContentSave('interdisciplinaryDesc', newText)}
+              className="academic-text text-gray-700 mb-4"
+              multiline
+            >
+              <p className="academic-text text-gray-700 mb-4">
+                {content.interdisciplinaryDesc}
+              </p>
+            </EditableText>
+
+            <EditableText
+              onSave={(newText) => handleContentSave('interdisciplinaryDetails', newText)}
+              className="text-sm text-academic-brown font-medium"
+            >
+              <div className="text-sm text-academic-brown font-medium">
+                {content.interdisciplinaryDetails}
+              </div>
+            </EditableText>
           </div>
         </div>
       </section>
