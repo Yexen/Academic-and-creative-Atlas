@@ -66,7 +66,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const answer = await generateAnswer(question, context, conversationHistory);
+    let answer: string;
+
+    // Try OpenAI first, fallback to knowledge base
+    try {
+      answer = await generateAnswerWithOpenAI(question, context, conversationHistory);
+    } catch (error) {
+      console.log('OpenAI failed, using knowledge base fallback:', error);
+      answer = await generateAnswer(question, context, conversationHistory);
+    }
 
     return NextResponse.json({ answer });
   } catch (error) {
@@ -151,15 +159,19 @@ async function generateAnswer(question: string, context: string, conversationHis
   return `I can help you learn about Yekta's research in digital humanities and philosophy, their projects (Shadowline, Mémoire en Livres, Yexen), technical skills, academic background, and approach to interdisciplinary research. What specific aspect would you like to know more about?`;
 }
 
-// For production, you might integrate with OpenAI or Claude:
-/*
-async function generateAnswerWithAI(question: string, context: string, conversationHistory: any[]): Promise<string> {
+async function generateAnswerWithOpenAI(question: string, context: string, conversationHistory: any[]): Promise<string> {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('OpenAI API key not configured');
+  }
+
   const knowledgeContext = JSON.stringify(KNOWLEDGE_BASE, null, 2);
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -187,10 +199,10 @@ async function generateAnswerWithAI(question: string, context: string, conversat
   });
 
   if (!response.ok) {
-    throw new Error('AI API request failed');
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(`OpenAI API request failed: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
   }
 
   const data = await response.json();
   return data.choices[0].message.content.trim();
 }
-*/

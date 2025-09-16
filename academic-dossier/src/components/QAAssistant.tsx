@@ -210,9 +210,9 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
                         <button
                           key={index}
                           onClick={() => setQuestion(q)}
-                          className="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-2 py-1 rounded transition-colors"
+                          className="text-xs bg-amber-100 hover:bg-amber-200 text-amber-800 px-3 py-2 rounded transition-colors border border-amber-200 font-medium"
                         >
-                          "{q}"
+                          {q}
                         </button>
                       ))}
                     </div>

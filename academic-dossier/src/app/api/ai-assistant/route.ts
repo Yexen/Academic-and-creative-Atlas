@@ -11,9 +11,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For now, we'll use a simple AI simulation
-    // In production, you would integrate with OpenAI, Claude, or another AI service
-    const content = await generateContent(prompt, context);
+    const content = await generateContentWithOpenAI(prompt, context);
 
     return NextResponse.json({ content });
   } catch (error) {
@@ -25,6 +23,50 @@ export async function POST(request: NextRequest) {
   }
 }
 
+async function generateContentWithOpenAI(prompt: string, context: string): Promise<string> {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('OpenAI API key not configured');
+  }
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: `You are an AI assistant helping with academic content creation for Yekta's portfolio.
+                   The current context is: ${context}.
+                   Provide professional, academic-style content that is concise, relevant, and appropriate for an academic portfolio.
+                   Focus on creating high-quality, polished text that would be suitable for academic and professional contexts.
+                   Keep responses focused and actionable.`,
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+      max_tokens: 500,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(`OpenAI API request failed: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0].message.content.trim();
+}
+
+// Fallback function for development or if OpenAI fails
 async function generateContent(prompt: string, context: string): Promise<string> {
   // This is a placeholder implementation
   // In production, replace this with actual AI API calls
