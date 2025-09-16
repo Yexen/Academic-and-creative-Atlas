@@ -40,8 +40,11 @@ export default function AIAssistant({
     }
   }, [isOpen]);
 
-  // Drag handlers
+  // Drag handlers (disabled on mobile)
   const handleMouseDown = (e: React.MouseEvent) => {
+    // Disable dragging on mobile/touch devices
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+
     if (modalRef.current) {
       const rect = modalRef.current.getBoundingClientRect();
       setDragOffset({
@@ -148,16 +151,16 @@ export default function AIAssistant({
       {isOpen && (
         <div
           ref={modalRef}
-          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[600px] max-h-[80vh] overflow-hidden z-50"
+          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[600px] max-h-[80vh] md:w-[600px] sm:w-[95vw] sm:max-h-[85vh] overflow-hidden z-50"
           style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
+            left: typeof window !== 'undefined' && window.innerWidth < 768 ? '2.5vw' : `${position.x}px`,
+            top: typeof window !== 'undefined' && window.innerWidth < 768 ? '5vh' : `${position.y}px`,
             cursor: isDragging ? 'grabbing' : 'auto'
           }}
         >
           {/* Header */}
           <div
-            className="flex items-center justify-between p-4 border-b border-amber-200 cursor-grab active:cursor-grabbing select-none"
+            className="flex items-center justify-between p-4 border-b border-amber-200 md:cursor-grab md:active:cursor-grabbing select-none touch-manipulation"
             onMouseDown={handleMouseDown}
           >
               <div className="flex items-center gap-2">

@@ -92,28 +92,28 @@ export default function PortfolioPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-8 sm:mb-12">
         <EditableText
           onSave={(newText) => handleContentSave('pageTitle', newText)}
-          className="text-4xl academic-heading mb-4"
+          className="text-3xl sm:text-4xl academic-heading mb-4"
         >
-          <h1 className="text-4xl academic-heading mb-4">
+          <h1 className="text-3xl sm:text-4xl academic-heading mb-4">
             {editableContent.pageTitle}
           </h1>
         </EditableText>
         <EditableText
           onSave={(newText) => handleContentSave('pageSubtitle', newText)}
-          className="text-lg academic-text text-gray-600 max-w-3xl mx-auto"
+          className="text-base sm:text-lg academic-text text-gray-600 max-w-3xl mx-auto px-4 sm:px-0"
           multiline
         >
-          <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg academic-text text-gray-600 max-w-3xl mx-auto">
             {editableContent.pageSubtitle}
           </p>
         </EditableText>
       </div>
 
       {/* Project Grid */}
-      <div className="grid lg:grid-cols-2 gap-8 mb-16">
+      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16">
         {projects.map(([key, project]: [string, any]) => (
           <div
             key={key}
@@ -121,7 +121,7 @@ export default function PortfolioPage() {
             onClick={() => setSelectedProject(selectedProject === key ? null : key)}
           >
             {/* Project Image Placeholder */}
-            <div className="h-48 bg-gradient-to-br from-academic-brown/20 to-academic-brown/5 flex items-center justify-center">
+            <div className="h-32 sm:h-40 md:h-48 bg-gradient-to-br from-academic-brown/20 to-academic-brown/5 flex items-center justify-center">
               <div className="text-academic-brown opacity-30">
                 {key === 'shadowline' && (
                   <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,17 +146,17 @@ export default function PortfolioPage() {
               </div>
             </div>
 
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-3">
+            <div className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2 sm:gap-0">
                 <EditableText
                   onSave={(newText) => {
                     const newProjects = { ...editableContent.projects };
                     newProjects[key] = { ...newProjects[key], title: newText };
                     setEditableContent((prev: EditablePortfolioContent) => ({ ...prev, projects: newProjects }));
                   }}
-                  className="text-2xl academic-heading"
+                  className="text-xl sm:text-2xl academic-heading"
                 >
-                  <h2 className="text-2xl academic-heading">{project.title}</h2>
+                  <h2 className="text-xl sm:text-2xl academic-heading">{project.title}</h2>
                 </EditableText>
                 <EditableText
                   onSave={(newText) => {
@@ -201,16 +201,16 @@ export default function PortfolioPage() {
                 <p className="academic-text text-gray-700 line-clamp-3">{project.description}</p>
               </EditableText>
 
-              <div className="mt-4 flex justify-between items-center">
-                <button className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors font-medium academic-text">
+              <div className="mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-2">
+                <button className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors font-medium academic-text text-sm touch-manipulation">
                   {selectedProject === key ? getTranslation(currentLang, 'portfolio.showLess') : getTranslation(currentLang, 'portfolio.showMore')}
                 </button>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   {project.links.map((link: any, index: number) => (
                     <a
                       key={index}
                       href={link.url}
-                      className="text-sm bg-amber-800 text-white px-3 py-1 rounded hover:bg-amber-900 active:bg-amber-900 transition-colors"
+                      className="text-xs sm:text-sm bg-amber-800 text-white px-2 sm:px-3 py-1 rounded hover:bg-amber-900 active:bg-amber-900 transition-colors touch-manipulation"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {link.name}
@@ -222,7 +222,7 @@ export default function PortfolioPage() {
 
             {/* Expanded Details */}
             {selectedProject === key && (
-              <div className="border-t border-gray-200 p-6 bg-gray-50">
+              <div className="border-t border-gray-200 p-4 sm:p-6 bg-gray-50">
                 <div className="space-y-6">
                   {/* Features */}
                   <div>
@@ -342,16 +342,16 @@ export default function PortfolioPage() {
             {editableContent.exploreDesc}
           </p>
         </EditableText>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <a
             href="mailto:yekta.kjs@gmail.com"
-            className="bg-amber-800 text-white px-6 py-3 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium"
+            className="bg-amber-800 text-white px-4 sm:px-6 py-3 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium text-center text-sm sm:text-base touch-manipulation"
           >
             {getTranslation(currentLang, 'portfolio.contactCollaboration')}
           </a>
           <a
             href="/academic"
-            className="border border-amber-800 text-amber-800 px-6 py-3 rounded-lg hover:bg-amber-800 hover:text-white active:bg-amber-900 active:border-amber-900 transition-colors academic-text font-medium"
+            className="border border-amber-800 text-amber-800 px-4 sm:px-6 py-3 rounded-lg hover:bg-amber-800 hover:text-white active:bg-amber-900 active:border-amber-900 transition-colors academic-text font-medium text-center text-sm sm:text-base touch-manipulation"
           >
             {getTranslation(currentLang, 'portfolio.viewAcademicWork')}
           </a>

@@ -32,8 +32,11 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
     }
   }, [conversation]);
 
-  // Drag handlers
+  // Drag handlers (disabled on mobile)
   const handleMouseDown = (e: React.MouseEvent) => {
+    // Disable dragging on mobile/touch devices
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+
     if (modalRef.current) {
       const rect = modalRef.current.getBoundingClientRect();
       setDragOffset({
@@ -152,29 +155,30 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
       {/* Q&A Assistant Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 bg-amber-800 text-white px-4 py-3 rounded-lg shadow-lg hover:bg-amber-900 active:bg-amber-900 transition-colors z-50 flex items-center gap-2 group"
+        className="fixed bottom-6 left-6 sm:bottom-4 sm:left-4 bg-amber-800 text-white px-4 py-3 sm:px-3 sm:py-2 rounded-lg shadow-lg hover:bg-amber-900 active:bg-amber-900 transition-colors z-50 flex items-center gap-2 group"
         title="Ask about Yekta's work"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
         </svg>
-        <span className="text-sm font-medium academic-text">Ask Questions</span>
+        <span className="text-sm font-medium academic-text hidden sm:inline">Ask Questions</span>
+        <span className="text-sm font-medium academic-text sm:hidden">Ask</span>
       </button>
 
       {/* Q&A Assistant Modal */}
       {isOpen && (
         <div
           ref={modalRef}
-          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[650px] h-[600px] flex flex-col z-50"
+          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[650px] h-[600px] md:w-[650px] md:h-[600px] sm:w-[90vw] sm:h-[80vh] flex flex-col z-50"
           style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
+            left: typeof window !== 'undefined' && window.innerWidth < 768 ? '5vw' : `${position.x}px`,
+            top: typeof window !== 'undefined' && window.innerWidth < 768 ? '10vh' : `${position.y}px`,
             cursor: isDragging ? 'grabbing' : 'auto'
           }}
         >
           {/* Header */}
           <div
-            className="flex items-center justify-between p-4 border-b border-amber-200 cursor-grab active:cursor-grabbing select-none flex-shrink-0"
+            className="flex items-center justify-between p-4 border-b border-amber-200 md:cursor-grab md:active:cursor-grabbing select-none flex-shrink-0 touch-manipulation"
             onMouseDown={handleMouseDown}
           >
             <div className="flex items-center gap-2">
@@ -266,8 +270,8 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
             )}
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 p-4 flex-shrink-0">
-              <div className="flex gap-2">
+            <div className="border-t border-gray-200 p-3 sm:p-4 flex-shrink-0">
+              <div className="flex gap-2 sm:gap-2">
                 <textarea
                   ref={textareaRef}
                   value={question}

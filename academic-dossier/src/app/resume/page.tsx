@@ -278,12 +278,12 @@ export default function ResumePage() {
       </div>
 
       {/* Section Navigation */}
-      <div className="flex flex-wrap justify-center gap-3 mb-12">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 px-4 sm:px-0">
         {sections.map((section) => (
           <button
             key={section.id}
             onClick={() => scrollToSection(section.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium ${
+            className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors academic-text font-medium text-sm sm:text-base touch-manipulation ${
               activeSection === section.id
                 ? 'bg-amber-800 text-white active:bg-amber-900'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'

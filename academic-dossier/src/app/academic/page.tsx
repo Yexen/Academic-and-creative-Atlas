@@ -111,40 +111,41 @@ export default function AcademicPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-8 sm:mb-12">
         <EditableText
           onSave={(newText) => handleContentSave('pageTitle', newText)}
-          className="text-4xl academic-heading mb-4"
+          className="text-3xl sm:text-4xl academic-heading mb-4"
         >
-          <h1 className="text-4xl academic-heading mb-4">
+          <h1 className="text-3xl sm:text-4xl academic-heading mb-4">
             {editableContent.pageTitle}
           </h1>
         </EditableText>
         <EditableText
           onSave={(newText) => handleContentSave('pageSubtitle', newText)}
-          className="text-lg academic-text text-gray-600 max-w-3xl mx-auto"
+          className="text-base sm:text-lg academic-text text-gray-600 max-w-3xl mx-auto px-4 sm:px-0"
           multiline
         >
-          <p className="text-lg academic-text text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg academic-text text-gray-600 max-w-3xl mx-auto">
             {editableContent.pageSubtitle}
           </p>
         </EditableText>
       </div>
 
       {/* Section Navigation */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 sm:mb-12 px-4 sm:px-0">
         {sections.map((section) => (
           <button
             key={section.id}
             onClick={() => setActiveSection(section.id)}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors academic-text font-medium ${
+            className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 rounded-lg transition-colors academic-text font-medium text-xs sm:text-sm lg:text-base touch-manipulation ${
               activeSection === section.id
                 ? 'bg-amber-800 text-white active:bg-amber-900'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300'
             }`}
           >
-            {section.icon}
-            {section.label}
+            <span className="w-4 h-4 sm:w-5 sm:h-5">{section.icon}</span>
+            <span className="hidden sm:inline">{section.label}</span>
+            <span className="sm:hidden">{section.label.split(' ')[0]}</span>
           </button>
         ))}
       </div>
@@ -153,28 +154,28 @@ export default function AcademicPage() {
       <div className="space-y-8">
         {/* Master's Thesis */}
         {activeSection === 'thesis' && (
-          <section className="space-y-8">
-            <div className="bg-white border border-gray-200 rounded-lg p-8">
+          <section className="space-y-6 sm:space-y-8">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6 lg:p-8">
               <div className="text-center mb-8">
                 <EditableText
                   onSave={(newText) => {
                     const newThesis = { ...editableContent.thesis, title: newText };
                     setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                   }}
-                  className="text-3xl academic-heading mb-2"
+                  className="text-2xl sm:text-3xl academic-heading mb-2"
                 >
-                  <h2 className="text-3xl academic-heading mb-2">{editableContent.thesis.title}</h2>
+                  <h2 className="text-2xl sm:text-3xl academic-heading mb-2">{editableContent.thesis.title}</h2>
                 </EditableText>
                 <EditableText
                   onSave={(newText) => {
                     const newThesis = { ...editableContent.thesis, subtitle: newText };
                     setEditableContent((prev: EditableAcademicContent) => ({ ...prev, thesis: newThesis }));
                   }}
-                  className="text-xl academic-text text-gray-700 mb-4"
+                  className="text-lg sm:text-xl academic-text text-gray-700 mb-4"
                 >
-                  <h3 className="text-xl academic-text text-gray-700 mb-4">{editableContent.thesis.subtitle}</h3>
+                  <h3 className="text-lg sm:text-xl academic-text text-gray-700 mb-4">{editableContent.thesis.subtitle}</h3>
                 </EditableText>
-                <div className="grid md:grid-cols-2 gap-4 academic-text text-gray-600 max-w-2xl mx-auto">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 academic-text text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
                   <div>
                     <p><strong>University:</strong>
                       <EditableText
@@ -332,7 +333,7 @@ export default function AcademicPage() {
             </div>
 
             {/* Education */}
-            <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
               <h3 className="text-2xl academic-heading mb-6">Archaeological Education</h3>
               <div className="space-y-6">
                 {editableContent.archaeology.education.map((edu: any, index: number) => (

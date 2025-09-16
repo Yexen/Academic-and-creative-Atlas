@@ -99,38 +99,38 @@ export default function DocumentsPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-8 sm:mb-12">
         <EditableText
           onSave={(newText) => handleContentSave('pageTitle', newText)}
-          className="text-4xl academic-heading mb-4"
+          className="text-3xl sm:text-4xl academic-heading mb-4"
         >
-          <h1 className="text-4xl academic-heading mb-4">
+          <h1 className="text-3xl sm:text-4xl academic-heading mb-4">
             {editableContent.pageTitle}
           </h1>
         </EditableText>
         <EditableText
           onSave={(newText) => handleContentSave('pageSubtitle', newText)}
-          className="text-lg academic-text text-gray-600 max-w-2xl mx-auto"
+          className="text-base sm:text-lg academic-text text-gray-600 max-w-2xl mx-auto px-4 sm:px-0"
         >
-          <p className="text-lg academic-text text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg academic-text text-gray-600 max-w-2xl mx-auto">
             {editableContent.pageSubtitle}
           </p>
         </EditableText>
       </div>
 
       {/* Available Documents */}
-      <div className="grid md:grid-cols-3 gap-6 mb-12">
+      <div className="grid md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
         {/* Download CV */}
-        <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300 relative group">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 hover:shadow-lg transition-shadow duration-300 relative group">
           <div className="text-center">
-            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <EditableText
               onSave={(newText) => handleContentSave('cvTitle', newText)}
-              className="text-xl academic-heading mb-3"
+              className="text-lg sm:text-xl academic-heading mb-3"
             >
               <h3 className="text-xl academic-heading mb-3">{editableContent.cvTitle}</h3>
             </EditableText>
@@ -145,7 +145,7 @@ export default function DocumentsPage() {
             </EditableText>
             <button
               onClick={handleCVDownload}
-              className="bg-amber-800 text-white py-3 px-6 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full"
+              className="bg-amber-800 text-white py-3 px-4 sm:px-6 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full text-sm sm:text-base touch-manipulation"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3" />
@@ -156,16 +156,16 @@ export default function DocumentsPage() {
         </div>
 
         {/* Biography */}
-        <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300 relative group">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 hover:shadow-lg transition-shadow duration-300 relative group">
           <div className="text-center">
-            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
             <EditableText
               onSave={(newText) => handleContentSave('biographyTitle', newText)}
-              className="text-xl academic-heading mb-3"
+              className="text-lg sm:text-xl academic-heading mb-3"
             >
               <h3 className="text-xl academic-heading mb-3">{editableContent.biographyTitle}</h3>
             </EditableText>
@@ -180,7 +180,7 @@ export default function DocumentsPage() {
             </EditableText>
             <a
               href="#biography-section"
-              className="bg-gray-100 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full"
+              className="bg-gray-100 text-gray-700 py-3 px-4 sm:px-6 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full text-sm sm:text-base touch-manipulation"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -192,16 +192,16 @@ export default function DocumentsPage() {
         </div>
 
         {/* Download Portfolio */}
-        <div className="bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-shadow duration-300 relative group">
+        <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 hover:shadow-lg transition-shadow duration-300 relative group">
           <div className="text-center">
-            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
               </svg>
             </div>
             <EditableText
               onSave={(newText) => handleContentSave('portfolioTitle', newText)}
-              className="text-xl academic-heading mb-3"
+              className="text-lg sm:text-xl academic-heading mb-3"
             >
               <h3 className="text-xl academic-heading mb-3">{editableContent.portfolioTitle}</h3>
             </EditableText>
@@ -216,7 +216,7 @@ export default function DocumentsPage() {
             </EditableText>
             <button
               onClick={handlePortfolioDownload}
-              className="bg-amber-800 text-white py-3 px-6 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full"
+              className="bg-amber-800 text-white py-3 px-4 sm:px-6 rounded-lg hover:bg-amber-900 active:bg-amber-900 transition-colors academic-text font-medium flex items-center justify-center gap-2 w-full text-sm sm:text-base touch-manipulation"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3" />
@@ -228,10 +228,10 @@ export default function DocumentsPage() {
       </div>
 
       {/* Biography Section */}
-      <div id="biography-section" className="bg-academic-brown/5 rounded-lg p-8 mb-12">
+      <div id="biography-section" className="bg-academic-brown/5 rounded-lg p-6 sm:p-8 mb-8 sm:mb-12">
         <EditableText
           onSave={(newText) => handleContentSave('biographySectionTitle', newText)}
-          className="text-2xl academic-heading mb-6 text-center"
+          className="text-xl sm:text-2xl academic-heading mb-4 sm:mb-6 text-center"
         >
           <h2 className="text-2xl academic-heading mb-6 text-center">{editableContent.biographySectionTitle}</h2>
         </EditableText>
@@ -276,10 +276,10 @@ export default function DocumentsPage() {
       </div>
 
       {/* Document Request Section */}
-      <div className="bg-gray-50 rounded-lg p-8">
+      <div className="bg-gray-50 rounded-lg p-6 sm:p-8">
         <EditableText
           onSave={(newText) => handleContentSave('additionalDocsTitle', newText)}
-          className="text-2xl academic-heading mb-6 text-center"
+          className="text-xl sm:text-2xl academic-heading mb-4 sm:mb-6 text-center"
         >
           <h2 className="text-2xl academic-heading mb-6 text-center">{editableContent.additionalDocsTitle}</h2>
         </EditableText>
