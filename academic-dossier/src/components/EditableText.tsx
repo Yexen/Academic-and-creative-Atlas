@@ -9,6 +9,7 @@ interface EditableTextProps {
   className?: string;
   multiline?: boolean;
   placeholder?: string;
+  inline?: boolean;
 }
 
 export default function EditableText({
@@ -16,7 +17,8 @@ export default function EditableText({
   onSave,
   className = '',
   multiline = false,
-  placeholder = 'Enter text...'
+  placeholder = 'Enter text...',
+  inline = false
 }: EditableTextProps) {
   // Handle admin context safely for static generation
   let isAdminMode = false;
@@ -139,8 +141,10 @@ export default function EditableText({
     );
   }
 
+  const WrapperElement = inline ? 'span' : 'div';
+
   return (
-    <div
+    <WrapperElement
       className="relative group cursor-pointer hover:bg-blue-50 hover:outline hover:outline-2 hover:outline-blue-200 rounded p-1 transition-colors"
       onClick={handleEdit}
       title={isAdminMode ? 'Click to edit' : ''}
@@ -151,6 +155,6 @@ export default function EditableText({
           Edit
         </span>
       )}
-    </div>
+    </WrapperElement>
   );
 }

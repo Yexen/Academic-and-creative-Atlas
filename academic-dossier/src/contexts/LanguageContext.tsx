@@ -6,18 +6,21 @@ import { Language } from '@/lib/i18n';
 interface LanguageContextType {
   currentLang: Language;
   setCurrentLang: (lang: Language) => void;
+  isHydrated: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [currentLang, setCurrentLang] = useState<Language>('en');
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     const storedLang = localStorage.getItem('language') as Language;
     if (storedLang && ['en', 'fr', 'fa'].includes(storedLang)) {
       setCurrentLang(storedLang);
     }
+    setIsHydrated(true);
   }, []);
 
   const handleLanguageChange = (lang: Language) => {
@@ -26,7 +29,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <LanguageContext.Provider value={{ currentLang, setCurrentLang: handleLanguageChange }}>
+    <LanguageContext.Provider value={{ currentLang, setCurrentLang: handleLanguageChange, isHydrated }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -7,7 +7,7 @@ import AdminBar from '@/components/AdminBar';
 import './globals.css';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
-  const { currentLang, setCurrentLang } = useLanguage();
+  const { currentLang, setCurrentLang, isHydrated } = useLanguage();
 
   // Handle admin context safely for static generation
   let isAdminMode = false;
@@ -19,14 +19,17 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     isAdminMode = false;
   }
 
+  // Use 'en' as default until hydration is complete to prevent mismatch
+  const lang = isHydrated ? currentLang : 'en';
+
   return (
-    <html lang={currentLang} dir={currentLang === 'fa' ? 'rtl' : 'ltr'}>
+    <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
         <title>Yekta Jokar - Academic Dossier</title>
         <meta name="description" content="Interdisciplinary researcher bridging philosophy, archaeology, and AI interaction design" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="font-times">
+      <body className="font-times" suppressHydrationWarning>
         <AdminBar />
         <div className={isAdminMode ? 'pt-12' : ''}>
           <Navigation lang={currentLang} onLanguageChange={setCurrentLang} />

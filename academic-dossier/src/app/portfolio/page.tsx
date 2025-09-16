@@ -6,6 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { portfolioData } from '@/data/portfolio-data';
 import EditableText from '@/components/EditableText';
+import AIAssistant from '@/components/AIAssistant';
+import QAAssistant from '@/components/QAAssistant';
 
 type EditablePortfolioContent = {
   pageTitle: string;
@@ -355,6 +357,21 @@ export default function PortfolioPage() {
           </a>
         </div>
       </section>
+
+      {/* AI Assistant */}
+      <AIAssistant
+        context="portfolio"
+        onContentGenerated={(content) => {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(content);
+            alert('Content copied to clipboard! You can now paste it into any editable field.');
+          }
+        }}
+        placeholder="Ask AI to help with portfolio content: 'Write a project description', 'Generate key features', 'Create significance statement', etc."
+      />
+
+      {/* Q&A Assistant - Available to all users */}
+      <QAAssistant context="portfolio" />
     </div>
   );
 }

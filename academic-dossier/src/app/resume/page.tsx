@@ -6,6 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { cvData } from '@/data/cv-data';
 import EditableText from '@/components/EditableText';
+import AIAssistant from '@/components/AIAssistant';
+import QAAssistant from '@/components/QAAssistant';
 
 type EditableResumeContent = {
   profileName: string;
@@ -29,6 +31,14 @@ type EditableResumeContent = {
   qualities: any[];
   workshops: any[];
   awards: any[];
+  customSections: CustomSection[];
+};
+
+type CustomSection = {
+  id: string;
+  title: string;
+  icon: string;
+  items: any[];
 };
 
 export default function ResumePage() {
@@ -55,7 +65,12 @@ export default function ResumePage() {
       const saved = localStorage.getItem('resume-editable-content');
       if (saved) {
         try {
-          return JSON.parse(saved);
+          const parsedData = JSON.parse(saved);
+          // Ensure customSections exists (backward compatibility)
+          if (!parsedData.customSections) {
+            parsedData.customSections = [];
+          }
+          return parsedData;
         } catch (error) {
           console.error('Error parsing saved content:', error);
         }
@@ -98,7 +113,10 @@ export default function ResumePage() {
       workshops: cvData.workshops,
 
       // Awards
-      awards: cvData.awards
+      awards: cvData.awards,
+
+      // Custom sections
+      customSections: []
     };
   };
 
@@ -124,7 +142,67 @@ export default function ResumePage() {
     }
   }, [editableContent]);
 
-  const sections = [
+  // Add section function
+  const addCustomSection = () => {
+    const newSectionId = `custom-${Date.now()}`;
+    const newSection: CustomSection = {
+      id: newSectionId,
+      title: 'New Section',
+      icon: 'default',
+      items: []
+    };
+
+    setEditableContent((prev: EditableResumeContent) => ({
+      ...prev,
+      customSections: [...prev.customSections, newSection]
+    }));
+
+    // Set this new section as active
+    setActiveSection(newSectionId);
+  };
+
+  // Add item to section function
+  const addItemToSection = (sectionId: string) => {
+    const newItem = {
+      id: Date.now(),
+      title: 'New Item',
+      description: 'Description',
+      period: 'Period',
+      location: 'Location'
+    };
+
+    if (sectionId.startsWith('custom-')) {
+      // Add to custom section
+      setEditableContent((prev: EditableResumeContent) => ({
+        ...prev,
+        customSections: prev.customSections.map(section =>
+          section.id === sectionId
+            ? { ...section, items: [...section.items, newItem] }
+            : section
+        )
+      }));
+    } else {
+      // Add to built-in section
+      const sectionMap: { [key: string]: keyof EditableResumeContent } = {
+        'education': 'education',
+        'experience': 'workExperience',
+        'research': 'researchProjects',
+        'workshops': 'workshops',
+        'awards': 'awards'
+      };
+
+      const sectionKey = sectionMap[sectionId];
+      if (sectionKey) {
+        setEditableContent((prev: EditableResumeContent) => ({
+          ...prev,
+          [sectionKey]: [...(prev[sectionKey] as any[]), newItem]
+        }));
+      }
+    }
+  };
+
+  // Dynamic sections array including custom sections
+  const baseSections = [
     {
       id: 'education',
       label: getTranslation(currentLang, 'resume.education'),
@@ -155,6 +233,18 @@ export default function ResumePage() {
       label: getTranslation(currentLang, 'resume.awards'),
       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
     }
+  ];
+
+  // Combine base sections with custom sections
+  const sections = [
+    ...baseSections,
+    ...(editableContent.customSections || []).map((customSection: CustomSection) => ({
+      id: customSection.id,
+      label: customSection.title,
+      icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+      </svg>
+    }))
   ];
 
   const handleDownloadCV = () => {
@@ -203,6 +293,19 @@ export default function ResumePage() {
             {section.label}
           </button>
         ))}
+
+        {/* Add Section Button - Only visible in admin mode */}
+        {isAdminMode && (
+          <button
+            onClick={addCustomSection}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-green-100 text-green-700 hover:bg-green-200 active:bg-green-300 border-2 border-dashed border-green-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+            </svg>
+            Add Section
+          </button>
+        )}
       </div>
 
       <div className="space-y-12">
@@ -231,6 +334,7 @@ export default function ResumePage() {
                   <EditableText
                     onSave={(newText) => handleContentSave('profileEmail', newText)}
                     className="text-academic-brown hover:text-academic-brown-dark ml-1"
+                    inline
                   >
                     <a href={`mailto:${editableContent.profileEmail}`} className="text-academic-brown hover:text-academic-brown-dark ml-1">
                       {editableContent.profileEmail}
@@ -241,6 +345,7 @@ export default function ResumePage() {
                   <EditableText
                     onSave={(newText) => handleContentSave('profilePhone', newText)}
                     className="text-academic-brown hover:text-academic-brown-dark ml-1"
+                    inline
                   >
                     <a href={`tel:${editableContent.profilePhone}`} className="text-academic-brown hover:text-academic-brown-dark ml-1">
                       {editableContent.profilePhone}
@@ -253,6 +358,7 @@ export default function ResumePage() {
                   <EditableText
                     onSave={(newText) => handleContentSave('profileAddress', newText)}
                     className="ml-1"
+                    inline
                   >
                     <span className="ml-1">{editableContent.profileAddress}</span>
                   </EditableText>
@@ -261,12 +367,14 @@ export default function ResumePage() {
                   <EditableText
                     onSave={(newText) => handleContentSave('profileBirthDate', newText)}
                     className="ml-1 inline"
+                    inline
                   >
                     <span className="ml-1">{editableContent.profileBirthDate}</span>
                   </EditableText>,
                   <EditableText
                     onSave={(newText) => handleContentSave('profileBirthPlace', newText)}
                     className="ml-1 inline"
+                    inline
                   >
                     <span className="ml-1">{editableContent.profileBirthPlace}</span>
                   </EditableText>
@@ -370,6 +478,21 @@ export default function ResumePage() {
               </div>
             ))}
           </div>
+
+          {/* Add Education Button - Only visible in admin mode */}
+          {isAdminMode && (
+            <div className="mt-6">
+              <button
+                onClick={() => addItemToSection('education')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Education
+              </button>
+            </div>
+          )}
         </section>
 
         <div className="section-divider"></div>
@@ -439,6 +562,21 @@ export default function ResumePage() {
               </div>
             ))}
           </div>
+
+          {/* Add Work Experience Button - Only visible in admin mode */}
+          {isAdminMode && (
+            <div className="mt-6">
+              <button
+                onClick={() => addItemToSection('experience')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Experience
+              </button>
+            </div>
+          )}
         </section>
 
         <div className="section-divider"></div>
@@ -508,6 +646,21 @@ export default function ResumePage() {
               </div>
             ))}
           </div>
+
+          {/* Add Research Project Button - Only visible in admin mode */}
+          {isAdminMode && (
+            <div className="mt-6">
+              <button
+                onClick={() => addItemToSection('research')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Research Project
+              </button>
+            </div>
+          )}
         </section>
 
         <div className="section-divider"></div>
@@ -550,6 +703,21 @@ export default function ResumePage() {
                   </div>
                 ))}
               </div>
+
+              {/* Add Language Button - Only visible in admin mode */}
+              {isAdminMode && (
+                <div className="mt-4">
+                  <button
+                    onClick={() => addItemToSection('languages')}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300 text-sm"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Language
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Technical Skills */}
@@ -570,6 +738,21 @@ export default function ResumePage() {
                   </EditableText>
                 ))}
               </ul>
+
+              {/* Add Technical Skill Button - Only visible in admin mode */}
+              {isAdminMode && (
+                <div className="mt-4">
+                  <button
+                    onClick={() => addItemToSection('technical')}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300 text-sm"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Technical Skill
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -593,6 +776,21 @@ export default function ResumePage() {
                 </div>
               ))}
             </div>
+
+            {/* Add Core Quality Button - Only visible in admin mode */}
+            {isAdminMode && (
+              <div className="mt-4">
+                <button
+                  onClick={() => addItemToSection('qualities')}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300 text-sm"
+                >
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                  </svg>
+                  Add Core Quality
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
@@ -642,6 +840,21 @@ export default function ResumePage() {
               </div>
             ))}
           </div>
+
+          {/* Add Workshop Button - Only visible in admin mode */}
+          {isAdminMode && (
+            <div className="mt-6">
+              <button
+                onClick={() => addItemToSection('workshops')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Workshop
+              </button>
+            </div>
+          )}
         </section>
 
         <div className="section-divider"></div>
@@ -672,8 +885,148 @@ export default function ResumePage() {
               </li>
             ))}
           </ul>
+
+          {/* Add Award Button - Only visible in admin mode */}
+          {isAdminMode && (
+            <div className="mt-6">
+              <button
+                onClick={() => addItemToSection('awards')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Award
+              </button>
+            </div>
+          )}
         </section>
+
+        {/* Custom Sections */}
+        {(editableContent.customSections || []).map((customSection: CustomSection) => (
+          <div key={customSection.id}>
+            <div className="section-divider"></div>
+            <section id={customSection.id}>
+              <EditableText
+                onSave={(newText) => {
+                  setEditableContent((prev: EditableResumeContent) => ({
+                    ...prev,
+                    customSections: prev.customSections.map(section =>
+                      section.id === customSection.id
+                        ? { ...section, title: newText }
+                        : section
+                    )
+                  }));
+                }}
+                className="text-2xl academic-heading mb-6"
+              >
+                <h2 className="text-2xl academic-heading mb-6">{customSection.title}</h2>
+              </EditableText>
+
+              <div className="space-y-6">
+                {customSection.items.map((item: any, index: number) => (
+                  <div key={index} className="border-l-4 border-academic-brown pl-6">
+                    <EditableText
+                      onSave={(newText) => {
+                        setEditableContent((prev: EditableResumeContent) => ({
+                          ...prev,
+                          customSections: prev.customSections.map(section =>
+                            section.id === customSection.id
+                              ? {
+                                  ...section,
+                                  items: section.items.map((itm: any, idx: number) =>
+                                    idx === index ? { ...itm, title: newText } : itm
+                                  )
+                                }
+                              : section
+                          )
+                        }));
+                      }}
+                      className="text-xl academic-heading mb-2"
+                    >
+                      <h3 className="text-xl academic-heading mb-2">{item.title}</h3>
+                    </EditableText>
+
+                    <EditableText
+                      onSave={(newText) => {
+                        setEditableContent((prev: EditableResumeContent) => ({
+                          ...prev,
+                          customSections: prev.customSections.map(section =>
+                            section.id === customSection.id
+                              ? {
+                                  ...section,
+                                  items: section.items.map((itm: any, idx: number) =>
+                                    idx === index ? { ...itm, description: newText } : itm
+                                  )
+                                }
+                              : section
+                          )
+                        }));
+                      }}
+                      className="academic-text text-gray-700 mb-2"
+                      multiline
+                    >
+                      <p className="academic-text text-gray-700 mb-2">{item.description}</p>
+                    </EditableText>
+
+                    <EditableText
+                      onSave={(newText) => {
+                        setEditableContent((prev: EditableResumeContent) => ({
+                          ...prev,
+                          customSections: prev.customSections.map(section =>
+                            section.id === customSection.id
+                              ? {
+                                  ...section,
+                                  items: section.items.map((itm: any, idx: number) =>
+                                    idx === index ? { ...itm, period: newText } : itm
+                                  )
+                                }
+                              : section
+                          )
+                        }));
+                      }}
+                      className="academic-text text-gray-600"
+                    >
+                      <p className="academic-text text-gray-600">{item.period}</p>
+                    </EditableText>
+                  </div>
+                ))}
+              </div>
+
+              {/* Add Item Button for Custom Section - Only visible in admin mode */}
+              {isAdminMode && (
+                <div className="mt-6">
+                  <button
+                    onClick={() => addItemToSection(customSection.id)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors academic-text font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 active:bg-blue-300 border-2 border-dashed border-blue-300"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Item
+                  </button>
+                </div>
+              )}
+            </section>
+          </div>
+        ))}
       </div>
+
+      {/* AI Assistant */}
+      <AIAssistant
+        context="resume"
+        onContentGenerated={(content) => {
+          // For now, we'll just copy to clipboard - you can extend this to insert into specific sections
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(content);
+            alert('Content copied to clipboard! You can now paste it into any editable field.');
+          }
+        }}
+        placeholder="Ask AI to help with resume content: 'Write a professional summary', 'Generate bullet points for my research experience', 'List technical skills for digital humanities', etc."
+      />
+
+      {/* Q&A Assistant - Available to all users */}
+      <QAAssistant context="resume" />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { getTranslation } from '@/lib/i18n';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import EditableText from '@/components/EditableText';
+import QAAssistant from '@/components/QAAssistant';
 
 export default function Home() {
   const { currentLang } = useLanguage();
@@ -264,6 +265,9 @@ export default function Home() {
           <p><strong>{getTranslation(currentLang, 'common.location')}:</strong> 3 Rue Victor Hugo, 95100 Argenteuil, France</p>
         </div>
       </section>
+
+      {/* Q&A Assistant - Available to all users */}
+      <QAAssistant context="home" />
     </div>
   );
 }

@@ -6,6 +6,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { academicData } from '@/data/academic-data';
 import EditableText from '@/components/EditableText';
+import AIAssistant from '@/components/AIAssistant';
+import QAAssistant from '@/components/QAAssistant';
 
 type EditableAcademicContent = {
   pageTitle: string;
@@ -845,6 +847,21 @@ export default function AcademicPage() {
           </p>
         </EditableText>
       </div>
+
+      {/* AI Assistant */}
+      <AIAssistant
+        context="academic"
+        onContentGenerated={(content) => {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(content);
+            alert('Content copied to clipboard! You can now paste it into any editable field.');
+          }
+        }}
+        placeholder="Ask AI to help with academic content: 'Write a research description', 'Improve my thesis abstract', 'Generate research philosophy', etc."
+      />
+
+      {/* Q&A Assistant - Available to all users */}
+      <QAAssistant context="academic" />
     </div>
   );
 }
