@@ -58,6 +58,7 @@ const KNOWLEDGE_BASE = {
 export async function POST(request: NextRequest) {
   try {
     const { question, context, conversationHistory } = await request.json();
+    console.log('Q&A API called with question:', question);
 
     if (!question) {
       return NextResponse.json(
@@ -73,9 +74,15 @@ export async function POST(request: NextRequest) {
       answer = await generateAnswerWithOpenAI(question, context, conversationHistory);
     } catch (error) {
       console.log('OpenAI failed, using knowledge base fallback:', error);
-      answer = await generateAnswer(question, context, conversationHistory);
+      try {
+        answer = await generateAnswer(question, context, conversationHistory);
+      } catch (fallbackError) {
+        console.error('Knowledge base fallback also failed:', fallbackError);
+        answer = `I can help you learn about Yekta's research in digital humanities and philosophy, their projects (Shadowline, Mémoire en Livres, Yexen), technical skills, academic background, and approach to interdisciplinary research. What specific aspect would you like to know more about?`;
+      }
     }
 
+    console.log('Q&A API returning answer:', answer.substring(0, 100) + '...');
     return NextResponse.json({ answer });
   } catch (error) {
     console.error('Q&A Assistant error:', error);

@@ -96,8 +96,13 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
         }),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response statusText:', response.statusText);
+
       if (!response.ok) {
-        throw new Error('Failed to get answer');
+        const errorText = await response.text();
+        console.log('Error response body:', errorText);
+        throw new Error(`HTTP ${response.status}: ${response.statusText} - ${errorText}`);
       }
 
       const data = await response.json();
