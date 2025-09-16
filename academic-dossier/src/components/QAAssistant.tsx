@@ -101,6 +101,11 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
       }
 
       const data = await response.json();
+      console.log('API Response:', data);
+
+      if (!data.answer) {
+        throw new Error('No answer received from API');
+      }
 
       // Add answer to conversation
       const newAnswer = {
