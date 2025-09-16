@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd academic-dossier && npm run build",
-  "installCommand": "cd academic-dossier && npm install",
-  "framework": "nextjs",
-  "rootDirectory": "academic-dossier"
-}
