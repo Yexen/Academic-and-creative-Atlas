@@ -169,10 +169,10 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
       {isOpen && (
         <div
           ref={modalRef}
-          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[650px] h-[600px] md:w-[650px] md:h-[600px] sm:w-[90vw] sm:h-[80vh] flex flex-col z-50"
+          className="fixed bg-white rounded-lg shadow-2xl border border-gray-300 w-[95vw] h-[85vh] sm:w-[90vw] sm:h-[80vh] md:w-[650px] md:h-[600px] flex flex-col z-50"
           style={{
-            left: typeof window !== 'undefined' && window.innerWidth < 768 ? '5vw' : `${position.x}px`,
-            top: typeof window !== 'undefined' && window.innerWidth < 768 ? '10vh' : `${position.y}px`,
+            left: typeof window !== 'undefined' && window.innerWidth < 768 ? '2.5vw' : `${position.x}px`,
+            top: typeof window !== 'undefined' && window.innerWidth < 768 ? '7.5vh' : `${position.y}px`,
             cursor: isDragging ? 'grabbing' : 'auto'
           }}
         >
