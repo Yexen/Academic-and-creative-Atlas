@@ -84,7 +84,7 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
     setError('');
 
     try {
-      const response = await fetch('/api/qa-assistant/', {
+      const response = await fetch('/api/qa-assistant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
