@@ -235,7 +235,7 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
                   <div
                     className={`max-w-[80%] p-3 rounded-lg ${
                       message.type === 'question'
-                        ? 'bg-academic-brown text-white'
+                        ? 'bg-amber-800 text-white'
                         : 'bg-gray-100 text-gray-900'
                     }`}
                   >
@@ -280,7 +280,7 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
                 <button
                   onClick={handleAskQuestion}
                   disabled={!question.trim() || isGenerating}
-                  className="bg-academic-brown text-white px-4 py-2 rounded-lg hover:bg-amber-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm self-end"
+                  className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm self-end"
                 >
                   Ask
                 </button>
