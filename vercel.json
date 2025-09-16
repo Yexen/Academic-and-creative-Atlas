@@ -1,5 +1,5 @@
 {
   "buildCommand": "cd academic-dossier && npm run build",
-  "outputDirectory": "academic-dossier/out",
+  "outputDirectory": "academic-dossier/.next",
   "installCommand": "cd academic-dossier && npm install"
 }
