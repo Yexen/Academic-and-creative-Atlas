@@ -101,11 +101,6 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
       }
 
       const data = await response.json();
-      console.log('API Response:', data);
-
-      if (!data.answer) {
-        throw new Error('No answer received from API');
-      }
 
       // Add answer to conversation
       const newAnswer = {
@@ -117,8 +112,10 @@ export default function QAAssistant({ context = "academic portfolio" }: QAAssist
       setConversation(prev => [...prev, newAnswer]);
       setQuestion('');
     } catch (err) {
-      setError('Sorry, I couldn\'t process your question. Please try again.');
-      console.error('Q&A error:', err);
+      console.error('Q&A error details:', err);
+      console.error('Error type:', typeof err);
+      console.error('Error message:', err instanceof Error ? err.message : String(err));
+      setError(`Error: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsGenerating(false);
     }
