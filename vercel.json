@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "academic-dossier/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/academic-dossier/$1"
+    }
+  ]
+}
