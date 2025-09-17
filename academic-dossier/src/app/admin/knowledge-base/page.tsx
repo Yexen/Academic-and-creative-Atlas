@@ -469,8 +469,19 @@ export default function KnowledgeBaseEditor() {
                 type="text"
                 value={sectionData.title || ''}
                 onChange={(e) => {
-                  if (tabType === 'personal') updatePersonalInfo(sectionKey, e.target.value);
-                  else if (tabType === 'education') updateEducation(sectionKey, 'title', e.target.value);
+                  if (!knowledgeBase) return;
+                  if (tabType === 'personal') {
+                    setKnowledgeBase({
+                      ...knowledgeBase,
+                      personal: {
+                        ...knowledgeBase.personal,
+                        [sectionKey]: {
+                          ...knowledgeBase.personal[sectionKey],
+                          title: e.target.value
+                        }
+                      }
+                    });
+                  } else if (tabType === 'education') updateEducation(sectionKey, 'title', e.target.value);
                   else if (tabType === 'creative') updateCreativeWork(sectionKey, 'title', e.target.value);
                   else if (tabType === 'projects') updateProjects(sectionKey, 'title', e.target.value);
                 }}
@@ -524,8 +535,19 @@ export default function KnowledgeBaseEditor() {
               <textarea
                 value={sectionData.description || ''}
                 onChange={(e) => {
-                  if (tabType === 'personal') updatePersonalInfo(sectionKey, e.target.value);
-                  else if (tabType === 'education') updateEducation(sectionKey, 'description', e.target.value);
+                  if (!knowledgeBase) return;
+                  if (tabType === 'personal') {
+                    setKnowledgeBase({
+                      ...knowledgeBase,
+                      personal: {
+                        ...knowledgeBase.personal,
+                        [sectionKey]: {
+                          ...knowledgeBase.personal[sectionKey],
+                          description: e.target.value
+                        }
+                      }
+                    });
+                  } else if (tabType === 'education') updateEducation(sectionKey, 'description', e.target.value);
                   else if (tabType === 'creative') updateCreativeWork(sectionKey, 'description', e.target.value);
                   else if (tabType === 'projects') updateProjects(sectionKey, 'description', e.target.value);
                 }}
@@ -540,7 +562,19 @@ export default function KnowledgeBaseEditor() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Details</label>
               <textarea
                 value={sectionData.details || ''}
-                onChange={(e) => updatePersonalInfo(sectionKey, e.target.value)}
+                onChange={(e) => {
+                  if (!knowledgeBase) return;
+                  setKnowledgeBase({
+                    ...knowledgeBase,
+                    personal: {
+                      ...knowledgeBase.personal,
+                      [sectionKey]: {
+                        ...knowledgeBase.personal[sectionKey],
+                        details: e.target.value
+                      }
+                    }
+                  });
+                }}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600"
               />
@@ -552,7 +586,20 @@ export default function KnowledgeBaseEditor() {
               <label className="block text-sm font-medium text-gray-700 mb-2">Achievements (one per line)</label>
               <textarea
                 value={sectionData.achievements?.join('\n') || ''}
-                onChange={(e) => updateEducation(sectionKey, 'achievements', e.target.value.split('\n').filter(item => item.trim()))}
+                onChange={(e) => {
+                  if (!knowledgeBase) return;
+                  const achievements = e.target.value.split('\n').filter(item => item.trim());
+                  setKnowledgeBase({
+                    ...knowledgeBase,
+                    education: {
+                      ...knowledgeBase.education,
+                      [sectionKey]: {
+                        ...knowledgeBase.education[sectionKey],
+                        achievements: achievements
+                      }
+                    }
+                  });
+                }}
                 rows={4}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600"
               />
