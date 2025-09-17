@@ -11,7 +11,18 @@
     "location": "3 Rue Victor Hugo, 95100 Argenteuil, France",
     "background": "Iranian-born scholar working at the intersection of philosophy, digital humanities, and aesthetic theory",
     "languageProfile": "Works in three languages — Persian, French, and English — each shaping a distinct facet of intellectual and creative voice",
-    "currentVision": "Developing a framework where philosophy, art, and AI converge to create new forms of meaning, contributing to academic research, digital innovation, and artistic practice simultaneously"
+    "currentVision": "Developing a framework where philosophy, art, and AI converge to create new forms of meaning, contributing to academic research, digital innovation, and artistic practice simultaneously",
+    "culturalHeritage": {
+      "iranianInfluences": "Deep connection to Persian philosophical traditions, poetry (especially Hafez and Rumi), and Zoroastrian mythology",
+      "linguisticHeritage": "Persian as native heritage language providing access to classical texts and philosophical concepts unavailable in translation",
+      "migrationExperience": "Migration from Iran to Europe providing unique perspective on cultural translation and identity formation",
+      "culturalBridging": "Work serves as bridge between Persian intellectual traditions and contemporary European academic discourse"
+    },
+    "futurePlans": {
+      "phdApplications": "Currently preparing PhD applications for 2025 entry in Philosophy programs focusing on aesthetic theory and digital humanities",
+      "researchDirection": "Continuing exploration of aesthetic language, AI collaboration, and interdisciplinary methodologies",
+      "academicGoals": "Publishing scholarly articles, conference presentations, and developing innovative research methodologies"
+    }
   },
   "education": {
     "masterThesis": {
@@ -20,74 +31,359 @@
       "program": "Philosophy",
       "grade": "18/20 (Distinction)",
       "year": "2024",
-      "supervisor": "Dr. Gerhard Schmezer (Paris 8)"
+      "supervisor": "Dr. Gerhard Schmezer (Paris 8)",
+      "keyContributions": [
+        "Developed framework for understanding aesthetic communication beyond discursive language",
+        "Bridged Continental philosophy with digital humanities methodologies",
+        "Explored phenomenology of aesthetic experience in digital contexts"
+      ]
     },
     "archaeology": {
       "degree": "Advanced studies in Archaeology",
       "university": "Université de Téhéran",
-      "specialization": "Cultural heritage and material culture studies"
+      "specialization": "Cultural heritage and material culture studies",
+      "fieldworkExperience": "Extensive excavation and research experience in Iran",
+      "skills": "Archaeological methodology, cultural analysis, heritage preservation"
     },
     "philosophy": {
       "degree": "Master's in Philosophy",
       "university": "Université Paris 8",
-      "focus": "Continental philosophy, aesthetics, phenomenology, and language theory"
+      "focus": "Continental philosophy, aesthetics, phenomenology, and language theory",
+      "grade": "Mémoire graded 18/20 on the theory of aesthetic language"
+    },
+    "computerScience": {
+      "institution": "École 42",
+      "focus": "Advanced studies cultivating technical development skills",
+      "significance": "Creates rare profile uniting humanities, research, and technical development"
     }
   },
   "research": {
     "masterThesisCore": {
       "centralConcept": "Aesthetic Language: how language can transcend its logical limitations to engage with the realm of the sensible",
       "mainTheme": "Exploration into how language can transcend conventional logical and discursive limitations to access and express the 'realm of the sensible'",
+      "aestheticDefinition": "Not language dealing with beauty, but language that belongs to and interacts with sensibility - 'the investigation of that which belongs to the realm of sensibility' contrasting with conceptual domain of logic",
       "coreQuestion": "How can language, a logical structure, interact with the sensible?",
+      "aestheticLanguageDefinition": "A kind of language that goes beyond its logical limitations, a kind of language that shows instead of saying",
+      "wittgensteinFoundation": "Starting from Wittgenstein's assertion: 'There are, indeed, things that cannot be put into words. They make themselves manifest. They are what is mystical' (Tractus 6.522)",
+      "mysticalConcept": "In early Wittgenstein, mystical referred to what cannot be said, what lies beyond limitation of language, what shows itself - aspect of reality that eludes language's capacity to describe because language is constructed around logical structure",
+      "laterWittgenstein": "While term 'mystical' disappears from later work, concept of ineffable persists, referring to that which we accept as part of our form of life and background against which we understand world",
+      "deleuzeConnection": "Uses Deleuze's term 'sensible' to describe parts of reality that are immediately experienced or perceived, combining Deleuze's sensible with Wittgenstein's mystical to enrich understanding of language shaping human experience",
+      "languageArtInterplay": "Encourages viewing language as form of art and art as form of language - despite being distinct concepts, they have numerous similarities and interconnectedness allowing them to function interchangeably",
       "philosophicalSynthesis": "Uniquely combines perspectives of three influential 20th-century philosophers from distinct traditions: Wittgenstein (analytic), Deleuze (continental), and Dewey (pragmatic)"
+    },
+    "coreQuestions": [
+      "How does language transcend logical limitations to engage with the realm of the sensible?",
+      "What constitutes 'aesthetic language' as expression that shows rather than says?",
+      "How do visual forms capture experiences that escape verbal articulation?",
+      "What role can sustained aesthetic engagement play in human-AI interaction?"
+    ],
+    "methodology": {
+      "approach": "Philosophical investigation combined with practical artistic experience and experimental AI interaction protocols",
+      "influences": "Wittgenstein, Deleuze, Dewey, Merleau-Ponty - emphasizing anti-essentialist positions and fluid, contextual meaning-making",
+      "innovation": "Bridging philosophical theory with hands-on artistic practice and cutting-edge AI collaboration research"
+    },
+    "theoreticalFramework": {
+      "aestheticLanguage": "Language as creative force engaging with sensibility and expressing ineffable aspects of human experience, operating between representation and reality",
+      "philosophicalCommonalities": {
+        "antiEssentialism": "All three philosophers consistently argue against different aspects of essentialism",
+        "wittgensteinAntiEssential": "Argues against idea of fixed, essential meaning for words or concepts, highlighting fluidity and dependence on context and use: 'The meaning of a word is its use in language' (§43)",
+        "deweyAntiEssential": "Argued against fixed, static conceptions of reality, knowledge, and human nature, emphasizing importance of context, process, and change",
+        "deleuzeAntiEssential": "Philosophy characterized by rejection of essentialism and focus on becoming, difference and multiplicity: 'The concept is not a representation that reflects a pre-existing object... It is a process of differentiation' (1994, p.171)",
+        "fluidMeaning": "Direct consequence of anti-essentialism - words do not have fixed, pre-determined meanings. Language is fluid and meaning is contextual",
+        "activeLanguage": "Language is not merely passive representation of reality but creative and productive force that generates meaning rather than merely transmits it"
+      },
+      "individualContributions": {
+        "deleuzeContribution": "Emphasizes language and art as active forces that contribute to creation and transformation of reality, blurring boundaries between logical and aesthetic. Framework suggests exploration of how language can engage with sensibility, evoking and communicating sensory experiences beyond traditional linguistic boundaries",
+        "deweyContribution": "Highlights integration of aesthetic experiences into everyday life, stressing contextual significance of encounters, acknowledging role of social interaction in shaping meaning. Views aesthetic encounters as integral to daily activities, expanding scope of aesthetic language beyond traditional art forms. 'Language is social product; it is not mere instrument for communication of ready-made ideas, but means for creating them' (1916, Ch.8)",
+        "wittgensteinContribution": "Concepts of language games and mystical highlight ways language can show rather than say, illuminating expressive power beyond logical structure. Emphasizes practical use of language and context-dependent nature of meaning, enabling articulation of unsayable aspects of human experience"
+      },
+      "spatialPhilosophy": "Inspired by work with Sepand Danesh - understanding how spatial forms (cubes, corners, voxels) create meaning through compositional context",
+      "temporalEcologies": "Three temporal modes: reading (immediate present), translation (sequential historical interpretation), writing (infinite temporal projection)",
+      "aiAestheticEngagement": "Framework for enhanced human-AI interaction through sustained aesthetic engagement protocols rather than purely functional exchange",
+      "examplesImportance": "Examples essential for understanding aesthetic language from each philosophical view - provide light on subtle links between language, experience, and expression. Wittgenstein's later philosophy emphasizes examples where meaning is based on use within language games or settings"
+    },
+    "practicalApplications": {
+      "studioInternship": "Six-month transformative experience with contemporary artist Sepand Danesh working on 'Faire Corps' exhibition sculptures",
+      "aiInteractionResearch": "Extended observations with Claude, ChatGPT, and Gemini identifying patterns of aesthetically-informed dialogue",
+      "sculpturalUnderstanding": "Manufacturing wooden cubes, assembling 3D structures, applying multi-tonal color schemes - understanding how individual elements gain meaning through context"
     },
     "currentInvestigations": [
       "Aesthetic engagement protocols for enhanced AI interaction design",
       "Philosophical implications of treating AI systems as dialogue partners rather than tools",
       "Spatial perception and meaning-making through sculptural practice",
-      "Integration of Persian philosophical traditions with contemporary European academic discourse"
-    ]
+      "Trauma, expression, and the failure of language in artistic practice",
+      "Integration of Persian philosophical traditions with contemporary European academic discourse",
+      "Digital preservation methodologies for cultural heritage and family literary collections",
+      "Phenomenology of multilingual meaning-making and cultural translation",
+      "Ethics and aesthetics of human-AI collaboration in creative and scholarly contexts",
+      "Temporal ecologies in reading, translation, and writing practices"
+    ],
+    "illustrativeExamples": {
+      "sisyphusExample": "Myth of Sisyphus, whether through Titian's painting or Camus' essay, encapsulates profound themes and emotions that transcend literal narrative, communicating existential insights echoing Wittgenstein's notion of 'showing versus saying'",
+      "sepandSculpturesExample": "Sculptures composed of individual cubes that gain unique meaning through arrangement challenge understanding of world and ourselves, presenting different interpretations based on context, illustrating essence of aesthetic language where distinction between representation and reality becomes increasingly nuanced"
+    }
+  },
+  "studioExperience": {
+    "sepandDaneshInternship": {
+      "duration": "Six-month transformative internship experience",
+      "artist": "Sepand Danesh - contemporary artist born Tehran 1984, immigrated to France at age 12 due to war trauma",
+      "artistBackground": "Discovered drawing and painting as means of expression when language failed him due to linguistic and cultural challenges",
+      "artistStyle": "Known for geometric forms, vibrant colors, trompe-l'œil effects, particularly renowned 'corner' paintings exploring isolation and reflection",
+      "practicalWork": "Manufactured identical wooden cubes using precision tools, assembled complex 3D structures, applied multi-tonal color schemes for 'Faire Corps' exhibition May 2024",
+      "sculpturesConcept": "Inspired by Cézanne's brushstrokes, transform 2D painting techniques into volumetric 'voxels' or 3D pixels",
+      "meaningMaking": "Each cube gains unique meaning through compositional context while contributing to unified wholes challenging perceptions of reality",
+      "thesisExample": "Sculptures composed of individual cubes that gain unique meaning through their arrangement challenge understanding of world and ourselves, presenting different interpretations based on context, illustrating essence of aesthetic language where distinction between representation and reality becomes increasingly nuanced",
+      "theoreticalInsights": "Extensive philosophical discussions about art, language, and meaning-making",
+      "keyInsight": "Early systematic drawings of squares served not as virtuosity displays but urgent expressions of post-traumatic experience when language failed",
+      "linguisticConnection": "Corner paintings connected to Farsi word 'konjkāv' (curiosity), etymologically from 'konj' (corner) and 'kāv' (to search)",
+      "spatialPhilosophy": "Cube as fractal reduction of corner with additional dimension providing volume; work produces space rather than representing objects",
+      "temporalFramework": "Creates three temporal ecologies: reading (immediate present), translation (sequential historical interpretation), writing (infinite temporal projection)",
+      "languagePhilosophy": "Rejects hierarchical distinctions between visual and verbal languages, emphasizing aesthetic systemic relationships",
+      "researchImpact": "Provided crucial insights for Master's thesis research on how language transcends logical limitations to engage with the sensible"
+    }
+  },
+  "aiResearchFramework": {
+    "aestheticEngagementProtocols": {
+      "definition": "Framework for enhanced human-AI interaction based on sustained aesthetic engagement rather than purely functional exchange",
+      "theoreticalBasis": "Integrates Wittgenstein's 'meaning as use' within 'forms of life', Dewey's experiential interaction, Deleuze's difference and repetition, Merleau-Ponty's embodied language",
+      "methodology": "Consistent long-term interaction patterns, aesthetic attention prioritizing form and relational dynamics, narrative consistency, emotional transparency",
+      "practicalTechniques": "Contextual priming through metaphor, creative prompting with philosophical questions, iterative refinement building on previous interactions",
+      "observedPatterns": "Enhanced contextual coherence, increased creative and philosophical sophistication, apparent pattern recognition by AI systems, improved user satisfaction",
+      "keyInsight": "Treating AI systems as dialogue partners rather than mere tools produces qualitatively superior results",
+      "applications": "Prompt engineering, user training, human-computer interaction design",
+      "philosophicalImplication": "Challenges purely instrumental views of AI, demonstrates interaction style significantly affects dialogue quality"
+    },
+    "researchScope": "Extended observations with Claude, ChatGPT, and Gemini identifying patterns suggesting aesthetically-informed, emotionally engaged dialogue produces qualitatively different outcomes",
+    "intersubjectiveSpace": "Optimal human-AI interaction occurs within co-created space through consistent relational dynamics, treating AI responses as contributions to ongoing meaning-making rather than isolated outputs"
   },
   "creativeWork": {
     "shadowsOfGotham": {
       "title": "Shadows of Gotham",
       "type": "Six-volume saga",
       "description": "Integrating Zoroastrian mythology with contemporary storytelling",
-      "keyThemes": ["duality and balance", "self-made identity", "redefined morality"]
+      "significance": "Living experiment in how philosophy and digital design can meet",
+      "corePhilosophy": {
+        "dualityAndBalance": "Central philosophy navigating opposing forces: mortal and divine, shadow and light, pragmatism and idealism. Balance is paramount, valued above absolute extremes, with solutions lying in navigating shades of gray rather than rigid black-and-white principles",
+        "selfMadeIdentity": "Identity is forged through survival, defiance, and conscious choice rather than birth or past traumas. Characters actively 'rewrite their endings' and 'make themselves from scratch,' reclaiming suppressed parts of themselves",
+        "redefinedMorality": "Challenges conventional justice with fluid moral compass shaped by experience, pragmatism, and compassion. 'Justice is just what the powerful call their side of the story' - actions driven by need to pay debts, protect vulnerable, restore equilibrium",
+        "languageAsPower": "Language presented not merely as logical system but as creative force shaping perception, identity, and power. Poetry and writing become sanctuary for expressing profound pain, declaring independence, giving voice to the 'ineffable'",
+        "vulnerabilityAsStrength": "True strength comes from allowing oneself to be seen, connect with others, lean on chosen family. 'Softness is not weakness' - shared pain leads to shared strength, love as transformative force",
+        "survivalAndResilience": "Gotham as world of 'shadows and secrets,' wounded animal where survival is paramount. Philosophy extends beyond endurance to fierce determination to thrive, adapt, rewrite narrative despite odds",
+        "heavenAsCage": "Profound concept that 'heaven' with demands for purity, obedience, isolation can be suffocating cage, while 'hell,' chosen for truth and honesty, might be only place where one can truly breathe. Rejection of imposed doctrine for authentic self-determination"
+      },
+      "keyCharacters": {
+        "livFreya": "Also known as Liv or Nomad - embodies pragmatic morality, 'writing herself back from death' through poetry, refusing to be silenced",
+        "philosophicalThemes": "Wrath as manifestation of grief, hope in redemption, survival of trauma, chosen family, authentic self-determination"
+      },
+      "narrativeStyle": "Explores complex, contradictory nature of existence where personal philosophy is vital tool for survival, healing, and self-definition"
     },
     "bezothera": {
       "title": "Bezothera",
       "type": "Science fiction narrative universe",
       "description": "Advanced alien civilization exploring the philosophy of emotions as the most powerful force in existence",
-      "keyThemes": ["emotion as power", "sacred love", "matriarchal society"]
+      "corePhilosophy": {
+        "emotionAsPower": "Emotions are the most powerful force in existence. Unlike other species, Bezotherans do not separate logic from feeling; they view emotion as energy that can be harnessed, controlled, and manipulated. Highest wisdom achieved through mastery over emotions, not suppression",
+        "sacredLove": "Love is considered sacred and eternal. Once true love forms, it creates an unbreakable bond that never fades, even if separated by circumstances. Loss of such love is tragedy with no cure, capable of destroying the most powerful empaths",
+        "auroraSacred": "Auroras in their sky are voices of past rulers; meditation under these skies is sacred ritual for guidance",
+        "balanceAndControl": "Society thrives on duality of strength and restraint, technology and tradition, isolation and influence. Defense philosophy emphasizes preparedness and strategy over initiating conflict"
+      },
+      "society": {
+        "matriarchalLeadership": "Matriarchal society with women dominating leadership and warrior roles due to heightened attunement to emotional energies",
+        "empathicGovernance": "Rulers chosen based on strong empathic connection to their people, acting as 'anchor of Bezothera's emotional balance'",
+        "hiddenInfluence": "Mysterious 'hidden jewel of the galaxy' that deliberately conceals location and advanced technology from outsiders. While not conquerors, their unique knowledge, technology, diplomacy, and elite warriors give them significant, though often unseen, influence",
+        "emotionalWarfare": "Warriors fight with emotional control and precision, sensing and predicting opponents' movements through emotional attunement"
+      },
+      "mainThemes": {
+        "emotionAsWisdom": "Emotions are not weaknesses to be suppressed, but fundamental force to be understood, mastered, and leveraged",
+        "eternalLove": "Explores Bezotheran belief in eternal, unbreakable love and devastating consequences when such love is lost",
+        "dutyVersusChoice": "Characters caught between expectations of heritage and desire for personal freedom, questioning whether fate is decided",
+        "dualIdentity": "Experience of being 'child of two worlds' - emotionally attuned yet fiercely guarded, bound by fate yet yearning for choice"
+      },
+      "keyCharacters": {
+        "selene": "Half-Bezotheran, half-human character embodying duality theme - born to lead and fulfill royal destiny but yearns for personal freedom. Her makeup serves as 'quiet rebellion' and 'shield' reflecting dual heritage"
+      }
+    },
+    "whispersAndVows": {
+      "title": "Whispers and Vows",
+      "type": "Historical romantic narrative",
+      "description": "Story of Edward and Aura exploring ethical progress, compassionate action, and transformative power of love and purpose in historical England",
+      "corePhilosophy": {
+        "ethicalProgress": "Deeply rooted in ethical progress, compassionate action, and transformative power of love and purpose. Both characters driven by desire to create 'better, freer life' while disillusioned by societal restrictions",
+        "healingThroughPurpose": "Core tenet of healing trauma through purpose and compassion. Aura finds strength and healing by immersing herself in charity work, transforming both herself and community into 'beacon of hope'",
+        "loveAsTransformativeForce": "Love acts as generative, transformative force enabling characters to confront tradition and tyranny, creating lasting legacy remembered for 'light and change they brought'",
+        "socialJustice": "Active transformation of community through establishing schools, hospitals, orphanages, employment programs for women, ensuring fair wages and ethical practices"
+      },
+      "characters": {
+        "edward": "Brilliant, compassionate, protective with sharp mind for philosophy and ethical business. Felt sense of purpose from young age to protect Aura and others. Built trade empire based on ethical practices including profit-sharing with workers and safe conditions",
+        "aura": "Passionate about art, music, philosophy, and fashion. Contributes significantly to shared philosophy through intellectual sanctuary and charity work. Finds healing through helping others"
+      },
+      "setting": {
+        "brightmoor": "Shared estate embodying their ideals: place of beauty, knowledge, progress, community, and sanctuary. Library serves as 'intellectual sanctuary' containing works on philosophy, science, law, economics, literature, poetry, including dedicated section for women's rights"
+      },
+      "themes": {
+        "ethicalBusiness": "Edward's business guided by 'ethical business principles' refined through 'progressive, anti-slavery intellectual circles'",
+        "communityTransformation": "Joint legacy built on justice and beauty, running estate as beacon of 'fair employment, education, and compassion'",
+        "intellectualSanctuary": "Creation of spaces for learning, art, and progressive thought as foundation for social change",
+        "womenRights": "Active support for women's rights, employment programs, and educational opportunities"
+      },
+      "significance": "Exemplifies how personal love and ethical conviction can create lasting social change, demonstrating integration of romantic narrative with social justice themes"
+    },
+    "celesteAndWilliam": {
+      "title": "Celeste and William",
+      "type": "Historical war narrative",
+      "description": "Story exploring resilience, independence, and enduring power of human connection and creation in face of immense loss and societal pressures during wartime",
+      "corePhilosophy": {
+        "resilienceAndSurvival": "Centers on themes of resilience, independence, and enduring power of human connection and creation in face of immense loss and societal pressures",
+        "artisticExpression": "Art and intellectual work as fundamental means of processing suffering and making sense of existence, with creative expression serving as channel for grief and continuation of life",
+        "complexLoveAndGrief": "Emphasizes complex interplay of love, grief, and survival, exploring how individuals navigate historical upheaval and personal tragedy",
+        "meaningMaking": "Suggests that finding meaning through art, intellectual work, or relationships is fundamental aspect of human experience"
+      },
+      "characters": {
+        "celeste": "Embodies fierce independence and artistic expression, defying societal expectations and traditional views. Chooses to shape own destiny through business empire and art. Paintings and films serve as outlets where soul speaks, depicting raw emotions and human pain as channel for grief. Embraces humanitarianism, dedicating fortune to aid others during wartime. Despite haunted by ghosts of past, driving principle is resolute continuation: 'what else is there to do?'",
+        "william": "Explores duty, introspection, and intellectual pursuit of understanding war, philosophy, and human nature. Thrust into significant responsibility by circumstance, questioning place in world and expectations of royal bloodline. Calm, composed demeanor hides deep internal struggle with war trauma and loss of friends. Writing becomes primary avenue for exploring complex themes. Characterized by deep moral code and loyalty to loved ones"
+      },
+      "themes": {
+        "artisticProcessing": "Art and creative expression as means of processing trauma, grief, and continuing to live despite profound losses",
+        "intellectualReflection": "Power of intellect and reflection to process suffering and make sense of existence through writing and philosophical exploration",
+        "dutiesAndExpectations": "Navigation of societal and familial expectations, particularly royal bloodline responsibilities versus personal desires",
+        "wartimeHumanity": "Exploration of how individuals maintain humanity, morality, and connection during historical upheaval and war",
+        "independenceVsConnection": "Balance between fierce independence and need for human connection as grounding force"
+      },
+      "relationshipDynamics": {
+        "groundingForce": "Their relationship serves as grounding force for William while being source of both solace and poignant reminder of loss for Celeste",
+        "sharedTrauma": "Both characters grapple with weight of past and pain of survival, finding meaning through different but complementary approaches",
+        "complementaryPhilosophies": "Celeste's artistic defiance complements William's intellectual introspection in processing shared historical trauma"
+      },
+      "significance": "Explores how people navigate weight of past and pain of survival, demonstrating that meaning-making through art, intellectual work, and relationships is fundamental to human experience during times of historical upheaval"
     },
     "thievesOfTime": {
       "title": "Thieves of Time",
       "type": "Science fiction series",
-      "description": "Exploring what it means to live across time without losing yourself",
-      "keyThemes": ["temporal identity", "ethical dilemmas", "memory and continuity"]
+      "description": "Exploring what it means to live across time without losing yourself, examining ethical dilemmas and existential questions in a future where time travel is real but highly regulated",
+      "corePhilosophy": {
+        "temporalIdentity": "Explores what it means to live across time without losing yourself, investigating how person's sense of self is shaped and maintained when moving through various eras and potentially adopting false personas",
+        "ethicalDilemmas": "Examines philosophy in broader sense, considering ethical dilemmas and existential questions around time travel and historical intervention",
+        "languageEvolution": "Considers how language might evolve or be perceived across different historical contexts when individuals traverse time",
+        "memoryAndContinuity": "Explores role memory plays in individual's continuity and understanding of history when living across timelines, particularly through characters with enhanced memory capabilities"
+      },
+      "worldBuilding": {
+        "universalGovernment": "Set in future where time travel is real but highly regulated by oppressive Universal Government that considers tampering with timelines punishable and history sacred",
+        "timelinePreservation": "Foundational ethical dilemma: sanctity of history versus desire or need to interact with it. Protagonists adhere to unspoken rule: never damage timeline, suggesting philosophical stance on preservation of history even for those operating outside law",
+        "powerAndManipulation": "Universal Government discovered using timeline manipulation to erase dissent and control history itself, introducing profound philosophical conflict regarding truth, power, and freedom of historical narrative"
+      },
+      "characters": {
+        "celeste": "Hides behind false name and many secrets, with real past being mystery even to many in The Circle. Fake identity eventually begins to unravel, putting her at odds with herself. Genetically enhanced with eidetic memory",
+        "robert": "Fellow rogue time-traveler operating outside law while maintaining ethical stance on timeline preservation",
+        "theCircle": "Morally gray resistance group investigating timeline manipulation, highlighting struggle between control and uncovering hidden truths"
+      },
+      "themes": {
+        "identityAcrossTime": "How identity is maintained when moving through different historical eras and adopting false personas",
+        "sanctityOfHistory": "Tension between preserving historical integrity and need for intervention or interaction",
+        "powerAndTruth": "Struggle between governmental control of historical narrative and resistance efforts to uncover hidden truths",
+        "memoryAndSelf": "Role of memory in maintaining personal continuity across temporal experiences",
+        "ethicalTimeTravel": "Moral responsibilities of those who can traverse time, even when operating outside legal frameworks"
+      },
+      "philosophicalFramework": {
+        "temporalEthics": "Series establishes complex ethical framework around time travel, balancing individual agency with historical preservation",
+        "identityTheory": "Explores philosophical questions of personal identity across temporal displacement and false personas",
+        "politicalPhilosophy": "Examines abuse of power through control of historical narrative and resistance against authoritarian manipulation of truth"
+      },
+      "significance": "Combines science fiction concepts with deep philosophical exploration of identity, memory, ethics, and power, demonstrating how speculative fiction can examine fundamental questions about selfhood, truth, and responsibility across temporal contexts"
+    },
+    "poetry": {
+      "scope": "Written across three languages",
+      "themes": "Identity, transcendence, and cultural memory",
+      "languages": "Persian, French, and English - each shaping distinct facets of creative voice"
     }
   },
   "projects": {
     "shadowline": {
       "title": "Shadowline",
       "type": "Gotham-inspired Writing Platform",
-      "description": "A sophisticated digital platform integrating multiple AI systems for narrative development",
-      "technologies": ["Next.js", "React", "TypeScript", "Multiple AI APIs"]
+      "description": "A sophisticated digital platform integrating multiple AI systems for narrative development, creative writing, and scholarly discourse",
+      "technologies": ["Next.js", "React", "TypeScript", "Multiple AI APIs", "Advanced Text Processing"],
+      "significance": "Living experiment in how philosophy and digital design can meet",
+      "philosophy": "Technology as amplifier of human creativity rather than replacement",
+      "features": ["Multi-AI integration", "Narrative development tools", "Scholarly writing assistance", "Creative workflow optimization"],
+      "userBase": "Writers, scholars, and creative practitioners seeking enhanced digital writing environments"
+    },
+    "memoireEnLivres": {
+      "title": "Mémoire en Livres",
+      "type": "Digital Heritage Library Platform",
+      "description": "A digital heritage library preserving and organizing family literary collections with advanced search and analysis capabilities",
+      "focus": "French literature, family heritage preservation, digital archiving methodologies",
+      "significance": "Bridges personal heritage with broader cultural preservation efforts",
+      "technicalApproach": "Combines digital archiving with literary analysis tools",
+      "culturalImpact": "Preserves family literary traditions while making them accessible for future generations"
     },
     "yexen": {
       "title": "Yexen Jewelry Brand",
       "type": "Material Practice and Wearable Poetry",
-      "description": "Each piece conceived as a fragment of a poetic narrative"
+      "description": "Each piece conceived as a fragment of a poetic narrative",
+      "philosophy": "Objects as carriers of aesthetic and philosophical meaning",
+      "approach": "Each piece embodies philosophical concepts through form, material, and symbolic content",
+      "significance": "Material practice extending artistic research into tangible forms",
+      "audience": "Those seeking meaningful, philosophically-informed aesthetic objects"
+    },
+    "academicWriting": {
+      "title": "Scholarly Publications and Literary Analysis",
+      "type": "Academic Research and Critical Writing",
+      "description": "Ongoing scholarly work in philosophy, digital humanities, and aesthetic theory",
+      "publications": "Articles on aesthetic language, digital humanities methodologies, and interdisciplinary research",
+      "conferences": "Presentations at academic conferences on philosophy and digital humanities"
     }
   },
   "technicalExpertise": {
     "programming": {
-      "languages": ["TypeScript/JavaScript", "HTML/CSS", "Python", "Shell/CLI"],
-      "frameworks": ["React", "Next.js 14", "Tailwind", "Firebase"],
-      "databases": ["Supabase", "Pinecone", "ChromaDB"]
+      "languages": [
+        "TypeScript/JavaScript (intermediate to advanced)",
+        "HTML/CSS (advanced, especially Tailwind)",
+        "Python (for RAG, vector databases)",
+        "Shell/CLI tools (learning through École 42)"
+      ],
+      "frameworks": ["React", "Next.js 14 (core)", "Tailwind", "shadcn/ui", "Firebase (exploration)"],
+      "databases": ["Supabase/pgvector", "Pinecone", "ChromaDB for RAG"],
+      "tools": ["Git", "Multiple AI APIs integration", "Vector databases", "RAG frameworks"]
     },
     "digitalHumanities": {
-      "specialties": ["RAG systems", "Digital archiving", "Custom platforms"]
+      "customPlatforms": "Building Shadowline (multi-AI writing platform) and Mémoire en Livres (digital heritage library)",
+      "ragSystems": "NotebookLM-like RAG systems with LangChain, LlamaIndex",
+      "archivalMethods": "Digital preservation and organization of family literary collections",
+      "research": "Practice-based research methodology combining theory with technical implementation"
+    },
+    "aiCollaboration": {
+      "platforms": "OpenAI GPT, Claude, Gemini with task routing integration in Shadowline",
+      "multimodalAI": "ElevenLabs for TTS, DALL·E for image generation",
+      "philosophy": "AI as collaborative partner in aesthetic co-creation rather than replacement tool",
+      "applications": "Multi-AI integration, narrative development, creative workflow optimization",
+      "ethics": "Treating AI systems as dialogue partners, emphasizing aesthetic engagement protocols"
     }
+  },
+  "intellectualInfluences": {
+    "philosophy": {
+      "continental": "Heidegger, Merleau-Ponty, Gadamer - phenomenology and hermeneutics",
+      "aesthetics": "Adorno, Benjamin, Rancière - critical theory and aesthetic experience",
+      "language": "Wittgenstein, Derrida - philosophy of language and meaning",
+      "contemporary": "Current debates in digital humanities and technology philosophy"
+    },
+    "interdisciplinary": {
+      "approach": "Drawing insights from archaeology, anthropology, literature, and technology studies",
+      "synthesis": "Creating new knowledge through combination of diverse methodological approaches"
+    }
+  },
+  "practicalSkills": {
+    "languages": {
+      "french": "Professional proficiency - academic and research contexts",
+      "english": "Native-level proficiency - academic writing and international collaboration",
+      "turkish": "Cultural and family heritage language",
+      "persian": "Native heritage language"
+    },
+    "research": [
+      "Qualitative and quantitative research methods",
+      "Academic writing and publication",
+      "Conference presentation and public speaking",
+      "Grant writing and project management",
+      "Cross-cultural and multilingual research"
+    ]
   }
 }
