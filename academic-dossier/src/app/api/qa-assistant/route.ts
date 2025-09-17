@@ -55,10 +55,10 @@ function searchDocuments(question: string) {
   const documents = getDocuments();
   const lowerQuestion = question.toLowerCase();
 
-  return documents.filter(doc => {
+  return documents.filter((doc: any) => {
     const searchableText = `${doc.title} ${doc.content} ${doc.category} ${doc.tags.join(' ')}`.toLowerCase();
     return searchableText.includes(lowerQuestion) ||
-           doc.tags.some(tag => lowerQuestion.includes(tag.toLowerCase())) ||
+           doc.tags.some((tag: string) => lowerQuestion.includes(tag.toLowerCase())) ||
            lowerQuestion.split(' ').some(word => searchableText.includes(word));
   });
 }
@@ -111,7 +111,7 @@ async function generateAnswer(question: string, context: string, conversationHis
 
   if (relevantDocuments.length > 0) {
     documentContext = '\n\nFrom custom documents:\n' +
-      relevantDocuments.map(doc => `• "${doc.title}": ${doc.content.substring(0, 200)}...`).join('\n');
+      relevantDocuments.map((doc: any) => `• "${doc.title}": ${doc.content.substring(0, 200)}...`).join('\n');
   }
 
   // Master's thesis and aesthetic language questions
@@ -480,7 +480,7 @@ async function generateAnswer(question: string, context: string, conversationHis
 
   // If no specific match found, check for relevant documents
   if (relevantDocuments.length > 0) {
-    const docSummary = relevantDocuments.map(doc =>
+    const docSummary = relevantDocuments.map((doc: any) =>
       `"${doc.title}" (${doc.category}): ${doc.content.substring(0, 300)}...`
     ).join('\n\n');
 
