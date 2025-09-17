@@ -432,6 +432,31 @@ const KNOWLEDGE_BASE = {
     significance: "Demonstrates how narrative universes become testing grounds for ideas about aesthetic language, temporal consciousness, cultural translation, and relationship between individual identity and larger systems, contributing to understanding of human meaning-making in digital contexts"
   },
 
+  recommendationLetterQualities: {
+    academicQualities: {
+      intellectualCuriosity: "Dr. Haedeh Laleh notes 'solide connaissance et une curiosité intellectuelle remarquable'. Sepand Danesh confirms 'curiosité intellectuelle et sa rigueur'",
+      analyticalCapacity: "Ali Moini highlights 'capacité à formuler ses pensées avec une clarté remarquable, à analyser avec précision et à maintenir un point de vue à la fois large et nuancé'. Sepand Danesh states strong 'capacité à comprendre et à formuler les enjeux conceptuels de [his] travail'",
+      conceptualUnderstanding: "Immediately grasped 'comment l'arrangement de formes identiques pouvait générer singularité et sens' according to Sepand Danesh",
+      interdisciplinaryLinkages: "Sepand Danesh observes ability to 'relier cette expérience [artistic practice] à ses propres recherches philosophiques sur le langage esthétique'. Ali Moini emphasizes studies and active engagement with artists have 'profondément renforcé ses compétences intellectuelles et affiné sa compréhension des liens complexes entre l'art, la théorie et la perception'",
+      rigorAndDepth: "Ali Moini notes 'maturité de réflexion dépassait largement son âge' and describes as having 'une rigueur et un esprit de dialogue'. Sepand Danesh mentions 'rigueur' and how she transformed artistic experience into 'laboratoire de pensée, intégrant ses observations dans son mémoire de Master'",
+      academicAchievement: "Master's thesis defended with 'mention Bien et une note de 18/20' according to Sepand Danesh",
+      researchPotential: "Dr. Haedeh Laleh strongly recommends for 'une carrière scientifique de valeur' and believes abilities will allow realization of 'projets de grand intérêt dans les domaines de de l'archéologie et du patrimoine culturel'",
+      academicContribution: "Ali Moini believes will bring 'une originalité, une rigueur et un esprit de dialogue' to philosophy program and that capacity to link lived experience, theoretical reflection, and philosophical inquiry makes her 'présence précieuse pour n'importe quel milieu académique'"
+    },
+    creativeQualities: {
+      artisticBackground: "Ali Moini identifies as 'chorégraphe, artiste et interprète basée à Paris'",
+      handsOnInvolvement: "Sepand Danesh details active participation in sculpture creation including 'fabrication et assemblage des cubes, ponçage, peinture, organisation de l'atelier'",
+      practiceTheoryArticulation: "Sepand Danesh highlights 'rare aptitude à articuler la pratique artistique et la réflexion théorique, en conjuguant exigence, créativité et sensibilité'. Ali Moini notes understanding balances 'perspectives \"micro\" et \"macro\"' which 'nourrit à la fois sa réflexion intellectuelle et sa démarche artistique'",
+      creativitySensitivity: "Sepand Danesh describes as possessing 'créativité et sensibilité'",
+      originality: "Sepand Danesh convinced will bring 'originale et précieuse contribution' to program. Ali Moini anticipates will bring 'une originalité'"
+    },
+    mentorsPerspectives: {
+      drHaedehLaleh: "Notes solid knowledge and remarkable intellectual curiosity, strongly recommends for valuable scientific career in archaeology and cultural heritage",
+      sepandDanesh: "Contemporary artist who supervised studio internship, emphasizes intellectual curiosity, rigor, conceptual understanding, and rare ability to articulate artistic practice with theoretical reflection",
+      aliMoini: "Choreographer who collaborated with Yekta, highlights analytical clarity, broad nuanced perspective, intellectual maturity beyond age, and valuable academic presence combining lived experience with philosophical inquiry"
+    }
+  },
+
   workingPhilosophy: {
     coreBeliefs: [
       "Technology should enhance rather than replace human creativity and wisdom",
@@ -617,6 +642,29 @@ async function generateAnswer(question: string, context: string, conversationHis
   if (lowerQuestion.includes('current') || lowerQuestion.includes('future') || lowerQuestion.includes('goals') || lowerQuestion.includes('direction')) {
     const current = KNOWLEDGE_BASE.currentContext;
     return `Currently, Yekta is ${current.academicGoals}. Their professional interests include ${current.professionalInterests}, with collaboration interests in ${current.collaborationInterests}. Future directions involve ${current.futureDirections}.`;
+  }
+
+  // Recommendation letters and mentor perspectives
+  if (lowerQuestion.includes('recommendation') || lowerQuestion.includes('mentor') || lowerQuestion.includes('letter') || lowerQuestion.includes('quality') || lowerQuestion.includes('haedeh') || lowerQuestion.includes('sepand') && lowerQuestion.includes('recommend') || lowerQuestion.includes('ali moini')) {
+    const rec = KNOWLEDGE_BASE.recommendationLetterQualities;
+    if (lowerQuestion.includes('academic') || lowerQuestion.includes('intellectual') || lowerQuestion.includes('research')) {
+      const academic = rec.academicQualities;
+      return `Academic mentors recognize several key qualities: ${academic.intellectualCuriosity}. ${academic.analyticalCapacity}. ${academic.rigorAndDepth}. ${academic.academicContribution}.`;
+    }
+    if (lowerQuestion.includes('creative') || lowerQuestion.includes('artistic') || lowerQuestion.includes('practice')) {
+      const creative = rec.creativeQualities;
+      return `Creative mentors highlight: ${creative.artisticBackground}. ${creative.practiceTheoryArticulation}. ${creative.creativitySensitivity} and ${creative.originality}.`;
+    }
+    if (lowerQuestion.includes('sepand') || lowerQuestion.includes('danesh')) {
+      return `${rec.mentorsPerspectives.sepandDanesh}. He particularly notes her ability to transform artistic experience into a 'laboratoire de pensée'.`;
+    }
+    if (lowerQuestion.includes('ali') || lowerQuestion.includes('moini')) {
+      return `${rec.mentorsPerspectives.aliMoini}. He emphasizes her intellectual maturity exceeded her age.`;
+    }
+    if (lowerQuestion.includes('haedeh') || lowerQuestion.includes('laleh')) {
+      return `${rec.mentorsPerspectives.drHaedehLaleh}. She strongly recommends Yekta for projects of great interest in archaeology and cultural heritage.`;
+    }
+    return `Yekta's mentors consistently recognize her intellectual curiosity, analytical capacity, interdisciplinary linkages, and rare ability to articulate artistic practice with theoretical reflection. ${rec.academicQualities.academicAchievement}.`;
   }
 
   // Contact and collaboration
