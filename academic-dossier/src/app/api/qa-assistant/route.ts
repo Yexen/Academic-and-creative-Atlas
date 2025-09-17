@@ -4,6 +4,7 @@ import path from 'path';
 
 // Path to the knowledge base JSON file
 const KNOWLEDGE_BASE_PATH = path.join(process.cwd(), 'src', 'data', 'knowledge-base.json');
+const DOCUMENTS_PATH = path.join(process.cwd(), 'src', 'data', 'documents.json');
 
 // Load knowledge base from JSON file
 function getKnowledgeBase() {
@@ -33,6 +34,33 @@ function getKnowledgeBase() {
       }
     };
   }
+}
+
+// Load documents from JSON file
+function getDocuments() {
+  try {
+    if (!fs.existsSync(DOCUMENTS_PATH)) {
+      return [];
+    }
+    const fileContent = fs.readFileSync(DOCUMENTS_PATH, 'utf-8');
+    return JSON.parse(fileContent);
+  } catch (error) {
+    console.error('Error reading documents:', error);
+    return [];
+  }
+}
+
+// Search documents for relevant content based on question
+function searchDocuments(question: string) {
+  const documents = getDocuments();
+  const lowerQuestion = question.toLowerCase();
+
+  return documents.filter(doc => {
+    const searchableText = `${doc.title} ${doc.content} ${doc.category} ${doc.tags.join(' ')}`.toLowerCase();
+    return searchableText.includes(lowerQuestion) ||
+           doc.tags.some(tag => lowerQuestion.includes(tag.toLowerCase())) ||
+           lowerQuestion.split(' ').some(word => searchableText.includes(word));
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -77,6 +105,15 @@ async function generateAnswer(question: string, context: string, conversationHis
   const lowerQuestion = question.toLowerCase();
   const KNOWLEDGE_BASE = getKnowledgeBase();
 
+  // Search for relevant documents
+  const relevantDocuments = searchDocuments(question);
+  let documentContext = '';
+
+  if (relevantDocuments.length > 0) {
+    documentContext = '\n\nFrom custom documents:\n' +
+      relevantDocuments.map(doc => `• "${doc.title}": ${doc.content.substring(0, 200)}...`).join('\n');
+  }
+
   // Master's thesis and aesthetic language questions
   if (lowerQuestion.includes('thesis') || lowerQuestion.includes('master') || lowerQuestion.includes('aesthetic language')) {
     const thesis = KNOWLEDGE_BASE.education.masterThesis;
@@ -84,7 +121,7 @@ async function generateAnswer(question: string, context: string, conversationHis
     const framework = KNOWLEDGE_BASE.research.theoreticalFramework;
 
     if (lowerQuestion.includes('definition') || lowerQuestion.includes('define') || lowerQuestion.includes('what is')) {
-      return `${core.aestheticDefinition}. ${core.aestheticLanguageDefinition}. The work asks: ${core.coreQuestion} It explores ${core.mainTheme}, drawing from ${core.wittgensteinFoundation}.`;
+      return `${core.aestheticDefinition}. ${core.aestheticLanguageDefinition}. The work asks: ${core.coreQuestion} It explores ${core.mainTheme}, drawing from ${core.wittgensteinFoundation}.${documentContext}`;
     }
     if (lowerQuestion.includes('mystical') || lowerQuestion.includes('ineffable') || lowerQuestion.includes('sensible')) {
       return `${core.mysticalConcept}. ${core.laterWittgenstein}. Yekta ${core.deleuzeConnection}, creating a bridge between analytic and continental philosophy.`;
@@ -441,8 +478,17 @@ async function generateAnswer(question: string, context: string, conversationHis
     return `Yekta Jokar is a ${personal.title} who ${personal.identity}. ${personal.currentStatus}, ${personal.languageProfile}. Their work addresses fundamental questions about ${research.coreQuestions[0]} ${personal.currentVision}.`;
   }
 
+  // If no specific match found, check for relevant documents
+  if (relevantDocuments.length > 0) {
+    const docSummary = relevantDocuments.map(doc =>
+      `"${doc.title}" (${doc.category}): ${doc.content.substring(0, 300)}...`
+    ).join('\n\n');
+
+    return `I found relevant documents in the knowledge base:\n\n${docSummary}\n\nWould you like me to elaborate on any of these documents or search for something more specific?`;
+  }
+
   // Default response with enhanced context
-  return `I can help you learn about Yekta's interdisciplinary research spanning philosophy, digital humanities, and creative practice. Topics include their Master's thesis on aesthetic language (grade 18/20), projects like Shadowline and Mémoire en Livres, archaeological background, multilingual capabilities, AI collaboration philosophy, and current work bridging ancient wisdom with contemporary technology. What specific aspect interests you?`;
+  return `I can help you learn about Yekta's interdisciplinary research spanning philosophy, digital humanities, and creative practice. Topics include their Master's thesis on aesthetic language (grade 18/20), projects like Shadowline and Mémoire en Livres, archaeological background, multilingual capabilities, AI collaboration philosophy, and current work bridging ancient wisdom with contemporary technology. What specific aspect interests you?${documentContext}`;
 }
 
 async function generateAnswerWithOpenAI(question: string, context: string, conversationHistory: any[]): Promise<string> {
