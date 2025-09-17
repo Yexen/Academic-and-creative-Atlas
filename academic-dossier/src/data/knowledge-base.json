@@ -1,0 +1,93 @@
+{
+  "personal": {
+    "name": "Yekta Jokar",
+    "dateOfBirth": "July 13, 1995",
+    "gender": "Female",
+    "title": "Philosopher, Writer, and Interdisciplinary Artist",
+    "identity": "Bridges boundaries between theory and practice, technology and aesthetics, heritage and innovation",
+    "currentStatus": "Born in Iran, now based in Paris",
+    "email": "yekta.kjs@gmail.com",
+    "phone": "+33 766 714 238",
+    "location": "3 Rue Victor Hugo, 95100 Argenteuil, France",
+    "background": "Iranian-born scholar working at the intersection of philosophy, digital humanities, and aesthetic theory",
+    "languageProfile": "Works in three languages — Persian, French, and English — each shaping a distinct facet of intellectual and creative voice",
+    "currentVision": "Developing a framework where philosophy, art, and AI converge to create new forms of meaning, contributing to academic research, digital innovation, and artistic practice simultaneously"
+  },
+  "education": {
+    "masterThesis": {
+      "title": "Aesthetic Language: The Interplay Between Language, Art, and the Sensible",
+      "university": "Université Paris 8",
+      "program": "Philosophy",
+      "grade": "18/20 (Distinction)",
+      "year": "2024",
+      "supervisor": "Dr. Gerhard Schmezer (Paris 8)"
+    },
+    "archaeology": {
+      "degree": "Advanced studies in Archaeology",
+      "university": "Université de Téhéran",
+      "specialization": "Cultural heritage and material culture studies"
+    },
+    "philosophy": {
+      "degree": "Master's in Philosophy",
+      "university": "Université Paris 8",
+      "focus": "Continental philosophy, aesthetics, phenomenology, and language theory"
+    }
+  },
+  "research": {
+    "masterThesisCore": {
+      "centralConcept": "Aesthetic Language: how language can transcend its logical limitations to engage with the realm of the sensible",
+      "mainTheme": "Exploration into how language can transcend conventional logical and discursive limitations to access and express the 'realm of the sensible'",
+      "coreQuestion": "How can language, a logical structure, interact with the sensible?",
+      "philosophicalSynthesis": "Uniquely combines perspectives of three influential 20th-century philosophers from distinct traditions: Wittgenstein (analytic), Deleuze (continental), and Dewey (pragmatic)"
+    },
+    "currentInvestigations": [
+      "Aesthetic engagement protocols for enhanced AI interaction design",
+      "Philosophical implications of treating AI systems as dialogue partners rather than tools",
+      "Spatial perception and meaning-making through sculptural practice",
+      "Integration of Persian philosophical traditions with contemporary European academic discourse"
+    ]
+  },
+  "creativeWork": {
+    "shadowsOfGotham": {
+      "title": "Shadows of Gotham",
+      "type": "Six-volume saga",
+      "description": "Integrating Zoroastrian mythology with contemporary storytelling",
+      "keyThemes": ["duality and balance", "self-made identity", "redefined morality"]
+    },
+    "bezothera": {
+      "title": "Bezothera",
+      "type": "Science fiction narrative universe",
+      "description": "Advanced alien civilization exploring the philosophy of emotions as the most powerful force in existence",
+      "keyThemes": ["emotion as power", "sacred love", "matriarchal society"]
+    },
+    "thievesOfTime": {
+      "title": "Thieves of Time",
+      "type": "Science fiction series",
+      "description": "Exploring what it means to live across time without losing yourself",
+      "keyThemes": ["temporal identity", "ethical dilemmas", "memory and continuity"]
+    }
+  },
+  "projects": {
+    "shadowline": {
+      "title": "Shadowline",
+      "type": "Gotham-inspired Writing Platform",
+      "description": "A sophisticated digital platform integrating multiple AI systems for narrative development",
+      "technologies": ["Next.js", "React", "TypeScript", "Multiple AI APIs"]
+    },
+    "yexen": {
+      "title": "Yexen Jewelry Brand",
+      "type": "Material Practice and Wearable Poetry",
+      "description": "Each piece conceived as a fragment of a poetic narrative"
+    }
+  },
+  "technicalExpertise": {
+    "programming": {
+      "languages": ["TypeScript/JavaScript", "HTML/CSS", "Python", "Shell/CLI"],
+      "frameworks": ["React", "Next.js 14", "Tailwind", "Firebase"],
+      "databases": ["Supabase", "Pinecone", "ChromaDB"]
+    },
+    "digitalHumanities": {
+      "specialties": ["RAG systems", "Digital archiving", "Custom platforms"]
+    }
+  }
+}
