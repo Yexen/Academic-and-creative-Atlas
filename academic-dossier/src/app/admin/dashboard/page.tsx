@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAdmin } from '@/contexts/AdminContext';
 import { useRouter } from 'next/navigation';
 
 // Knowledge Base Editor Component with Tabs
@@ -605,16 +604,40 @@ function DocumentsManager() {
 }
 
 export default function AdminDashboard() {
-  const { isAdminMode, isAuthenticated } = useAdmin();
   const router = useRouter();
   const [activeMainTab, setActiveMainTab] = useState('knowledge-base');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!isAuthenticated || !isAdminMode) {
+    // Check authentication and admin mode on client side only
+    try {
+      const adminAuth = localStorage.getItem('admin_authenticated');
+      const urlParams = new URLSearchParams(window.location.search);
+      const adminParam = urlParams.get('admin');
+
+      const authenticated = adminAuth === 'true';
+      const adminModeActive = adminParam === 'true' && authenticated;
+
+      setIsAuthenticated(authenticated);
+      setIsAdminMode(adminModeActive);
+
+      if (!authenticated || !adminModeActive) {
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
       router.push('/');
+    } finally {
+      setIsLoading(false);
     }
-  }, [isAuthenticated, isAdminMode, router]);
+  }, [router]);
+
+  if (isLoading) {
+    return <div className="text-center py-8">Loading...</div>;
+  }
 
   if (!isAuthenticated || !isAdminMode) {
     return <div className="text-center py-8">Access denied. Admin mode required.</div>;
