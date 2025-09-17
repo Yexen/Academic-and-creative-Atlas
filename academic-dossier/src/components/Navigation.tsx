@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Language, getTranslation } from '@/lib/i18n';
+import { useAdmin } from '@/contexts/AdminContext';
 import LanguageToggle from './LanguageToggle';
 
 interface NavigationProps {
@@ -12,6 +13,15 @@ interface NavigationProps {
 
 export default function Navigation({ lang, onLanguageChange }: NavigationProps) {
   const pathname = usePathname();
+
+  // Handle admin context safely for static generation
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    isAdminMode = false;
+  }
 
   const navItems = [
     { key: 'home', href: '/' },
@@ -49,6 +59,19 @@ export default function Navigation({ lang, onLanguageChange }: NavigationProps) 
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Dashboard button - only show in admin mode */}
+            {isAdminMode && (
+              <Link
+                href="/admin/dashboard"
+                className="flex items-center space-x-2 bg-academic-brown text-white hover:bg-academic-brown-dark transition-colors text-sm px-3 py-2 rounded-md"
+                title="Admin Dashboard"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <span className="hidden sm:inline">Dashboard</span>
+              </Link>
+            )}
             <Link
               href="/admin"
               className="flex items-center space-x-2 text-gray-600 hover:text-academic-brown transition-colors text-sm px-3 py-2 rounded-md hover:bg-gray-50"
