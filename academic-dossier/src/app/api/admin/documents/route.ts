@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
           tags: docData.tags || [],
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-          wordCount: docData.content.split(/\s+/).filter(word => word.length > 0).length
+          wordCount: docData.content.split(/\s+/).filter((word: string) => word.length > 0).length
         };
         documents.push(newDocument);
         saveDocuments(documents);
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
           category: docData.category,
           tags: docData.tags || [],
           updatedAt: new Date().toISOString(),
-          wordCount: docData.content.split(/\s+/).filter(word => word.length > 0).length
+          wordCount: docData.content.split(/\s+/).filter((word: string) => word.length > 0).length
         };
         saveDocuments(documents);
         return NextResponse.json(documents[index]);
