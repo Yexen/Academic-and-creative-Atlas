@@ -30,6 +30,7 @@ export default function Navigation({ lang, onLanguageChange }: NavigationProps) 
     { key: 'resume', href: '/resume' },
     { key: 'portfolio', href: '/portfolio' },
     { key: 'academic', href: '/academic' },
+    { key: 'gallery', href: '/gallery' },
     { key: 'documents', href: '/documents' },
   ];
 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "title": "Creative Workshop Documentation",
+    "description": "Documentation of creative workshops and artistic processes",
+    "type": "image",
+    "url": "https://via.placeholder.com/800x600/8B4513/FFFFFF?text=Creative+Workshop",
+    "thumbnail": "https://via.placeholder.com/300x200/8B4513/FFFFFF?text=Creative+Workshop",
+    "category": "workshop",
+    "tags": ["creative", "workshop", "documentation", "art"],
+    "createdAt": "2025-09-18T10:00:00.000Z",
+    "updatedAt": "2025-09-18T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "Philosophy Presentation",
+    "description": "Video presentation on aesthetic language theory",
+    "type": "video",
+    "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnail": "https://via.placeholder.com/300x200/654321/FFFFFF?text=Philosophy+Video",
+    "category": "academic",
+    "tags": ["philosophy", "presentation", "aesthetic", "theory"],
+    "createdAt": "2025-09-17T15:30:00.000Z",
+    "updatedAt": "2025-09-17T15:30:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Archaeological Site Documentation",
+    "description": "Field documentation from archaeological excavation",
+    "type": "image",
+    "url": "https://via.placeholder.com/800x600/A0522D/FFFFFF?text=Archaeological+Site",
+    "thumbnail": "https://via.placeholder.com/300x200/A0522D/FFFFFF?text=Archaeological+Site",
+    "category": "research",
+    "tags": ["archaeology", "excavation", "documentation", "field-work"],
+    "createdAt": "2025-09-16T09:15:00.000Z",
+    "updatedAt": "2025-09-16T09:15:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "Yexen Jewelry Collection",
+    "description": "Visual showcase of poetry-inspired jewelry designs",
+    "type": "image",
+    "url": "https://via.placeholder.com/800x600/B8860B/FFFFFF?text=Jewelry+Collection",
+    "thumbnail": "https://via.placeholder.com/300x200/B8860B/FFFFFF?text=Jewelry+Collection",
+    "category": "creative",
+    "tags": ["jewelry", "design", "yexen", "creative", "poetry"],
+    "createdAt": "2025-09-15T14:45:00.000Z",
+    "updatedAt": "2025-09-15T14:45:00.000Z"
+  }
+]
