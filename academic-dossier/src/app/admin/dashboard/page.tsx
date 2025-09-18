@@ -708,7 +708,7 @@ export default function AdminDashboard() {
       }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       try {
         const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
@@ -731,7 +731,7 @@ export default function AdminDashboard() {
       }
     };
 
-    const handleEdit = (item) => {
+    const handleEdit = (item: any) => {
       setEditingItem(item);
       setFormData({
         title: item.title,
@@ -745,7 +745,7 @@ export default function AdminDashboard() {
       setShowAddForm(true);
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id: string) => {
       if (confirm('Are you sure you want to delete this gallery item?')) {
         try {
           const response = await fetch(`/api/gallery?id=${id}`, { method: 'DELETE' });
