@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Language, getTranslation } from '@/lib/i18n';
 import LanguageToggle from './LanguageToggle';
 import { useEffect, useState } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
 
 interface NavigationProps {
   lang: Language;
@@ -13,31 +14,16 @@ interface NavigationProps {
 
 export default function Navigation({ lang, onLanguageChange }: NavigationProps) {
   const pathname = usePathname();
-  const [isAdminMode, setIsAdminMode] = useState(false);
 
-  useEffect(() => {
-    // Check admin mode from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const adminParam = urlParams.get('admin');
-    const adminAuth = localStorage.getItem('admin_authenticated');
-
-    if (adminParam === 'true' && adminAuth === 'true') {
-      setIsAdminMode(true);
-    } else {
-      setIsAdminMode(false);
-    }
-
-    // Listen for URL changes
-    const handleUrlChange = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const adminParam = urlParams.get('admin');
-      const adminAuth = localStorage.getItem('admin_authenticated');
-      setIsAdminMode(adminParam === 'true' && adminAuth === 'true');
-    };
-
-    window.addEventListener('popstate', handleUrlChange);
-    return () => window.removeEventListener('popstate', handleUrlChange);
-  }, []);
+  // Handle admin context safely for static generation (same pattern as AdminBar)
+  let isAdminMode = false;
+  try {
+    const adminContext = useAdmin();
+    isAdminMode = adminContext.isAdminMode;
+  } catch (error) {
+    // Admin context not available during static generation
+    isAdminMode = false;
+  }
 
   const navItems = [
     { key: 'home', href: '/' },
@@ -78,12 +64,16 @@ export default function Navigation({ lang, onLanguageChange }: NavigationProps) 
             <LanguageToggle currentLang={lang} onLanguageChange={onLanguageChange} />
             {isAdminMode && (
               <Link
-                href="/admin/dashboard"
+                href="/admin/dashboard?admin=true"
                 className="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 transition-colors text-sm font-medium border-2 border-amber-700"
               >
                 Dashboard
               </Link>
             )}
+            {/* Debug: Show current admin state */}
+            <div className="text-xs bg-gray-100 px-2 py-1 rounded">
+              Admin: {isAdminMode ? 'ON' : 'OFF'}
+            </div>
           </div>
         </div>
 

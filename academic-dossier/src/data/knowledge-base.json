@@ -1,14 +1,163 @@
 {
-  "overview": "Yekta Jokar is an interdisciplinary researcher and creative practitioner working at the intersection of philosophy, digital humanities, and aesthetic theory.",
+  "overview": "Yekta Jokar is a multilingual philosopher and researcher with expertise in aesthetic theory, cultural transmission, and interdisciplinary synthesis. Specializes in bridging Persian and Western intellectual traditions through innovative theoretical frameworks. Born July 13, 1995 in Yasuj, Iran, currently based in Argenteuil, France.",
   "personal": {
+    "contact": {
+      "title": "Contact Information",
+      "description": "Current contact details",
+      "details": "Email: yekta.kjs@gmail.com, Phone: +33766714238, Address: 3 rue Victor Hugo, 95100, Argenteuil, France"
+    },
     "background": {
-      "title": "Background",
-      "description": "Academic and creative background",
-      "details": "Currently pursuing Master's in Digital Humanities at Université Paris 8, with previous Master's in Archaeology from University of Tehran."
+      "title": "Personal Background",
+      "description": "Cultural and linguistic background",
+      "details": "Born July 13, 1995 in Yasuj, Iran. Native Persian speaker with C1-C2 level English and B2-C1 French proficiency. Multilingual philosopher bridging Persian and Western intellectual traditions."
+    },
+    "profile": {
+      "title": "Professional Profile",
+      "description": "Core professional identity and expertise",
+      "details": "Multilingual philosopher and researcher with expertise in aesthetic theory, cultural transmission, and interdisciplinary synthesis. Demonstrated ability to develop original academic concepts while maintaining practical applications across creative, commercial, and technological domains. Skilled in woodworking, digital content creation, and AI-assisted design."
     }
   },
-  "education": {},
-  "creative": {},
-  "research": {},
-  "technical": {}
+  "education": {
+    "computer_science": {
+      "title": "Computer Science Program - École 42",
+      "description": "Intensive coding bootcamp at École 42, Paris",
+      "details": "June 2024 - Completed intensive 28-day coding bootcamp (Piscine), mastering fundamental programming concepts and problem-solving skills. Developed proficiency in C programming, algorithms, and data structures through hands-on projects and challenges. Engaged in self-directed learning and peer-to-peer collaboration."
+    },
+    "masters_philosophy": {
+      "title": "Master's in Philosophy - Université Paris 8",
+      "description": "Current Master's program in Philosophy",
+      "details": "September 2021 - June 2025. Thesis: 'Aesthetic Language: The Interplay Between Language, Art, and the Sensible' (18/20). Specialization: Continental philosophy, aesthetics, and consciousness studies. Research Focus: Developing original theoretical frameworks in aesthetic language theory. Average: 15.2"
+    },
+    "masters_archaeology": {
+      "title": "Advanced Archaeological Studies - University of Tehran",
+      "description": "Master's degree in Archaeology with interdisciplinary focus",
+      "details": "2017-2020. Specialized in interdisciplinary cultural transmission and ancient labor migration patterns. Conducted independent research on Achaemenid-Greek intercultural relations. Focused on innovative methodological approaches to archaeological interpretation. Average: 16.6"
+    },
+    "bachelors_archaeology": {
+      "title": "Bachelor's in Archaeology - University of Tehran",
+      "description": "Undergraduate degree in Archaeology",
+      "details": "2013-2017. Earned degree developing research, analytical, qualitative as well as quantitative and fieldwork skills. Average: 15.04"
+    },
+    "high_school": {
+      "title": "High School Diploma - Shiraz, Iran",
+      "description": "Secondary education in Human Sciences and Literature",
+      "details": "2010-2013. Focused on human sciences and literature, fostering strong foundation in humanities and languages. Average: 17.10"
+    }
+  },
+  "creative": {
+    "yexen_jewelry": {
+      "title": "Yexen Jewelry Brand",
+      "description": "Founded jewelry brand with conceptual collections",
+      "details": "2025 - Founder & Creative Director. Specializes in conceptual, poetry-inspired collections including 'Totems of Swirling Whispers' - poetry-driven adornment exploring myth, grief, and rebirth. Designed complete brand identity, logo, and visual marketing materials."
+    },
+    "literary_works": {
+      "title": "Literary & Poetic Works",
+      "description": "Multi-volume narrative and poetry projects",
+      "details": "2024-2025 - Independent Author. Multi-volume narrative projects exploring trauma, identity, and cultural synthesis. Poetry Collections addressing existential themes, cultural displacement, and spiritual transcendence. Specializes in integrating Persian mythology with contemporary Western frameworks."
+    },
+    "artist_assistant": {
+      "title": "Artist Assistant - Sepand Danesh Studio",
+      "description": "Woodworking and sculpture assistance",
+      "details": "2024 - Assisted artist Sepand Danesh in creation of wooden sculptures, demonstrating proficiency in carpentry and woodworking techniques. Collaborated closely to bring creative visions to life from concept to completion."
+    }
+  },
+  "research": {
+    "aesthetic_ai": {
+      "title": "Aesthetic Engagement Protocols for Enhanced AI Interaction",
+      "description": "Independent research on human-AI dialogue enhancement",
+      "details": "2025 - Developed theoretical framework for sustained, meaningful human-AI dialogue through aesthetic engagement. Integrated insights from Wittgenstein, Dewey, Deleuze, and Merleau-Ponty. Conducted empirical testing across Claude, ChatGPT, Gemini, and other LLM platforms. Demonstrated enhanced contextual coherence, creative output, and collaborative meaning-making."
+    },
+    "application_development": {
+      "title": "Application Development Projects",
+      "description": "Digital applications and UX/UI design",
+      "details": "2025 (in progress) - Designed and deployed Shadowline (content aggregation platform) and Mémoire en Livres (progressive web app for personal library management). Applied philosophical research to digital interface design, translating aesthetic language theory into practical UX principles."
+    },
+    "archaeological_research": {
+      "title": "Archaeological Research",
+      "description": "Achaemenid-Greek intercultural relations",
+      "details": "2017-2020 - Conducted independent research on cultural exchange through material evidence. Specialized in ancient labor migration patterns and innovative methodological approaches to archaeological interpretation."
+    }
+  },
+  "technical": {
+    "programming": {
+      "title": "Programming Skills",
+      "description": "Programming languages and frameworks",
+      "details": "C programming (École 42), algorithms and data structures, AI-assisted development, frontend and backend architecture"
+    },
+    "digital_skills": {
+      "title": "Digital Content Creation",
+      "description": "Digital media and content creation abilities",
+      "details": "Digital content creation, AI-assisted design tools, promotional video creation and editing, UX/UI design systems, Microsoft Office suite"
+    },
+    "languages": {
+      "title": "Language Proficiency",
+      "description": "Multilingual communication abilities",
+      "details": "Farsi (Persian): Native Speaker, English: C1-C2 level, French: B2-C1 level. Professional-level Farsi-English translation capabilities"
+    },
+    "craftsmanship": {
+      "title": "Physical Skills",
+      "description": "Traditional craftsmanship abilities",
+      "details": "Woodworking and carpentry, demonstrated through collaboration with sculptor Sepand Danesh and integration into jewelry brand development"
+    }
+  },
+  "work_experience": {
+    "gdcc_interviewer": {
+      "title": "Farsi Speaking Interviewer - GDCC",
+      "description": "Data collection interviews in Farsi",
+      "details": "2024 - Global Data Collection Company. Conducted data collection interviews in Farsi language."
+    },
+    "translation_work": {
+      "title": "Freelance Translation Work",
+      "description": "Professional Persian-English translation",
+      "details": "2022 - Farsi to English translation of 'Waiting for Mars' movie and lyrics of Toomaj Salehi (Iranian opposition rapper) for international media coverage."
+    },
+    "archaeological_work": {
+      "title": "Archaeological Field Experience",
+      "description": "Classification, archiving, and excavation experience",
+      "details": "2016-2017 - Institute of Archaeology, University of Tehran: Classified and archived archaeological magazines and articles. 2016 - Trainee in excavation of Meshkin Tepe of Sagzabad (Qazvin Province) under Dr. Mostafa Dehpahlavan supervision."
+    }
+  },
+  "awards_honors": {
+    "academic_achievements": {
+      "title": "Academic Awards and Recognition",
+      "description": "Academic excellence and rankings",
+      "details": "2021-2024: Master's thesis awarded 18/20. 2019-2020: Full scholarship for French language classes at French Institute of Research in Iran. 2017: 8th ranking position for M.A. admission. 2013: 741st ranking position for Bachelor's admission."
+    }
+  },
+  "workshops_training": {
+    "creative_workshops": {
+      "title": "Creative and Academic Workshops",
+      "description": "Specialized training in dance, composition, and archaeology",
+      "details": "2021: Real-time composition with João Fiaderio, History of Postmodern Dance with Myrto Katsiki. 2019: Drawing with Negin Hassanzade, Composition with Ali Moini, 'Persia and Babylonia' seminar at University of Kashan. 2014-2015: Photography and mapping workshops."
+    }
+  },
+  "documents": {
+    "documentstagereportpdf": {
+      "title": "Document - Stage Report.pdf",
+      "description": "General document from PDF",
+      "details": "[PDF CONTENT SIMULATION]\n\nFilename: Stage Report.pdf\nSize: 129856 bytes\n\nThis document contains general content that would be extracted from your PDF file. The automatic categorization system will analyze this content and determine the most appropriate category based on keywords and content patterns.\n\nIn a real implementation, this would use a PDF parsing library (such as PDF.js or pdf-parse) to extract the actual text content from the PDF file, which would then be processed by the AI categorization system.",
+      "category": "general",
+      "source": "Stage Report.pdf",
+      "auto_detected": false,
+      "timestamp": "2025-09-18T09:59:33.080Z"
+    },
+    "documentaestheticengagementprotocolsummarypdf": {
+      "title": "Document - Aesthetic Engagement protocol Summary.pdf",
+      "description": "General document from PDF",
+      "details": "[PDF CONTENT SIMULATION]\n\nFilename: Aesthetic Engagement protocol Summary.pdf\nSize: 26879 bytes\n\nThis document contains general content that would be extracted from your PDF file. The automatic categorization system will analyze this content and determine the most appropriate category based on keywords and content patterns.\n\nIn a real implementation, this would use a PDF parsing library (such as PDF.js or pdf-parse) to extract the actual text content from the PDF file, which would then be processed by the AI categorization system.",
+      "category": "general",
+      "source": "Aesthetic Engagement protocol Summary.pdf",
+      "auto_detected": false,
+      "timestamp": "2025-09-18T09:59:33.080Z"
+    },
+    "documentaestheticlanguagesummarypdf": {
+      "title": "Document - Aesthetic language summary.pdf",
+      "description": "General document from PDF",
+      "details": "[PDF CONTENT SIMULATION]\n\nFilename: Aesthetic language summary.pdf\nSize: 25102 bytes\n\nThis document contains general content that would be extracted from your PDF file. The automatic categorization system will analyze this content and determine the most appropriate category based on keywords and content patterns.\n\nIn a real implementation, this would use a PDF parsing library (such as PDF.js or pdf-parse) to extract the actual text content from the PDF file, which would then be processed by the AI categorization system.",
+      "category": "general",
+      "source": "Aesthetic language summary.pdf",
+      "auto_detected": false,
+      "timestamp": "2025-09-18T09:59:33.081Z"
+    }
+  }
 }

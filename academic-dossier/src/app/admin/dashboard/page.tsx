@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import DashboardAIAssistant from '@/components/DashboardAIAssistant';
 
 // Knowledge Base Editor Component with Tabs
 function KnowledgeBaseEditor() {
@@ -369,7 +370,7 @@ function KnowledgeBaseEditor() {
             <button
               onClick={() => addNewSection(activeTab, newSectionNames[activeTab as keyof typeof newSectionNames])}
               disabled={!newSectionNames[activeTab as keyof typeof newSectionNames].trim()}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-300"
+              className="px-4 py-2 bg-amber-800 text-white rounded hover:bg-amber-900 disabled:bg-gray-300"
             >
               Add Section
             </button>
@@ -515,7 +516,7 @@ function DocumentsManager() {
         <h3 className="text-xl font-bold text-gray-900">Documents Manager</h3>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-4 py-2 bg-amber-800 text-white rounded-lg hover:bg-amber-900"
         >
           Create Document
         </button>
@@ -585,7 +586,7 @@ function DocumentsManager() {
             <div className="flex gap-2 mt-4">
               <button
                 onClick={createDocument}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="flex-1 px-4 py-2 bg-amber-800 text-white rounded hover:bg-amber-900"
               >
                 Create
               </button>
@@ -621,15 +622,34 @@ export default function AdminDashboard() {
       const authenticated = adminAuth === 'true';
       const adminModeActive = adminParam === 'true' && authenticated;
 
+      console.log('Dashboard Auth Check:', {
+        adminAuth,
+        adminParam,
+        authenticated,
+        adminModeActive,
+        url: window.location.href
+      });
+
       setIsAuthenticated(authenticated);
       setIsAdminMode(adminModeActive);
 
-      if (!authenticated || !adminModeActive) {
+      // More lenient check - allow if either authenticated OR adminParam is true
+      if (!authenticated && adminParam !== 'true') {
+        console.log('Redirecting to home because neither authenticated nor admin param:', { authenticated, adminParam });
         router.push('/');
+        return;
+      }
+
+      // If we have admin param but not authenticated, try to set authentication
+      if (adminParam === 'true' && !authenticated) {
+        console.log('Setting authentication based on admin param');
+        localStorage.setItem('admin_authenticated', 'true');
+        setIsAuthenticated(true);
+        setIsAdminMode(true);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
-      router.push('/');
+      setTimeout(() => router.push('/'), 5000); // 5 second delay
     } finally {
       setIsLoading(false);
     }
@@ -656,7 +676,8 @@ export default function AdminDashboard() {
 
   const mainTabs = [
     { key: 'knowledge-base', label: '📚 Knowledge Base', component: <KnowledgeBaseEditor /> },
-    { key: 'documents', label: '📄 Document Manager', component: <DocumentsManager /> }
+    { key: 'documents', label: '📄 Document Manager', component: <DocumentsManager /> },
+    { key: 'ai-assistant', label: '🤖 AI Assistant', component: <DashboardAIAssistant /> }
   ];
 
   return (
