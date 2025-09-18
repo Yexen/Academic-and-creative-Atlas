@@ -676,10 +676,23 @@ export default function AdminDashboard() {
 
   // Gallery Manager Component
   function GalleryManager() {
-    const [gallery, setGallery] = useState([]);
+    interface GalleryItem {
+      id: string;
+      title: string;
+      description: string;
+      type: 'image' | 'video' | 'audio';
+      url: string;
+      thumbnail: string;
+      category: string;
+      tags: string[];
+      createdAt: string;
+      updatedAt: string;
+    }
+
+    const [gallery, setGallery] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [editingItem, setEditingItem] = useState(null);
+    const [editingItem, setEditingItem] = useState<GalleryItem | null>(null);
     const [formData, setFormData] = useState({
       title: '',
       description: '',
@@ -731,7 +744,7 @@ export default function AdminDashboard() {
       }
     };
 
-    const handleEdit = (item: any) => {
+    const handleEdit = (item: GalleryItem) => {
       setEditingItem(item);
       setFormData({
         title: item.title,
