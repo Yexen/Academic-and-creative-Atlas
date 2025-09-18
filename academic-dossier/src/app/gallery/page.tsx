@@ -106,8 +106,8 @@ export default function GalleryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-academic-brown">Gallery</h1>
-              <p className="text-academic-brown-dark mt-1">Visual documentation of creative and academic work</p>
+              <h1 className="text-3xl font-bold text-gray-900">Gallery</h1>
+              <p className="text-gray-700 mt-1">Visual documentation of creative and academic work</p>
             </div>
 
             {/* Search */}
@@ -172,8 +172,8 @@ export default function GalleryPage() {
                 onClick={() => setActiveTab(tab.key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
                   activeTab === tab.key
-                    ? 'bg-academic-brown text-white shadow-md'
-                    : 'bg-white text-gray-700 hover:bg-academic-brown hover:text-white border border-gray-300'
+                    ? 'bg-gray-900 text-white shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-gray-900 hover:text-white border border-gray-300'
                 }`}
               >
                 {tab.icon}

@@ -764,9 +764,14 @@ export default function AdminDashboard() {
           const response = await fetch(`/api/gallery?id=${id}`, { method: 'DELETE' });
           if (response.ok) {
             await fetchGallery();
+            console.log('Gallery item deleted successfully');
+          } else {
+            console.error('Failed to delete gallery item:', response.status, response.statusText);
+            alert('Failed to delete gallery item. Please try again.');
           }
         } catch (error) {
           console.error('Error deleting gallery item:', error);
+          alert('Error deleting gallery item. Please try again.');
         }
       }
     };
