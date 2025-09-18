@@ -46,5 +46,17 @@
     "tags": ["jewelry", "design", "yexen", "creative", "poetry"],
     "createdAt": "2025-09-15T14:45:00.000Z",
     "updatedAt": "2025-09-15T14:45:00.000Z"
+  },
+  {
+    "id": "5",
+    "title": "Persian Poetry Reading",
+    "description": "Audio recording of Persian poetry performance with philosophical themes",
+    "type": "audio",
+    "url": "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role.mp3",
+    "thumbnail": "",
+    "category": "academic",
+    "tags": ["poetry", "persian", "philosophy", "audio", "performance"],
+    "createdAt": "2025-09-14T16:20:00.000Z",
+    "updatedAt": "2025-09-14T16:20:00.000Z"
   }
 ]

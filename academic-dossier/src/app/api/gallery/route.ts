@@ -8,7 +8,7 @@ interface GalleryItem {
   id: string;
   title: string;
   description: string;
-  type: 'image' | 'video';
+  type: 'image' | 'video' | 'audio';
   url: string;
   thumbnail: string;
   category: string;
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       id: Date.now().toString(),
       title: title.trim(),
       description: description?.trim() || '',
-      type: type as 'image' | 'video',
+      type: type as 'image' | 'video' | 'audio',
       url: url.trim(),
       thumbnail: thumbnail?.trim() || url.trim(),
       category: category.trim(),
@@ -120,7 +120,7 @@ export async function PUT(request: NextRequest) {
       ...gallery[itemIndex],
       title: title.trim(),
       description: description?.trim() || '',
-      type: type as 'image' | 'video',
+      type: type as 'image' | 'video' | 'audio',
       url: url.trim(),
       thumbnail: thumbnail?.trim() || url.trim(),
       category: category.trim(),

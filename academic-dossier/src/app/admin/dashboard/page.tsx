@@ -674,9 +674,256 @@ export default function AdminDashboard() {
     }
   };
 
+  // Gallery Manager Component
+  function GalleryManager() {
+    const [gallery, setGallery] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [editingItem, setEditingItem] = useState(null);
+    const [formData, setFormData] = useState({
+      title: '',
+      description: '',
+      type: 'image',
+      url: '',
+      thumbnail: '',
+      category: '',
+      tags: ''
+    });
+
+    useEffect(() => {
+      fetchGallery();
+    }, []);
+
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch('/api/gallery');
+        if (response.ok) {
+          const data = await response.json();
+          setGallery(data);
+        }
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
+        const payload = { ...formData, tags };
+
+        const response = await fetch('/api/gallery', {
+          method: editingItem ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(editingItem ? { ...payload, id: editingItem.id } : payload)
+        });
+
+        if (response.ok) {
+          await fetchGallery();
+          setShowAddForm(false);
+          setEditingItem(null);
+          setFormData({ title: '', description: '', type: 'image', url: '', thumbnail: '', category: '', tags: '' });
+        }
+      } catch (error) {
+        console.error('Error saving gallery item:', error);
+      }
+    };
+
+    const handleEdit = (item) => {
+      setEditingItem(item);
+      setFormData({
+        title: item.title,
+        description: item.description,
+        type: item.type,
+        url: item.url,
+        thumbnail: item.thumbnail,
+        category: item.category,
+        tags: item.tags.join(', ')
+      });
+      setShowAddForm(true);
+    };
+
+    const handleDelete = async (id) => {
+      if (confirm('Are you sure you want to delete this gallery item?')) {
+        try {
+          const response = await fetch(`/api/gallery?id=${id}`, { method: 'DELETE' });
+          if (response.ok) {
+            await fetchGallery();
+          }
+        } catch (error) {
+          console.error('Error deleting gallery item:', error);
+        }
+      }
+    };
+
+    if (loading) {
+      return <div className="text-center py-8">Loading gallery...</div>;
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold text-gray-900">Gallery Management</h3>
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="bg-academic-brown text-white px-4 py-2 rounded-lg hover:bg-academic-brown-dark transition-colors"
+          >
+            {showAddForm ? 'Cancel' : 'Add Media'}
+          </button>
+        </div>
+
+        {showAddForm && (
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h4 className="text-md font-medium mb-4">{editingItem ? 'Edit' : 'Add'} Gallery Item</h4>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                  required
+                />
+                <select
+                  value={formData.type}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                >
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                  <option value="audio">Audio</option>
+                </select>
+              </div>
+              <textarea
+                placeholder="Description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                rows="3"
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="url"
+                  placeholder="Media URL"
+                  value={formData.url}
+                  onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                  required
+                />
+                <input
+                  type="url"
+                  placeholder="Thumbnail URL (optional)"
+                  value={formData.thumbnail}
+                  onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Category"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Tags (comma separated)"
+                  value={formData.tags}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  className="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
+                />
+              </div>
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  className="bg-academic-brown text-white px-6 py-2 rounded-lg hover:bg-academic-brown-dark transition-colors"
+                >
+                  {editingItem ? 'Update' : 'Add'} Item
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setEditingItem(null);
+                    setFormData({ title: '', description: '', type: 'image', url: '', thumbnail: '', category: '', tags: '' });
+                  }}
+                  className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {gallery.map((item) => (
+            <div key={item.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+              <div className="relative aspect-video">
+                <img
+                  src={item.thumbnail || item.url}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 right-2">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    item.type === 'image'
+                      ? 'bg-blue-100 text-blue-800'
+                      : item.type === 'video'
+                      ? 'bg-red-100 text-red-800'
+                      : 'bg-purple-100 text-purple-800'
+                  }`}>
+                    {item.type}
+                  </span>
+                </div>
+              </div>
+              <div className="p-4">
+                <h5 className="font-semibold text-gray-900 mb-1">{item.title}</h5>
+                <p className="text-sm text-gray-600 mb-2">{item.description}</p>
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                  <span className="bg-gray-100 px-2 py-1 rounded">{item.category}</span>
+                  <span>{new Date(item.createdAt).toLocaleDateString()}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="flex-1 bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-200 transition-colors"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="flex-1 bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {gallery.length === 0 && (
+          <div className="text-center py-12 text-gray-500">
+            <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+            <p>No gallery items found. Add your first media item!</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   const mainTabs = [
     { key: 'knowledge-base', label: '📚 Knowledge Base', component: <KnowledgeBaseEditor /> },
     { key: 'documents', label: '📄 Document Manager', component: <DocumentsManager /> },
+    { key: 'gallery', label: '🖼️ Gallery Manager', component: <GalleryManager /> },
     { key: 'ai-assistant', label: '🤖 AI Assistant', component: <DashboardAIAssistant /> }
   ];
 
@@ -697,7 +944,7 @@ export default function AdminDashboard() {
                 onClick={() => setActiveMainTab(tab.key)}
                 className={`py-4 px-1 border-b-2 font-medium text-lg ${
                   activeMainTab === tab.key
-                    ? 'border-amber-500 text-amber-600'
+                    ? 'border-academic-brown text-academic-brown'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >

@@ -1,13 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
 import { AdminProvider, useAdmin } from '@/contexts/AdminContext';
 import Navigation from '@/components/Navigation';
 import AdminBar from '@/components/AdminBar';
+import LoadingScreen from '@/components/LoadingScreen';
 import './globals.css';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const { currentLang, setCurrentLang, isHydrated } = useLanguage();
+  const [isLoading, setIsLoading] = useState(true);
+  const [shouldShowLoading, setShouldShowLoading] = useState(true);
 
   // Handle admin context safely for static generation
   let isAdminMode = false;
@@ -22,6 +26,21 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   // Use 'en' as default until hydration is complete to prevent mismatch
   const lang = isHydrated ? currentLang : 'en';
 
+  // Handle initial loading
+  useEffect(() => {
+    // Check if this is the first visit during this session
+    const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+    if (hasSeenLoading) {
+      setShouldShowLoading(false);
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleLoadingComplete = () => {
+    sessionStorage.setItem('hasSeenLoading', 'true');
+    setIsLoading(false);
+  };
+
   return (
     <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
@@ -30,6 +49,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="font-times" suppressHydrationWarning>
+        {shouldShowLoading && isLoading && (
+          <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+        )}
         <AdminBar />
         <div className={isAdminMode ? 'pt-12' : ''}>
           <Navigation lang={currentLang} onLanguageChange={setCurrentLang} />
