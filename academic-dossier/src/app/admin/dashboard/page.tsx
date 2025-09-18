@@ -815,7 +815,7 @@ export default function AdminDashboard() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-academic-brown focus:border-transparent"
-                rows="3"
+                rows={3}
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
